@@ -1,7 +1,9 @@
 from pathlib import Path
 
-import streamlit
 import i18n
+import pandas
+import sqlalchemy
+import streamlit
 
 from typing import Callable, Dict, Text
 
@@ -19,6 +21,11 @@ TRANSLATION_LANGUAGES: Dict[Text, Text] = {
 
 # Default language to fall back to
 FALLBACK_LANGUAGE = "en"
+
+# ProPublica COMPAS Analysis Database Path
+PROPUBLICA_COMPAS_DATABASE_PATH = Path(
+    "./data/propublica-compas-analysis/compas.db"
+)
 
 # Definition of Functions
 
@@ -88,3 +95,34 @@ streamlit.title(
 streamlit.write(
     TRANSLATION("common.hello_world")
 )
+
+# Database Access
+streamlit.header(
+    "TODO: Accessing Database"
+)
+
+COMPAS_DATABASE_CONNECTION: sqlalchemy.engine.Connectable = sqlalchemy.create_engine(
+    "sqlite:///" + PROPUBLICA_COMPAS_DATABASE_PATH.as_posix()
+)
+
+# Show first few rows for each COMPAS database table
+for database_table_name in [
+    "casearrest",
+    "charge",
+    "compas",
+    "jailhistory",
+    "people",
+    "prisonhistory"
+]:
+    streamlit.subheader(
+        f"Table `{database_table_name}`"
+    )
+
+    DATABASE_TABLE_DATA = pandas.read_sql_table(
+        table_name=database_table_name,
+        con=COMPAS_DATABASE_CONNECTION
+    )
+
+    streamlit.dataframe(
+        DATABASE_TABLE_DATA.head()
+    )
