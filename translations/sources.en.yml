@@ -19,3 +19,10 @@ en:
   propublica_github_compas_analysis_subtitle: This repository contains a Jupyter notebook and data for the ProPublica story "Machine Bias."
   propublica_github_compas_analysis_authors: ProPublica
   propublica_github_compas_analysis_date: June 13, 2017
+
+  # MIT Technology Review AI fairer Judge
+  technology_review_ai_fairer_judge_url: https://www.technologyreview.com/2019/10/17/75285/ai-fairer-than-judge-criminal-risk-assessment-algorithm/
+  technology_review_ai_fairer_judge_title: Can you make AI fairer than a judge? Play our courtroom algorithm game
+  technology_review_ai_fairer_judge_subtitle: The US criminal legal system uses predictive algorithms to try to make the judicial process less biased. But there’s a deeper problem.
+  technology_review_ai_fairer_judge_authors: Karen Hao and Jonathan Stray
+  technology_review_ai_fairer_judge_date: October 17, 2019
