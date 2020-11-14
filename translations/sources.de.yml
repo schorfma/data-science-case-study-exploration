@@ -1,5 +1,9 @@
 de:
 
+  # Data Science Case Study Exploration
+  this_authors: Michel Kaufmann und [Martin Schorfmann](mailto:schorfma@uni-bremen.de)
+  this_authors_raw: Michel Kaufmann und Martin Schorfmann
+
   # ProPublica Article Machine Bias
   propublica_article_machine_bias_authors: Julia Angwin, Jeff Larson, Surya Mattu und Lauren Kirchner, ProPublica
   propublica_article_machine_bias_date: 23. Mai 2016

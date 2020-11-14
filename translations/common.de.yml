@@ -1,5 +1,9 @@
 de:
 
+  # Common
+  created_by: Erstellt von %{authors}
+  source_available: Quellcode verfügbar auf %{source_url}
+
   # General
   title: Data Science Grundlagen mit Erkundung einer Fallstudie
   hello_world: Hallo Welt!

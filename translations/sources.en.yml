@@ -1,5 +1,14 @@
 en:
 
+  # Data Science Case Study Exploration
+  this_gitlab_url: https://gitlab.com/fdmuds-data-science/data-science-case-study-exploration
+  this_title: "`FDMuDS Data Science` / `Data Science Case Study Exploration`"
+  this_title_raw: FDMuDS Data Science / Data Science Case Study Exploration
+  this_subtitle: An interactive explanation about **Data Science** with the exploration of a **Case Study** realized with _Streamlit_
+  this_subtitle_raw: An interactive explanation about Data Science with the exploration of a Case Study realized with Streamlit
+  this_authors: Michel Kaufmann and [Martin Schorfmann](mailto:schorfma@uni-bremen.de)
+  this_authors_raw: Michel Kaufmann and Martin Schorfmann
+
   # ProPublica Article Machine Bias
   propublica_article_machine_bias_url: https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing
   propublica_article_machine_bias_title: Machine Bias

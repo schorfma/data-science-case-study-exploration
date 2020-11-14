@@ -1,14 +1,19 @@
 from pathlib import Path
+from typing import (
+    Any, Callable, Dict, Iterable, List, Optional, Text
+)
+from typing_extensions import Protocol
 
 import i18n
 import pandas
 import sqlalchemy
 import streamlit
 
-from typing import Callable, Dict, Text
-
 
 # Definition of Global Variables
+
+# Version date
+VERSION = "2020-11-14"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
@@ -27,13 +32,63 @@ PROPUBLICA_COMPAS_DATABASE_PATH = Path(
     "./data/propublica-compas-analysis/compas.db"
 )
 
+NEW_LINE = "\n"
+NEW_PARAGRAPH = NEW_LINE * 2
+
+
 # Definition of Functions
+
+paragraphs = lambda *paragraph_items: NEW_PARAGRAPH.join(paragraph_items)
+
+def markdown_list(
+        *items: Text,
+        numbered: bool = False
+) -> Text:
+    """Turns a list of items into a Markdown bullet or numbered list.
+
+    Args:
+        *items:
+            Any number of text items to combine to a Markdown list.
+        numbered:
+            Optionally create a numbered / ordered list.
+
+    Returns:
+        The created Markdown list.
+    """
+
+    bullets: Iterable[Text]
+
+    if numbered:
+        bullet = "{number}."
+    else:
+        bullet = "*"
+
+    bullets = [
+        bullet.format(number=number)
+        for number in range(1, len(items) + 1)
+    ]
+
+    bulleted_items = [
+        f"{bullet} {item}"
+        for bullet, item in zip(bullets, items)
+    ]
+
+    return NEW_LINE.join(bulleted_items)
+
+
+class TranslationFunction(Protocol):
+    def __call__(
+        self,
+        key: Text,
+        **kwargs: Any
+    ) -> Text:
+        pass
 
 def load_translation(
         translation_path: Path,
         language: Text,
         fallback_language: Text
-) -> Callable[[Text], Text]:
+) -> TranslationFunction:
     """Loads the chosen translation of the app.
 
     Args:
@@ -73,6 +128,7 @@ def load_translation(
 # Streamlit Script
 
 # Language Selection Widget
+
 LANGUAGE = streamlit.sidebar.selectbox(
     label="🌍 Select Language",
     options=list(TRANSLATION_LANGUAGES.keys()),
@@ -84,6 +140,23 @@ TRANSLATION = load_translation(
     TRANSLATION_PATH,
     language=LANGUAGE,
     fallback_language=FALLBACK_LANGUAGE
+)
+
+streamlit.sidebar.info(
+    paragraphs(
+        TRANSLATION(
+            "common.version",
+            version=VERSION
+        ),
+        TRANSLATION(
+            "common.created_by",
+            authors=TRANSLATION("sources.this_authors")
+        ),
+        TRANSLATION(
+            "common.source_available",
+            source_url=TRANSLATION("sources.this_gitlab_url")
+        )
+    )
 )
 
 # Title of Web Application
