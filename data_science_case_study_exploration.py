@@ -136,7 +136,7 @@ LANGUAGE = streamlit.sidebar.selectbox(
 )
 
 # Translation Function to get localized Strings
-TRANSLATION = load_translation(
+translation = load_translation(
     TRANSLATION_PATH,
     language=LANGUAGE,
     fallback_language=FALLBACK_LANGUAGE
@@ -144,29 +144,29 @@ TRANSLATION = load_translation(
 
 streamlit.sidebar.info(
     paragraphs(
-        TRANSLATION(
+        translation(
             "common.version",
             version=VERSION
         ),
-        TRANSLATION(
+        translation(
             "common.created_by",
-            authors=TRANSLATION("sources.this_authors")
+            authors=translation("sources.this_authors")
         ),
-        TRANSLATION(
+        translation(
             "common.source_available",
-            source_url=TRANSLATION("sources.this_gitlab_url")
+            source_url=translation("sources.this_gitlab_url")
         )
     )
 )
 
 # Title of Web Application
 streamlit.title(
-    TRANSLATION("common.title")
+    translation("common.title")
 )
 
 # Hello World Message
 streamlit.write(
-    TRANSLATION("common.hello_world")
+    translation("common.hello_world")
 )
 
 # Database Access
