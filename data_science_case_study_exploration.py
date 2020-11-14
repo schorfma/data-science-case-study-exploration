@@ -1,6 +1,17 @@
+"""Data Science Case Study Exploration Streamlit Script.
+
+Authors:
+    Michel Kaufmann,
+    Martin Schorfmann
+Since:
+    2020-11-13
+Version:
+    2020-11-14
+"""
+
 from pathlib import Path
 from typing import (
-    Any, Callable, Dict, Iterable, List, Optional, Text
+    Any, Dict, Iterable, Text
 )
 from typing_extensions import Protocol
 
@@ -77,13 +88,17 @@ def markdown_list(
 
 
 class TranslationFunction(Protocol):
+    """Used as type annotation for translation function of i18n."""
+    # pylint: disable=too-few-public-methods
+
     def __call__(
-        self,
-        key: Text,
-        **kwargs: Any
+            self,
+            key: Text,
+            **kwargs: Any
     ) -> Text:
         pass
 
+@streamlit.cache()
 def load_translation(
         translation_path: Path,
         language: Text,
@@ -127,8 +142,6 @@ def load_translation(
 
 # Streamlit Script
 
-# Language Selection Widget
-
 streamlit.set_page_config(
     page_title="Data Science Case Study Exploration",
     # Page Icon: Image URL or Emoji string
@@ -139,6 +152,7 @@ streamlit.set_page_config(
     initial_sidebar_state="auto"
 )
 
+# Language Selection Widget
 streamlit.sidebar.subheader(
     "🌍 Language"
 )
@@ -156,6 +170,7 @@ translation = load_translation(
     fallback_language=FALLBACK_LANGUAGE
 )
 
+# Information Box
 streamlit.sidebar.subheader(
     ":information_source: " + translation("common.info")
 )
@@ -199,12 +214,12 @@ COMPAS_DATABASE_CONNECTION: sqlalchemy.engine.Connectable = sqlalchemy.create_en
 
 # Show first few rows for each COMPAS database table
 for database_table_name in [
-    "casearrest",
-    "charge",
-    "compas",
-    "jailhistory",
-    "people",
-    "prisonhistory"
+        "casearrest",
+        "charge",
+        "compas",
+        "jailhistory",
+        "people",
+        "prisonhistory"
 ]:
     streamlit.subheader(
         f"Table `{database_table_name}`"
