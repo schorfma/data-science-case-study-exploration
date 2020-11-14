@@ -15,10 +15,15 @@ from typing import (
 )
 from typing_extensions import Protocol
 
+import altair
 import i18n
 import pandas
 import sqlalchemy
 import streamlit
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 
 
 # Definition of Global Variables
@@ -214,12 +219,12 @@ COMPAS_DATABASE_CONNECTION: sqlalchemy.engine.Connectable = sqlalchemy.create_en
 
 # Show first few rows for each COMPAS database table
 for database_table_name in [
-        "casearrest",
-        "charge",
-        "compas",
-        "jailhistory",
+        # "casearrest",
+        # "charge",
+        # "compas",
+        # "jailhistory",
         "people",
-        "prisonhistory"
+        # "prisonhistory"
 ]:
     streamlit.subheader(
         f"Table `{database_table_name}`"
@@ -233,3 +238,107 @@ for database_table_name in [
     streamlit.dataframe(
         DATABASE_TABLE_DATA.head()
     )
+
+    streamlit.dataframe(
+        DATABASE_TABLE_DATA.describe()
+    )
+
+CRIMINAL_PEOPLE_DATA: pandas.DataFrame = pandas.read_sql_table(
+    table_name="people",
+    con=COMPAS_DATABASE_CONNECTION
+)
+
+streamlit.altair_chart(
+    altair.Chart(
+        CRIMINAL_PEOPLE_DATA[
+            [
+                "age",
+                "decile_score"
+            ]
+        ]
+    ).mark_boxplot().encode(
+        x="age:Q",
+        y="decile_score:O"
+    )
+)
+
+streamlit.altair_chart(
+    altair.Chart(
+        CRIMINAL_PEOPLE_DATA[
+            [
+                "age",
+                "decile_score",
+                "priors_count"  # Prior Convictions
+            ]
+        ]
+    ).mark_rect().encode(
+        x="age:Q",
+        y="priors_count:Q",
+        color=altair.Color(field="decile_score", type="quantitative")
+    )
+)
+
+streamlit.altair_chart(
+    altair.Chart(
+        CRIMINAL_PEOPLE_DATA[
+            [
+                "age_cat",
+                "decile_score",
+                "priors_count"  # Prior Convictions
+            ]
+        ]
+    ).mark_bar().encode(
+        x="decile_score:O",
+        y="mean(priors_count):Q",
+        column="age_cat:N"
+    )
+)
+
+INPUT_DATA = CRIMINAL_PEOPLE_DATA[
+    [
+        "age",
+        "juv_fel_count",
+        "juv_misd_count",
+        "juv_other_count",
+        "priors_count",  # Prior Convictions
+    ]
+]
+
+LABEL_DATA = CRIMINAL_PEOPLE_DATA[
+        "is_recid"
+]
+
+INPUT_TRAIN_DATA, INPUT_TEST_DATA, LABEL_TRAIN_DATA, LABEL_TEST_DATA = train_test_split(
+    INPUT_DATA,
+    LABEL_DATA,
+    random_state=0
+)
+
+ESTIMATOR = DecisionTreeClassifier(
+    max_leaf_nodes=3,
+    random_state=0
+)
+
+with streamlit.spinner():
+    ESTIMATOR.fit(INPUT_TRAIN_DATA, LABEL_TRAIN_DATA)
+
+LABEL_PREDICTION_DATA = ESTIMATOR.predict(INPUT_TEST_DATA)
+
+CONFUSION_MATRIX = confusion_matrix(LABEL_TEST_DATA, LABEL_PREDICTION_DATA)
+
+streamlit.write(
+    CONFUSION_MATRIX
+)
+
+# TODO: Look into data and visualize it
+
+# TODO: Create and explain system to classify recidivism risk with scikit-learn
+
+# TODO: What happens if we add "race" to the input data?
+
+# TODO: Interface for predicting risk for fictional people
+
+# TODO: Explanation of COMPAS
+
+# TODO: Interactive Threshold Choosing
+

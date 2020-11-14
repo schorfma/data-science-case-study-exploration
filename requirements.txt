@@ -2,6 +2,7 @@
 Streamlit>=0.71.0
 python-i18n[YAML]>=0.3.9
 pandas
+scikit-learn
 SQLAlchemy
 
 # Development
