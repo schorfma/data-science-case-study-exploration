@@ -129,8 +129,22 @@ def load_translation(
 
 # Language Selection Widget
 
+streamlit.set_page_config(
+    page_title="Data Science Case Study Exploration",
+    # Page Icon: Image URL or Emoji string
+    page_icon=":microscope:",
+    # Layout: "centered" or "wide"
+    layout="wide",
+    # Initial Sidebar State: "auto", "expanded" or "collapsed"
+    initial_sidebar_state="auto"
+)
+
+streamlit.sidebar.subheader(
+    "🌍 Language"
+)
+
 LANGUAGE = streamlit.sidebar.selectbox(
-    label="🌍 Select Language",
+    label="Select Language",
     options=list(TRANSLATION_LANGUAGES.keys()),
     format_func=TRANSLATION_LANGUAGES.get
 )
@@ -140,6 +154,10 @@ translation = load_translation(
     TRANSLATION_PATH,
     language=LANGUAGE,
     fallback_language=FALLBACK_LANGUAGE
+)
+
+streamlit.sidebar.subheader(
+    ":information_source: " + translation("common.info")
 )
 
 streamlit.sidebar.info(
@@ -161,13 +179,14 @@ streamlit.sidebar.info(
 
 # Title of Web Application
 streamlit.title(
-    translation("common.title")
+    ":microscope: " + translation("common.title")
 )
 
-# Hello World Message
-streamlit.write(
-    translation("common.hello_world")
-)
+with streamlit.echo():
+    # Hello World Message
+    streamlit.write(
+        translation("common.hello_world")
+    )
 
 # Database Access
 streamlit.header(

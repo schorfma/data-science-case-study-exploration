@@ -9,6 +9,7 @@ en:
   # Common
   created_by: Created by %{authors}
   source_available: Source code available on %{source_url}
+  info: Information
 
   # General
   title: Data Science Basics with Case Study Exploration

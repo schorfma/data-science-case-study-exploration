@@ -3,6 +3,7 @@ de:
   # Common
   created_by: Erstellt von %{authors}
   source_available: Quellcode verfügbar auf %{source_url}
+  info: Informationen
 
   # General
   title: Data Science Grundlagen mit Erkundung einer Fallstudie
