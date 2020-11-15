@@ -10,6 +10,9 @@ en:
   created_by: Created by %{authors}
   source_available: Source code available on %{source_url}
   info: Information
+  data_source:
+    one: Data source
+    many: Data sources
 
   # General
   title: Data Science Basics with Case Study Exploration

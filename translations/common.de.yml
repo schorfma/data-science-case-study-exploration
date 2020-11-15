@@ -4,6 +4,9 @@ de:
   created_by: Erstellt von %{authors}
   source_available: Quellcode verfügbar auf %{source_url}
   info: Informationen
+  data_source:
+    one: Datenquelle
+    many: Datenquellen
 
   # General
   title: Data Science Grundlagen mit Erkundung einer Fallstudie

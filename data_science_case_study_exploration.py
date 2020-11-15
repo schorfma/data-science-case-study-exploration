@@ -21,6 +21,7 @@ import pandas
 import sqlalchemy
 import streamlit
 
+from pandas.plotting import scatter_matrix
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
@@ -202,50 +203,84 @@ streamlit.title(
     ":microscope: " + translation("common.title")
 )
 
-with streamlit.echo():
-    # Hello World Message
-    streamlit.write(
-        translation("common.hello_world")
-    )
-
 # Database Access
 streamlit.header(
-    "TODO: Accessing Database"
+    translation("data_access.header")
+)
+
+streamlit.info(
+    paragraphs(
+        "### {}".format(translation("common.data_source", count=1)),
+        "{platform} `{title}`: <{url}>".format(
+            platform=translation("sources.propublica_github_compas_analysis_platform"),
+            title=translation("sources.propublica_github_compas_analysis_title"),
+            url=translation("sources.propublica_github_compas_analysis_url")
+        ),
+        translation("sources.propublica_github_compas_analysis_subtitle")
+    )
 )
 
 COMPAS_DATABASE_CONNECTION: sqlalchemy.engine.Connectable = sqlalchemy.create_engine(
     "sqlite:///" + PROPUBLICA_COMPAS_DATABASE_PATH.as_posix()
 )
 
-# Show first few rows for each COMPAS database table
-for database_table_name in [
-        # "casearrest",
-        # "charge",
-        # "compas",
-        # "jailhistory",
-        "people",
-        # "prisonhistory"
-]:
-    streamlit.subheader(
-        f"Table `{database_table_name}`"
+streamlit.markdown(
+    markdown_list(
+        translation("data_access.use_real_data_defendants_broward_county"),
+        translation("data_access.simplicity_data_table")
     )
+)
 
-    DATABASE_TABLE_DATA = pandas.read_sql_table(
-        table_name=database_table_name,
-        con=COMPAS_DATABASE_CONNECTION
-    )
+streamlit.code("import pandas")
 
-    streamlit.dataframe(
-        DATABASE_TABLE_DATA.head()
-    )
+with streamlit.echo():
+    CRIMINAL_PEOPLE_DATA: pandas.DataFrame
 
-    streamlit.dataframe(
-        DATABASE_TABLE_DATA.describe()
-    )
-
-CRIMINAL_PEOPLE_DATA: pandas.DataFrame = pandas.read_sql_table(
+CRIMINAL_PEOPLE_DATA = pandas.read_sql_table(
     table_name="people",
-    con=COMPAS_DATABASE_CONNECTION
+    con=COMPAS_DATABASE_CONNECTION,
+    index_col="id"
+)
+
+streamlit.markdown(
+    markdown_list(
+        translation("data_access.data_frame_inspection"),
+        translation("data_access.data_frame_how_many_entries")
+    )
+)
+
+streamlit.subheader(
+    translation("data_access.subheader_how_much_data")
+)
+
+with streamlit.echo():
+    length_of_table = len(CRIMINAL_PEOPLE_DATA)
+
+streamlit.markdown(
+    markdown_list(
+        translation(
+            "data_access.data_frame_number_rows",
+            variable="length_of_table",
+            value=length_of_table
+        ),
+        translation("data_access.data_frame_display_not_all"),
+        translation("data_access.data_frame_display_head")
+    )
+)
+
+streamlit.subheader(
+    translation("data_access.subheader_data_impression")
+)
+
+with streamlit.echo():
+    head_of_table = CRIMINAL_PEOPLE_DATA.head()
+
+streamlit.dataframe(
+    head_of_table
+)
+
+streamlit.header(
+    "Data Visualization"
 )
 
 streamlit.altair_chart(
@@ -307,6 +342,32 @@ INPUT_DATA = CRIMINAL_PEOPLE_DATA[
 LABEL_DATA = CRIMINAL_PEOPLE_DATA[
         "is_recid"
 ]
+
+streamlit.altair_chart(
+    altair.Chart(
+        CRIMINAL_PEOPLE_DATA[
+            [
+                "age",
+                "juv_fel_count",
+                "juv_misd_count",
+                "juv_other_count",
+                "priors_count",  # Prior Convictions
+                "is_recid"
+            ]
+        ][
+            CRIMINAL_PEOPLE_DATA.is_recid != -1
+        ]
+    ).mark_circle().encode(
+        x=altair.X(altair.repeat("column"), type="quantitative"),
+        y=altair.Y(altair.repeat("row"), type="quantitative"),
+        color="is_recid:N"
+    ).repeat(
+        row=["age", "juv_fel_count", "priors_count"],
+        column=["priors_count", "juv_fel_count", "age"]
+    )
+)
+
+
 
 INPUT_TRAIN_DATA, INPUT_TEST_DATA, LABEL_TRAIN_DATA, LABEL_TEST_DATA = train_test_split(
     INPUT_DATA,

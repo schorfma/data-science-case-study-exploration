@@ -1,0 +1,14 @@
+en:
+
+  header: Accessing the Data
+  use_real_data_defendants_broward_county: We are going to use real data from _Broward County_, _Florida_, _United States_ collected on defendants in court from `2013` to `2014` for committing a crime
+  simplicity_data_table: For simplicity we start out with the data already being a table object (`pandas.DataFrame`)
+  data_frame_inspection: First let's inspect this `DataFrame`
+  data_frame_how_many_entries: How many entries or rows does it have?
+
+  subheader_how_much_data: How much data do we have?
+  data_frame_number_rows: The data table contains `%{variable} = %{value}` rows
+  data_frame_display_not_all: We won't need to display so many rows to get an impression of the data
+  data_frame_display_head: That's why we only display the _head_ (first few rows) of the table
+
+  subheader_data_impression: Get an impression of the data

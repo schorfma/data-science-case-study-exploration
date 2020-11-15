@@ -2,6 +2,7 @@ en:
 
   # Data Science Case Study Exploration
   this_gitlab_url: https://gitlab.com/fdmuds-data-science/data-science-case-study-exploration
+  this_platform: GitLab.com
   this_title: "`FDMuDS Data Science` / `Data Science Case Study Exploration`"
   this_title_raw: FDMuDS Data Science / Data Science Case Study Exploration
   this_subtitle: An interactive explanation about **Data Science** with the exploration of a **Case Study** realized with _Streamlit_
@@ -24,6 +25,7 @@ en:
 
   # ProPublica GitHub Repository COMPAS Analysis
   propublica_github_compas_analysis_url: https://github.com/propublica/compas-analysis
+  propublica_github_compas_analysis_platform: GitHub
   propublica_github_compas_analysis_title: propublica / compas-analysis
   propublica_github_compas_analysis_subtitle: This repository contains a Jupyter notebook and data for the ProPublica story "Machine Bias."
   propublica_github_compas_analysis_authors: ProPublica
