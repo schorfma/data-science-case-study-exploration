@@ -21,7 +21,6 @@ import pandas
 import sqlalchemy
 import streamlit
 
-from pandas.plotting import scatter_matrix
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
@@ -146,7 +145,20 @@ def load_translation(
     return i18n.t
 
 
-def show_library_two_columns(library_name: Text) -> Tuple[Any, Any]:
+def show_library_two_columns(
+        library_name: Text
+) -> Tuple[Any, Any]:
+    """Introduces a library using a two-column layout and i18n.
+
+    Args:
+        library_name:
+            The name of the library being introduced.
+
+    Returns:
+        The two Streamlit columns (as a tuple) containing
+        the library information.
+    """
+
     logo_column, description_column = streamlit.beta_columns(2)
 
     logo_column.image(
@@ -258,7 +270,9 @@ streamlit.markdown(
     )
 )
 
-PANDAS_LOGO_COLUMN, PANDAS_DESCRIPTION_COLUMN = show_library_two_columns("pandas")
+PANDAS_LOGO_COLUMN, PANDAS_DESCRIPTION_COLUMN = show_library_two_columns(
+    "pandas"
+)
 
 streamlit.code("import pandas")
 
@@ -431,4 +445,3 @@ streamlit.write(
 # TODO: Explanation of COMPAS
 
 # TODO: Interactive Threshold Choosing
-
