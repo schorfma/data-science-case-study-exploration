@@ -7,8 +7,9 @@ en:
   data_frame_how_many_entries: How many entries or rows does it have?
 
   subheader_how_much_data: How much data do we have?
-  data_frame_number_rows: The data table contains `%{variable} = %{value}` rows
+  data_frame_number_rows: The data table contains `%{variable} = %{value}` rows, also called _instances_ or _samples_
   data_frame_display_not_all: We won't need to display so many rows to get an impression of the data
   data_frame_display_head: That's why we only display the _head_ (first few rows) of the table
 
   subheader_data_impression: Get an impression of the data
+  data_frame_number_columns: The table contains `%{variable} = %{value}` columns, also called _features_ or _attributes_

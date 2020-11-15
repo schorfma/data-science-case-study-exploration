@@ -7,8 +7,9 @@ de:
   data_frame_how_many_entries: Wie viele Einträge oder Zeilen hat es?
 
   subheader_how_much_data: Wie viele Daten haben wir?
-  data_frame_number_rows: Die Datentabelle enthält `%{variable} = %{value}` Zeilen
+  data_frame_number_rows: Die Datentabelle enthält `%{variable} = %{value}` Zeilen, auch _Instanzen_ oder _Samples_ genannt
   data_frame_display_not_all: Wir werden nicht so viele Zeilen anzeigen müssen, um einen Eindruck von den Daten zu erhalten
   data_frame_display_head: Daher zeigen wir nur den _head_ (die ersten paar Zeilen) der Tabelle an
 
   subheader_data_impression: Einen Eindruck der Daten erhalten
+  data_frame_number_columns: Die Tabelle enthält `%{variable} = %{value}` Spalten, auch _Features_ oder _Attribute_ genannt
