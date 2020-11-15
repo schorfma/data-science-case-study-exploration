@@ -1,0 +1,6 @@
+en:
+
+  pandas_name: pandas
+  pandas_url: https://pandas.pydata.org/
+  pandas_logo: ./images/pandas-logo.png
+  pandas_description: "**pandas** is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language."

@@ -11,7 +11,7 @@ Version:
 
 from pathlib import Path
 from typing import (
-    Any, Dict, Iterable, Text
+    Any, Dict, Iterable, Text, Tuple
 )
 from typing_extensions import Protocol
 
@@ -146,6 +146,31 @@ def load_translation(
     return i18n.t
 
 
+def show_library_two_columns(library_name: Text) -> Tuple[Any, Any]:
+    logo_column, description_column = streamlit.beta_columns(2)
+
+    logo_column.image(
+        translation(f"libraries.{library_name}_logo"),
+        use_column_width=True
+    )
+
+    description_column.markdown(
+        paragraphs(
+            "#### `{name}`".format(
+                name=translation(f"libraries.{library_name}_name")
+            ),
+            "<{url}>".format(
+                url=translation(f"libraries.{library_name}_url")
+            ),
+            "> {description}".format(
+                description=translation(f"libraries.{library_name}_description")
+            )
+        )
+    )
+
+    return logo_column, description_column
+
+
 # Streamlit Script
 
 streamlit.set_page_config(
@@ -216,7 +241,9 @@ streamlit.info(
             title=translation("sources.propublica_github_compas_analysis_title"),
             url=translation("sources.propublica_github_compas_analysis_url")
         ),
-        translation("sources.propublica_github_compas_analysis_subtitle")
+        "> {subtitle}".format(
+            subtitle=translation("sources.propublica_github_compas_analysis_subtitle")
+        )
     )
 )
 
@@ -230,6 +257,8 @@ streamlit.markdown(
         translation("data_access.simplicity_data_table")
     )
 )
+
+PANDAS_LOGO_COLUMN, PANDAS_DESCRIPTION_COLUMN = show_library_two_columns("pandas")
 
 streamlit.code("import pandas")
 
