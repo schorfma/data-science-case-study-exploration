@@ -6,7 +6,7 @@ Authors:
 Since:
     2020-11-13
 Version:
-    2020-11-15
+    2020-11-16
 """
 
 from pathlib import Path
@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix
 # Definition of Global Variables
 
 # Version date
-VERSION = "2020-11-15"
+VERSION = "2020-11-16"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
@@ -335,8 +335,50 @@ streamlit.markdown(
     )
 )
 
-streamlit.write(
+COLUMNS_LIST_COLUMN, COLUMNS_EXPLANATION_COLUMN = streamlit.beta_columns(2)
+
+COLUMNS_LIST_COLUMN.markdown(
+    "#### " + translation("data_access.criminal_people_column_list")
+)
+
+COLUMNS_LIST_COLUMN.write(
     list(CRIMINAL_PEOPLE_DATA.columns)
+)
+
+COLUMNS_EXPLANATION_COLUMN.markdown(
+    paragraphs(
+        "#### " + translation("data_access.criminal_people_column_explanations"),
+        markdown_list(
+            *[
+                f"`{column_name}`\n    - " +
+                translation(f"data_access.criminal_people_column_{column_name}") for column_name in [
+                    "sex",
+                    "race",
+                    "age",
+                    "juv_fel_count",
+                    "juv_misd_count",
+                    "juv_other_count",
+                    "priors_count",
+                    "c_charge_degree",
+                    "is_recid",
+                    "is_violent_recid"
+                ]
+            ]
+        )
+    )
+)
+
+streamlit.markdown(
+    markdown_list(
+        translation("data_access.data_frame_describe")
+    )
+)
+
+with streamlit.echo():
+    table_description = CRIMINAL_PEOPLE_DATA.describe()
+
+streamlit.dataframe(
+    table_description
 )
 
 streamlit.header(

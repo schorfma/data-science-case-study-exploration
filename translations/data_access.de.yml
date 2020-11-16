@@ -13,3 +13,17 @@ de:
 
   subheader_data_impression: Einen Eindruck der Daten erhalten
   data_frame_number_columns: Die Tabelle enthält `%{variable} = %{value}` Spalten, auch _Features_ oder _Attribute_ genannt
+  data_frame_describe: Die `describe()`-Methode des `DataFrame`s generiert deskriptive Statistiken für jede numerische Spalte
+
+  criminal_people_column_list: Liste der Spalten
+  criminal_people_column_explanations: Spaltenerklärungen
+  criminal_people_column_sex: Geschlecht des Angeklagten
+  criminal_people_column_race: Rasse / Ethnie des Angeklagten
+  criminal_people_column_age: Alter des Angeklagten
+  criminal_people_column_juv_fel_count: Anzahl an Jugendstraftaten
+  criminal_people_column_juv_misd_count: Anzahl an Jugendordnungswidrigkeiten
+  criminal_people_column_juv_other_count: Anzahl an weiteren Fällen in der Jugend
+  criminal_people_column_priors_count: Anzahl an vorherigen Verurteilungen
+  criminal_people_column_c_charge_degree: Schweregrad der Anklage während dieses Schuldspruchs
+  criminal_people_column_is_recid: Ob die angeklagte Person innerhalb der folgenden zwei Jahre rückfällig geworden ist
+  criminal_people_column_is_violent_recid: Ob die angeklagte Person innerhalb der folgenden zwei Jahre gewalttätig rückfällig geworden ist

@@ -13,3 +13,17 @@ en:
 
   subheader_data_impression: Get an impression of the data
   data_frame_number_columns: The table contains `%{variable} = %{value}` columns, also called _features_ or _attributes_
+  data_frame_describe: The `DataFrame`'s `describe()` method generates descriptive statistics for each numerical column
+
+  criminal_people_column_list: List of Columns
+  criminal_people_column_explanations: Column Explanations
+  criminal_people_column_sex: Gender of the defendant
+  criminal_people_column_race: Race / ethnicity of the defendant
+  criminal_people_column_age: Age of the defendant
+  criminal_people_column_juv_fel_count: Count of juvenile felony cases
+  criminal_people_column_juv_misd_count: Count of juvenile misdemeanor cases
+  criminal_people_column_juv_other_count: Count of other juvenile cases
+  criminal_people_column_priors_count: Count of prior convictions
+  criminal_people_column_c_charge_degree: Charge degree during this conviction
+  criminal_people_column_is_recid: Whether defendant showed recidivism within the next two years
+  criminal_people_column_is_violent_recid: Whether defendant showed violent recidivism within the next two years
