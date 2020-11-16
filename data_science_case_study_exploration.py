@@ -242,6 +242,10 @@ streamlit.title(
     ":microscope: " + translation("common.title")
 )
 
+streamlit.header(
+    ":wave: " + "TODO: Introduction and Outline"
+)
+
 # Database Access
 streamlit.header(
     ":floppy_disk: " + translation("data_access.header")
@@ -510,12 +514,6 @@ streamlit.write(
 streamlit.subheader("TODO: What happens if we add `race` to the input data?")
 
 streamlit.subheader("TODO: Interface for predicting risk for fictional people")
-
-# TODO:
-
-# TODO:
-
-# TODO:
 
 streamlit.header(
     "🧭 " + "TODO: Explanation of COMPAS"
