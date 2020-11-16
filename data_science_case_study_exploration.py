@@ -159,7 +159,9 @@ def show_library_two_columns(
         the library information.
     """
 
-    logo_column, description_column = streamlit.beta_columns(2)
+    logo_column, description_column = streamlit.beta_columns(
+        [1, 2]  # Second column will be twice as wide
+    )
 
     logo_column.image(
         translation(f"libraries.{library_name}_logo"),
@@ -242,7 +244,7 @@ streamlit.title(
 
 # Database Access
 streamlit.header(
-    translation("data_access.header")
+    ":floppy_disk: " + translation("data_access.header")
 )
 
 streamlit.info(
@@ -351,7 +353,9 @@ COLUMNS_EXPLANATION_COLUMN.markdown(
         markdown_list(
             *[
                 f"`{column_name}`\n    - " +
-                translation(f"data_access.criminal_people_column_{column_name}") for column_name in [
+                translation(
+                    f"data_access.criminal_people_column_{column_name}"
+                ) for column_name in [
                     "sex",
                     "race",
                     "age",
@@ -382,7 +386,11 @@ streamlit.dataframe(
 )
 
 streamlit.header(
-    "Data Visualization"
+    ":bar_chart: " + "TODO: Data Visualization"
+)
+
+ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
+    "altair"
 )
 
 streamlit.altair_chart(
@@ -429,6 +437,12 @@ streamlit.altair_chart(
         y="mean(priors_count):Q",
         column="age_cat:N"
     )
+)
+
+streamlit.header(
+    ":slot_machine: " +
+    "TODO: Create and explain system to classify "
+    "recidivism risk with scikit-learn"
 )
 
 INPUT_DATA = CRIMINAL_PEOPLE_DATA[
@@ -493,14 +507,26 @@ streamlit.write(
     CONFUSION_MATRIX
 )
 
-# TODO: Look into data and visualize it
+streamlit.subheader("TODO: What happens if we add `race` to the input data?")
 
-# TODO: Create and explain system to classify recidivism risk with scikit-learn
+streamlit.subheader("TODO: Interface for predicting risk for fictional people")
 
-# TODO: What happens if we add "race" to the input data?
+# TODO:
 
-# TODO: Interface for predicting risk for fictional people
+# TODO:
 
-# TODO: Explanation of COMPAS
+# TODO:
 
-# TODO: Interactive Threshold Choosing
+streamlit.header(
+    "🧭 " + "TODO: Explanation of COMPAS"
+)
+
+streamlit.header(
+    "👆 " +
+    "TODO: COMPAS Interactive Threshold Choosing"
+)
+
+streamlit.header(
+    ":books: " +
+    "TODO: Streamlit und Quellen"
+)
