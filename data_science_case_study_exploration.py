@@ -6,7 +6,7 @@ Authors:
 Since:
     2020-11-13
 Version:
-    2020-11-16
+    2020-11-18
 """
 
 from pathlib import Path
@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix
 # Definition of Global Variables
 
 # Version date
-VERSION = "2020-11-16"
+VERSION = "2020-11-18"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
@@ -376,6 +376,10 @@ COLUMNS_EXPLANATION_COLUMN.markdown(
     )
 )
 
+streamlit.subheader(
+    "TODO: Descriptive Statistics"
+)
+
 streamlit.markdown(
     markdown_list(
         translation("data_access.data_frame_describe")
@@ -397,17 +401,40 @@ ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
     "altair"
 )
 
-streamlit.altair_chart(
-    altair.Chart(
-        CRIMINAL_PEOPLE_DATA[
-            [
-                "age",
-                "decile_score"
-            ]
+base_chart = altair.Chart(
+    CRIMINAL_PEOPLE_DATA[
+        [
+            "age",
+            "priors_count",
+            "is_recid",
+            "sex"
         ]
-    ).mark_boxplot().encode(
-        x="age:Q",
-        y="decile_score:O"
+    ][
+        CRIMINAL_PEOPLE_DATA.is_recid != -1
+    ]
+)
+
+boxplot_chart = base_chart.mark_boxplot().encode(
+    x=altair.X("age:Q", bin=altair.Bin(step=5)),
+    y="priors_count:Q",
+    color="is_recid:N"
+)
+
+mean_chart = base_chart.mark_text(
+    text="❌",
+    color="Red"
+).encode(
+    x=altair.X("age:Q", bin=altair.Bin(step=5)),
+    y="mean(priors_count):Q"
+)
+
+streamlit.altair_chart(
+    altair.layer(
+        boxplot_chart,
+        mean_chart
+    ).facet(
+        column="is_recid:N",
+        row="sex:N"
     )
 )
 
@@ -486,7 +513,6 @@ streamlit.altair_chart(
         column=["priors_count", "juv_fel_count", "age"]
     )
 )
-
 
 
 INPUT_TRAIN_DATA, INPUT_TEST_DATA, LABEL_TRAIN_DATA, LABEL_TEST_DATA = train_test_split(
