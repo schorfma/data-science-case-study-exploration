@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import (
     Any, Dict, Iterable, Text, Tuple
 )
+from altair.vegalite.v4.schema import core
 from typing_extensions import Protocol
 
 import altair
@@ -399,10 +400,78 @@ streamlit.header(
 
 streamlit.subheader("TODO: Correlation Matrix")
 
-criminal_people_data_correlations = CRIMINAL_PEOPLE_DATA.corr()
+correlation_columns = list(CRIMINAL_PEOPLE_DATA.columns)
+correlation_columns.remove("decile_score")
+correlation_columns.remove("c_days_from_compas")
+correlation_columns.remove("num_r_cases")
+correlation_columns.remove("r_days_from_arrest")
 
-streamlit.dataframe(
-    criminal_people_data_correlations
+criminal_people_data_certain_columns = CRIMINAL_PEOPLE_DATA[
+    correlation_columns
+][
+    CRIMINAL_PEOPLE_DATA.is_recid != -1
+]
+
+correlation_gender = streamlit.radio(
+    "TODO: Correlation according to genders",
+    options=[
+        "All",
+        "Female",
+        "Male"
+    ]
+)
+
+if correlation_gender != "All":
+    criminal_people_data_certain_columns = criminal_people_data_certain_columns[
+        criminal_people_data_certain_columns.sex == correlation_gender
+    ]
+
+criminal_people_data_correlations = criminal_people_data_certain_columns.corr()
+
+correlation_data = criminal_people_data_correlations.stack().reset_index().rename(
+    columns={
+        0: "correlation",
+        "level_0": "first",
+        "level_1": "second"
+    }
+)
+
+correlation_data["correlation_label"] = correlation_data["correlation"].map(
+    "{:.2f}".format
+)
+
+base_correlation_plot = altair.Chart(correlation_data).encode(
+    x="second:O",
+    y="first:O"
+).properties(
+    width=800,
+    height=800
+)
+
+# Text layer with correlation labels
+# Colors are for easier readability
+correlation_plot_text = base_correlation_plot.mark_text().encode(
+    text="correlation_label",
+    color=altair.condition(
+        altair.datum.correlation > 0.5,
+        altair.value("white"),
+        altair.value("black")
+    )
+)
+
+correlation_plot = base_correlation_plot.mark_rect().encode(
+    color=altair.Color(
+        "correlation:Q",
+        scale=altair.Scale(
+            domain=[-1, 0, 1],
+            range=["DarkBlue", "White", "DarkRed"],
+            type="linear"
+        )
+    )
+)
+
+streamlit.altair_chart(
+    correlation_plot + correlation_plot_text
 )
 
 ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
