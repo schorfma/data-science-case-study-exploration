@@ -16,3 +16,14 @@ en:
     With Altair, you can spend more time understanding your data and its meaning. Altair's API is simple, friendly and consistent and built on top of the powerful [Vega-Lite](http://vega.github.io/vega-lite) visualization grammar. This elegant simplicity produces beautiful and effective visualizations with a minimal amount of code.
 
   # scikit-learn
+  scikit_learn_name: scikit-learn
+  scikit_learn_url: https://scikit-learn.org
+  scikit_learn_logo: ./images/scikit-learn-logo.png
+  scikit_learn_description: |
+    **scikit-learn** (`sklearn`) - Machine Learning in Python
+
+    * Simple and efficient tools for predictive data analysis
+    * Accessible to everybody, and reusable in various contexts
+    * Built on NumPy, SciPy, and matplotlib
+    * Open source, commercially usable - BSD license
+  scikit_learn_algorithm_cheat_sheet: "[scikit-learn Algorithm Cheatsheet](https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)"

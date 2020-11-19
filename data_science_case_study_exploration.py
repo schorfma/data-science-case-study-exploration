@@ -545,6 +545,17 @@ streamlit.header(
     "recidivism risk with scikit-learn"
 )
 
+(
+    SCIKIT_LEARN_LOGO_COLUMN,
+    SCIKIT_LEARN_DESCRIPTION_COLUMN
+) = show_library_two_columns(
+    "scikit_learn"
+)
+
+SCIKIT_LEARN_DESCRIPTION_COLUMN.markdown(
+    translation("libraries.scikit_learn_algorithm_cheat_sheet")
+)
+
 INPUT_DATA_FEATURES = [
     "age",
     "juv_fel_count",
@@ -590,14 +601,16 @@ TRAIN_PERCENTAGE, TEST_PERCENTAGE = (75, 25)
 
 TRAIN_TEST_SPLIT_CODE_EXPANDER.code(
     f"""
+from sklearn.model_selection import train_test_split
+
 (
-    INPUT_TRAIN_DATA,  # {TRAIN_PERCENTAGE}% for Training
-    INPUT_TEST_DATA,   # {TEST_PERCENTAGE}% for Testing
-    LABEL_TRAIN_DATA,  # {TRAIN_PERCENTAGE}% for Training
-    LABEL_TEST_DATA    # {TEST_PERCENTAGE}% for Testing
+    input_train_data,  # {TRAIN_PERCENTAGE}% for Training
+    input_test_data,   # {TEST_PERCENTAGE}% for Testing
+    label_train_data,  # {TRAIN_PERCENTAGE}% for Training
+    label_test_data    # {TEST_PERCENTAGE}% for Testing
 ) = train_test_split(
-    INPUT_DATA,
-    LABEL_DATA,
+    input_data,  # Feature Columns: {", ".join(INPUT_DATA.columns)}
+    label_data,  # Target Column: is_recid
     random_state=0
 )
     """
@@ -614,15 +627,43 @@ TRAIN_TEST_SPLIT_CODE_EXPANDER.code(
     random_state=0
 )
 
-CONFIG_COLUMN, CONFUSION_COLUMN, METRICS_COLUMN = streamlit.beta_columns(3)
+CLASSIFIER_CODE_COLUMN, MAX_LEAF_NODES_SLIDER_COLUMN = streamlit.beta_columns(2)
 
-max_leaf_nodes = CONFIG_COLUMN.slider(
+MAX_LEAF_NODES_SLIDER_COLUMN.markdown(
+    "#### " + "TODO: Classifier configuration values"
+)
+
+max_leaf_nodes = MAX_LEAF_NODES_SLIDER_COLUMN.slider(
     "TODO: Max Leaf Nodes",
     min_value=3,
     max_value=20,
     value=5
 )
 
+DECISION_TREE_CLASSIFIER_CODE_EXPANDER = CLASSIFIER_CODE_COLUMN.beta_expander(
+    "TODO: Decision Tree Classifier Training Code",
+    expanded=True
+)
+
+DECISION_TREE_CLASSIFIER_CODE_EXPANDER.code(
+    f"""
+from sklearn.tree import DecisionTreeClassifier, export_text
+
+classifier = DecisionTreeClassifier(
+    max_leaf_nodes={max_leaf_nodes},
+    random_state=0
+)
+
+classifier.fit(
+    input_train_data,
+    label_train_data
+)
+
+decision_tree_structure = export_text(classifier)
+    """
+)
+
+TREE_VIEW_COLUMN, CONFUSION_COLUMN, METRICS_COLUMN = streamlit.beta_columns(3)
 
 ESTIMATOR = DecisionTreeClassifier(
     max_leaf_nodes=max_leaf_nodes,
@@ -651,7 +692,11 @@ with streamlit.spinner():
 
     TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace("<=", "≤")
 
-    CONFIG_COLUMN.code(
+    TREE_VIEW_COLUMN.markdown(
+        "#### " + "TODO: Decision Tree Structure"
+    )
+
+    TREE_VIEW_COLUMN.code(
         TREE_STRUCTURE_TEXT,
         language=None
     )
@@ -665,27 +710,50 @@ TEST_DATA_COUNT = len(INPUT_TEST_DATA)
 tn, fp, fn, tp = CONFUSION_MATRIX.ravel()
 
 CONFUSION_COLUMN.markdown(
+    "#### " + "TODO: Confusion Matrix Values"
+)
+
+CONFUSION_COLUMN.code(
+    """
+from sklearn.metrics import confusion_matrix
+
+predicted_label_test_data = classifier.predict(
+    input_test_data
+)
+
+tn, fp, fn, tp = confusion_matrix(
+    label_test_data,
+    predicted_label_test_data
+).ravel()
+    """
+)
+
+CONFUSION_COLUMN.markdown(
     markdown_list(
         *[
-            f"**{name}**: `{value}` / `{TEST_DATA_COUNT}` = "
+            f"`{key}` / **{name}**: `{value}` / `{TEST_DATA_COUNT}` = "
             f"`{(value / TEST_DATA_COUNT):.2f}` ({description})"
-            for name, description, value in [
+            for key, name, description, value in [
                 (
+                    "tp",
                     "True Positive",
                     "Correctly predicted as recid, actually recid",
                     tp
                 ),
                 (
+                    "tn",
                     "True Negative",
                     "Correctly predicted as not recid, actually not recid",
                     tn
                 ),
                 (
+                    "fp",
                     "False Positive",
                     "Incorrectly predicted as recid, actually not recid",
                     fp
                 ),
                 (
+                    "fn",
                     "False Negative",
                     "Incorrectly predicted as not recid, actually recid",
                     fn
@@ -695,9 +763,13 @@ CONFUSION_COLUMN.markdown(
     )
 )
 
+METRICS_COLUMN.markdown(
+    "#### " + "TODO: Related Metrics"
+)
+
 # Accuracy
 METRICS_COLUMN.markdown(
-    "#### Accuracy"
+    "##### Accuracy"
 )
 
 METRICS_COLUMN.latex(
@@ -706,7 +778,7 @@ METRICS_COLUMN.latex(
 
 # Precision
 METRICS_COLUMN.markdown(
-    "#### Precision"
+    "##### Precision"
 )
 
 METRICS_COLUMN.latex(
@@ -715,7 +787,7 @@ METRICS_COLUMN.latex(
 
 # Recall
 METRICS_COLUMN.markdown(
-    "#### Recall"
+    "##### Recall"
 )
 
 METRICS_COLUMN.latex(
