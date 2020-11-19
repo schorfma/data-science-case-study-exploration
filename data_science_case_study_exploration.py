@@ -13,7 +13,6 @@ from pathlib import Path
 from typing import (
     Any, Dict, Iterable, Text, Tuple
 )
-from altair.vegalite.v4.schema import core
 from typing_extensions import Protocol
 
 import altair
@@ -22,8 +21,6 @@ import pandas
 import sqlalchemy
 import streamlit
 
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import DecisionTreeClassifier, export_text
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
@@ -584,7 +581,12 @@ LABEL_DATA = CRIMINAL_PEOPLE_DATA[
         "is_recid"
 ]
 
-INPUT_TRAIN_DATA, INPUT_TEST_DATA, LABEL_TRAIN_DATA, LABEL_TEST_DATA = train_test_split(
+(
+    INPUT_TRAIN_DATA,
+    INPUT_TEST_DATA,
+    LABEL_TRAIN_DATA,
+    LABEL_TEST_DATA
+) = train_test_split(
     INPUT_DATA,
     LABEL_DATA,
     random_state=0
@@ -643,12 +645,29 @@ tn, fp, fn, tp = CONFUSION_MATRIX.ravel()
 CONFUSION_COLUMN.markdown(
     markdown_list(
         *[
-            f"**{name}**: `{value}` / `{TEST_DATA_COUNT}` = `{(value / TEST_DATA_COUNT):.2f}` ({description})"
+            f"**{name}**: `{value}` / `{TEST_DATA_COUNT}` = "
+            f"`{(value / TEST_DATA_COUNT):.2f}` ({description})"
             for name, description, value in [
-                ("True Negative", "Correctly predicted as not recid, actually not recid", tn),
-                ("False Positive", "Incorrectly predicted as recid, actually not recid", fp),
-                ("False Negative", "Incorrectly predicted as not recid, actually recid", fn),
-                ("True Positive", "Correctly predicted as recid, actually recid", tp)
+                (
+                    "True Negative",
+                    "Correctly predicted as not recid, actually not recid",
+                    tn
+                ),
+                (
+                    "False Positive",
+                    "Incorrectly predicted as recid, actually not recid",
+                    fp
+                ),
+                (
+                    "False Negative",
+                    "Incorrectly predicted as not recid, actually recid",
+                    fn
+                ),
+                (
+                    "True Positive",
+                    "Correctly predicted as recid, actually recid",
+                    tp
+                )
             ]
         ]
     )
