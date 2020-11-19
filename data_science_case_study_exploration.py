@@ -397,8 +397,20 @@ streamlit.header(
     ":bar_chart: " + "TODO: Data Visualization"
 )
 
+streamlit.subheader("TODO: Correlation Matrix")
+
+criminal_people_data_correlations = CRIMINAL_PEOPLE_DATA.corr()
+
+streamlit.dataframe(
+    criminal_people_data_correlations
+)
+
 ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
     "altair"
+)
+
+streamlit.code(
+    "import altair"
 )
 
 age_bins_step = streamlit.radio(
@@ -407,7 +419,37 @@ age_bins_step = streamlit.radio(
     format_func=lambda option: f"{option:02d} years"
 )
 
-base_chart = altair.Chart(
+BOXPLOT_CODE_EXPANDER = streamlit.beta_expander(
+    label="TODO: Boxplot Code",
+    expanded=True
+)
+
+BOXPLOT_CODE_EXPANDER.code(
+    f"""
+boxplot_chart = altair.Chart(
+    CRIMINAL_PEOPLE_DATA[
+        # TODO: Get only needed columns
+        [
+            "age",
+            "priors_count",
+            "is_recid",
+            "sex"
+        ]
+    ][
+        # TODO: Filter out people with non-available data
+        CRIMINAL_PEOPLE_DATA.is_recid != -1
+    ]
+).mark_boxplot().encode(
+    x=altair.X("age:Q", bin=altair.Bin(step={age_bins_step})),
+    y="priors_count:Q",
+    color="is_recid:N",
+    column="is_recid:N",
+    row="sex:N"
+)
+    """
+)
+
+boxplot_chart = altair.Chart(
     CRIMINAL_PEOPLE_DATA[
         [
             "age",
@@ -418,30 +460,16 @@ base_chart = altair.Chart(
     ][
         CRIMINAL_PEOPLE_DATA.is_recid != -1
     ]
-)
-
-boxplot_chart = base_chart.mark_boxplot().encode(
-    x=altair.X("age:Q", bin=altair.Bin(step=5)),
-    y="priors_count:Q",
-    color="is_recid:N"
-)
-
-mean_chart = base_chart.mark_text(
-    text="❌",
-    color="Red"
-).encode(
+).mark_boxplot().encode(
     x=altair.X("age:Q", bin=altair.Bin(step=age_bins_step)),
-    y="mean(priors_count):Q"
+    y="priors_count:Q",
+    color="is_recid:N",
+    column="is_recid:N",
+    row="sex:N"
 )
 
 streamlit.altair_chart(
-    altair.layer(
-        boxplot_chart,
-        mean_chart
-    ).facet(
-        column="is_recid:N",
-        row="sex:N"
-    )
+    boxplot_chart
 )
 
 streamlit.altair_chart(
