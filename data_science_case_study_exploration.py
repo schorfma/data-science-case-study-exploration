@@ -22,6 +22,8 @@ import pandas
 import sqlalchemy
 import streamlit
 
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import DecisionTreeClassifier, export_text
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
@@ -545,6 +547,7 @@ streamlit.header(
     "TODO: Create and explain system to classify "
     "recidivism risk with scikit-learn"
 )
+
 INPUT_DATA_FEATURES = [
     "age",
     "juv_fel_count",
@@ -553,9 +556,33 @@ INPUT_DATA_FEATURES = [
     "priors_count",  # Prior Convictions
 ]
 
-INPUT_DATA = CRIMINAL_PEOPLE_DATA[
-    INPUT_DATA_FEATURES
+CATEGORIES_COLUMNS = [
+    "sex",
+    "race"
 ]
+
+SELECTED_INPUT_DATA_FEATURES = streamlit.multiselect(
+    "TODO: Select Features",
+    options=INPUT_DATA_FEATURES + CATEGORIES_COLUMNS,
+    default=INPUT_DATA_FEATURES
+)
+
+INPUT_DATA = CRIMINAL_PEOPLE_DATA[
+    SELECTED_INPUT_DATA_FEATURES
+]
+
+SELECTED_CATEGORIES_COLUMNS = set(
+    SELECTED_INPUT_DATA_FEATURES
+) - set(INPUT_DATA_FEATURES)
+
+INPUT_DATA = pandas.get_dummies(
+    INPUT_DATA,
+    columns=list(SELECTED_CATEGORIES_COLUMNS)
+)
+
+streamlit.write(
+    INPUT_DATA.head()
+)
 
 LABEL_DATA = CRIMINAL_PEOPLE_DATA[
         "is_recid"
@@ -578,17 +605,21 @@ max_leaf_nodes = CONFIG_COLUMN.slider(
     value=5
 )
 
+
 ESTIMATOR = DecisionTreeClassifier(
     max_leaf_nodes=max_leaf_nodes,
     random_state=0
 )
 
 with streamlit.spinner():
-    ESTIMATOR.fit(INPUT_TRAIN_DATA, LABEL_TRAIN_DATA)
+    ESTIMATOR.fit(
+        INPUT_TRAIN_DATA,
+        LABEL_TRAIN_DATA
+    )
 
     TREE_STRUCTURE_TEXT = export_text(ESTIMATOR)
 
-    for index, column in enumerate(INPUT_DATA_FEATURES):
+    for index, column in reversed(list(enumerate(INPUT_DATA.columns))):
         TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace(
             f"feature_{index}",
             column
