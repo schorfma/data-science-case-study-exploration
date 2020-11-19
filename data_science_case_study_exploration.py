@@ -292,6 +292,10 @@ CRIMINAL_PEOPLE_DATA = pandas.read_sql_table(
     index_col="id"
 )
 
+CRIMINAL_PEOPLE_DATA = CRIMINAL_PEOPLE_DATA[
+    CRIMINAL_PEOPLE_DATA.is_recid != -1
+]
+
 streamlit.markdown(
     markdown_list(
         translation("data_access.data_frame_inspection"),
@@ -408,8 +412,6 @@ correlation_columns.remove("r_days_from_arrest")
 
 criminal_people_data_certain_columns = CRIMINAL_PEOPLE_DATA[
     correlation_columns
-][
-    CRIMINAL_PEOPLE_DATA.is_recid != -1
 ]
 
 correlation_gender = streamlit.radio(
@@ -427,6 +429,8 @@ if correlation_gender != "All":
     ]
 
 criminal_people_data_correlations = criminal_people_data_certain_columns.corr()
+
+streamlit.write("TODO: Pearson Correlation")
 
 correlation_data = criminal_people_data_correlations.stack().reset_index().rename(
     columns={
@@ -504,9 +508,6 @@ boxplot_chart = altair.Chart(
             "is_recid",
             "sex"
         ]
-    ][
-        # TODO: Filter out people with non-available data
-        CRIMINAL_PEOPLE_DATA.is_recid != -1
     ]
 ).mark_boxplot().encode(
     x=altair.X("age:Q", bin=altair.Bin(step={age_bins_step})),
@@ -526,8 +527,6 @@ boxplot_chart = altair.Chart(
             "is_recid",
             "sex"
         ]
-    ][
-        CRIMINAL_PEOPLE_DATA.is_recid != -1
     ]
 ).mark_boxplot().encode(
     x=altair.X("age:Q", bin=altair.Bin(step=age_bins_step)),
@@ -569,8 +568,17 @@ INPUT_TRAIN_DATA, INPUT_TEST_DATA, LABEL_TRAIN_DATA, LABEL_TEST_DATA = train_tes
     random_state=0
 )
 
+CONFIG_COLUMN, CONFUSION_COLUMN, METRICS_COLUMN = streamlit.beta_columns(3)
+
+max_leaf_nodes = CONFIG_COLUMN.slider(
+    "TODO: Max Leaf Nodes",
+    min_value=3,
+    max_value=20,
+    value=5
+)
+
 ESTIMATOR = DecisionTreeClassifier(
-    max_leaf_nodes=3,
+    max_leaf_nodes=max_leaf_nodes,
     random_state=0
 )
 
@@ -581,8 +589,49 @@ LABEL_PREDICTION_DATA = ESTIMATOR.predict(INPUT_TEST_DATA)
 
 CONFUSION_MATRIX = confusion_matrix(LABEL_TEST_DATA, LABEL_PREDICTION_DATA)
 
-streamlit.write(
-    CONFUSION_MATRIX
+TEST_DATA_COUNT = len(INPUT_TEST_DATA)
+
+tn, fp, fn, tp = CONFUSION_MATRIX.ravel()
+
+CONFUSION_COLUMN.markdown(
+    markdown_list(
+        *[
+            f"**{name}**: `{value}` / `{TEST_DATA_COUNT}` = `{(value / TEST_DATA_COUNT):.2f}` ({description})"
+            for name, description, value in [
+                ("True Negative", "Correctly predicted as not recid, actually not recid", tn),
+                ("False Positive", "Incorrectly predicted as recid, actually not recid", fp),
+                ("False Negative", "Incorrectly predicted as not recid, actually recid", fn),
+                ("True Positive", "Correctly predicted as recid, actually recid", tp)
+            ]
+        ]
+    )
+)
+
+# Accuracy
+METRICS_COLUMN.markdown(
+    "#### Accuracy"
+)
+
+METRICS_COLUMN.latex(
+    r"\frac{TP + TN}{TP + TN + FP + FN} = " + f"{(tp + tn) / TEST_DATA_COUNT:.2f}"
+)
+
+# Precision
+METRICS_COLUMN.markdown(
+    "#### Precision"
+)
+
+METRICS_COLUMN.latex(
+    r"\frac{TP}{TP + FP} = " + f"{tp / (tp + fp):.2f}"
+)
+
+# Recall
+METRICS_COLUMN.markdown(
+    "#### Recall"
+)
+
+METRICS_COLUMN.latex(
+    r"\frac{TP}{TP + FN} = " + f"{tp / (tp + fn):.2f}"
 )
 
 streamlit.subheader("TODO: What happens if we add `race` to the input data?")
