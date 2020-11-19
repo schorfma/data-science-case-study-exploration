@@ -6,7 +6,7 @@ Authors:
 Since:
     2020-11-13
 Version:
-    2020-11-18
+    2020-11-19
 """
 
 from pathlib import Path
@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix
 # Definition of Global Variables
 
 # Version date
-VERSION = "2020-11-18"
+VERSION = "2020-11-19"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
@@ -581,6 +581,28 @@ LABEL_DATA = CRIMINAL_PEOPLE_DATA[
         "is_recid"
 ]
 
+TRAIN_TEST_SPLIT_CODE_EXPANDER = streamlit.beta_expander(
+    "TODO: Train Test Split Code",
+    expanded=True
+)
+
+TRAIN_PERCENTAGE, TEST_PERCENTAGE = (75, 25)
+
+TRAIN_TEST_SPLIT_CODE_EXPANDER.code(
+    f"""
+(
+    INPUT_TRAIN_DATA,  # {TRAIN_PERCENTAGE}% for Training
+    INPUT_TEST_DATA,   # {TEST_PERCENTAGE}% for Testing
+    LABEL_TRAIN_DATA,  # {TRAIN_PERCENTAGE}% for Training
+    LABEL_TEST_DATA    # {TEST_PERCENTAGE}% for Testing
+) = train_test_split(
+    INPUT_DATA,
+    LABEL_DATA,
+    random_state=0
+)
+    """
+)
+
 (
     INPUT_TRAIN_DATA,
     INPUT_TEST_DATA,
@@ -649,6 +671,11 @@ CONFUSION_COLUMN.markdown(
             f"`{(value / TEST_DATA_COUNT):.2f}` ({description})"
             for name, description, value in [
                 (
+                    "True Positive",
+                    "Correctly predicted as recid, actually recid",
+                    tp
+                ),
+                (
                     "True Negative",
                     "Correctly predicted as not recid, actually not recid",
                     tn
@@ -662,11 +689,6 @@ CONFUSION_COLUMN.markdown(
                     "False Negative",
                     "Incorrectly predicted as not recid, actually recid",
                     fn
-                ),
-                (
-                    "True Positive",
-                    "Correctly predicted as recid, actually recid",
-                    tp
                 )
             ]
         ]
@@ -701,8 +723,6 @@ METRICS_COLUMN.latex(
 )
 
 streamlit.subheader("TODO: What happens if we add `race` to the input data?")
-
-streamlit.subheader("TODO: Interface for predicting risk for fictional people")
 
 streamlit.header(
     "🧭 " + "TODO: Explanation of COMPAS"
