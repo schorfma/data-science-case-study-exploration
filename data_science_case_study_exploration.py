@@ -580,15 +580,9 @@ INPUT_DATA = pandas.get_dummies(
     columns=list(SELECTED_CATEGORIES_COLUMNS)
 )
 
-streamlit.write(
-    INPUT_DATA.head()
-)
-
 LABEL_DATA = CRIMINAL_PEOPLE_DATA[
         "is_recid"
 ]
-
-
 
 INPUT_TRAIN_DATA, INPUT_TEST_DATA, LABEL_TRAIN_DATA, LABEL_TEST_DATA = train_test_split(
     INPUT_DATA,
@@ -666,7 +660,7 @@ METRICS_COLUMN.markdown(
 )
 
 METRICS_COLUMN.latex(
-    r"\frac{TP + TN}{TP + TN + FP + FN} = " + f"{(tp + tn) / TEST_DATA_COUNT:.2f}"
+    "\\frac{TP + TN}{TP + TN + FP + FN} = " + f"{(tp + tn) / TEST_DATA_COUNT:.2f}"
 )
 
 # Precision
@@ -675,7 +669,7 @@ METRICS_COLUMN.markdown(
 )
 
 METRICS_COLUMN.latex(
-    r"\frac{TP}{TP + FP} = " + f"{tp / (tp + fp):.2f}"
+    "\\frac{TP}{TP + FP} = " + f"{tp / (tp + fp):.2f}"
 )
 
 # Recall
@@ -684,7 +678,7 @@ METRICS_COLUMN.markdown(
 )
 
 METRICS_COLUMN.latex(
-    r"\frac{TP}{TP + FN} = " + f"{tp / (tp + fn):.2f}"
+    "\\frac{TP}{TP + FN} = " + f"{tp / (tp + fn):.2f}"
 )
 
 streamlit.subheader("TODO: What happens if we add `race` to the input data?")
