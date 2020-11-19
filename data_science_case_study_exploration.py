@@ -401,6 +401,12 @@ ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
     "altair"
 )
 
+age_bins_step = streamlit.radio(
+    "TODO: Select Age Category Step",
+    options=[5, 10, 15],
+    format_func=lambda option: f"{option:02d} years"
+)
+
 base_chart = altair.Chart(
     CRIMINAL_PEOPLE_DATA[
         [
@@ -424,7 +430,7 @@ mean_chart = base_chart.mark_text(
     text="❌",
     color="Red"
 ).encode(
-    x=altair.X("age:Q", bin=altair.Bin(step=5)),
+    x=altair.X("age:Q", bin=altair.Bin(step=age_bins_step)),
     y="mean(priors_count):Q"
 )
 
