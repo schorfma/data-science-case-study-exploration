@@ -541,38 +541,6 @@ streamlit.altair_chart(
     boxplot_chart
 )
 
-streamlit.altair_chart(
-    altair.Chart(
-        CRIMINAL_PEOPLE_DATA[
-            [
-                "age",
-                "decile_score",
-                "priors_count"  # Prior Convictions
-            ]
-        ]
-    ).mark_rect().encode(
-        x="age:Q",
-        y="priors_count:Q",
-        color=altair.Color(field="decile_score", type="quantitative")
-    )
-)
-
-streamlit.altair_chart(
-    altair.Chart(
-        CRIMINAL_PEOPLE_DATA[
-            [
-                "age_cat",
-                "decile_score",
-                "priors_count"  # Prior Convictions
-            ]
-        ]
-    ).mark_bar().encode(
-        x="decile_score:O",
-        y="mean(priors_count):Q",
-        column="age_cat:N"
-    )
-)
-
 streamlit.header(
     ":slot_machine: " +
     "TODO: Create and explain system to classify "
@@ -593,29 +561,6 @@ LABEL_DATA = CRIMINAL_PEOPLE_DATA[
         "is_recid"
 ]
 
-streamlit.altair_chart(
-    altair.Chart(
-        CRIMINAL_PEOPLE_DATA[
-            [
-                "age",
-                "juv_fel_count",
-                "juv_misd_count",
-                "juv_other_count",
-                "priors_count",  # Prior Convictions
-                "is_recid"
-            ]
-        ][
-            CRIMINAL_PEOPLE_DATA.is_recid != -1
-        ]
-    ).mark_circle().encode(
-        x=altair.X(altair.repeat("column"), type="quantitative"),
-        y=altair.Y(altair.repeat("row"), type="quantitative"),
-        color="is_recid:N"
-    ).repeat(
-        row=["age", "juv_fel_count", "priors_count"],
-        column=["priors_count", "juv_fel_count", "age"]
-    )
-)
 
 
 INPUT_TRAIN_DATA, INPUT_TEST_DATA, LABEL_TRAIN_DATA, LABEL_TEST_DATA = train_test_split(
