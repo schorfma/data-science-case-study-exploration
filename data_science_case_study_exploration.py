@@ -22,7 +22,7 @@ import pandas
 import sqlalchemy
 import streamlit
 
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, export_text
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 
@@ -545,15 +545,16 @@ streamlit.header(
     "TODO: Create and explain system to classify "
     "recidivism risk with scikit-learn"
 )
+INPUT_DATA_FEATURES = [
+    "age",
+    "juv_fel_count",
+    "juv_misd_count",
+    "juv_other_count",
+    "priors_count",  # Prior Convictions
+]
 
 INPUT_DATA = CRIMINAL_PEOPLE_DATA[
-    [
-        "age",
-        "juv_fel_count",
-        "juv_misd_count",
-        "juv_other_count",
-        "priors_count",  # Prior Convictions
-    ]
+    INPUT_DATA_FEATURES
 ]
 
 LABEL_DATA = CRIMINAL_PEOPLE_DATA[
@@ -584,6 +585,27 @@ ESTIMATOR = DecisionTreeClassifier(
 
 with streamlit.spinner():
     ESTIMATOR.fit(INPUT_TRAIN_DATA, LABEL_TRAIN_DATA)
+
+    TREE_STRUCTURE_TEXT = export_text(ESTIMATOR)
+
+    for index, column in enumerate(INPUT_DATA_FEATURES):
+        TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace(
+            f"feature_{index}",
+            column
+        )
+
+    for index, target in enumerate(["is_not_recid", "is_recid"]):
+        TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace(
+            f"class: {index}",
+            f"class: {target}"
+        )
+
+    TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace("<=", "≤")
+
+    CONFIG_COLUMN.code(
+        TREE_STRUCTURE_TEXT,
+        language=None
+    )
 
 LABEL_PREDICTION_DATA = ESTIMATOR.predict(INPUT_TEST_DATA)
 
