@@ -483,9 +483,6 @@ correlation_data["correlation_label"] = correlation_data["correlation"].map(
 base_correlation_plot = altair.Chart(correlation_data).encode(
     x="second:O",
     y="first:O"
-).properties(
-    width=800,
-    height=800
 )
 
 # Text layer with correlation labels
@@ -510,8 +507,13 @@ correlation_plot = base_correlation_plot.mark_rect().encode(
     )
 )
 
+CORRELATION_MATRIX = correlation_plot + correlation_plot_text
+
 streamlit.altair_chart(
-    correlation_plot + correlation_plot_text
+    CORRELATION_MATRIX.properties(
+        width=800,
+        height=800
+    )
 )
 
 ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
@@ -858,6 +860,41 @@ streamlit.header(
 streamlit.markdown(
     "TODO: Create one visualization for all visualizations"
 )
+
+streamlit.header(
+    ":clipboard: " +
+    "TODO: Summary"
+)
+
+OUTLINE_COMMENTS = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+]
+
+OUTLINE_PREVIEW_ITEMS = [
+    CRIMINAL_PEOPLE_DATA.head(n=3),
+    CORRELATION_MATRIX.properties(width=400, height=300),
+    "![scikit-learn](https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg)",
+    "4",
+    "5"
+]
+
+for index, section, comment, preview in zip(
+        range(1, len(OUTLINE) + 1),
+        OUTLINE,
+        OUTLINE_COMMENTS,
+        OUTLINE_PREVIEW_ITEMS
+):
+    section_column, preview_column = streamlit.beta_columns(2)
+
+    section_column.subheader(f"{index}. " + section)
+
+    section_column.markdown(comment)
+
+    preview_column.write(preview)
 
 streamlit.header(
     ":books: " +
