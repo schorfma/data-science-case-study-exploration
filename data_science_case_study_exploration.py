@@ -627,7 +627,9 @@ INPUT_DATA = pandas.get_dummies(
 )
 
 LABEL_DATA = CRIMINAL_PEOPLE_DATA[
+    [
         "is_recid"
+    ]
 ]
 
 TRAIN_TEST_SPLIT_CODE_EXPANDER = streamlit.beta_expander(
@@ -729,6 +731,8 @@ with streamlit.spinner():
         )
 
     TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace("<=", "≤")
+
+    TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace("> ", ">")
 
     TREE_VIEW_COLUMN.markdown(
         "#### " + translation("data_classifier.decision_tree_structure")
