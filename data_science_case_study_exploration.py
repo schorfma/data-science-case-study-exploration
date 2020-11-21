@@ -488,7 +488,9 @@ base_correlation_plot = altair.Chart(correlation_data).encode(
 
 # Text layer with correlation labels
 # Colors are for easier readability
-correlation_plot_text = base_correlation_plot.mark_text().encode(
+correlation_plot_text = base_correlation_plot.mark_text(
+    tooltip=altair.TooltipContent("encoding")
+).encode(
     text="correlation_label",
     color=altair.condition(
         altair.datum.correlation > 0.5,
@@ -497,7 +499,9 @@ correlation_plot_text = base_correlation_plot.mark_text().encode(
     )
 )
 
-correlation_plot = base_correlation_plot.mark_rect().encode(
+correlation_plot = base_correlation_plot.mark_rect(
+    tooltip=altair.TooltipContent("encoding")
+).encode(
     color=altair.Color(
         "correlation:Q",
         scale=altair.Scale(
@@ -918,6 +922,131 @@ streamlit.header(
 
 streamlit.markdown(
     "TODO: Create one visualization for all visualizations"
+)
+
+THRESHOLD_CHOOSING_BASE_DATA = CRIMINAL_PEOPLE_DATA[
+    [
+        "sex",
+        "race",
+        "decile_score",
+        "is_recid",
+        "is_violent_recid"
+    ]
+][
+    CRIMINAL_PEOPLE_DATA.decile_score != -1
+]
+
+RACES = list(
+    THRESHOLD_CHOOSING_BASE_DATA.race.unique()
+)
+
+SAMPLE_SIZE = streamlit.slider(
+    "TODO: Sample Size",
+    min_value=100,
+    max_value=500,
+    step=100,
+    value=100
+)
+
+RACES_SAMPLED_DATA = {
+    race: THRESHOLD_CHOOSING_BASE_DATA[
+        THRESHOLD_CHOOSING_BASE_DATA.race == race
+    ].sample(n=SAMPLE_SIZE, replace=True)
+    for race in RACES
+}
+
+# for race, race_sampled_data in RACES_SAMPLED_DATA.items():
+#     streamlit.write(race)
+#     streamlit.dataframe(
+#         race_sampled_data
+#     )
+#     streamlit.dataframe(
+#         race_sampled_data.describe()
+#     )
+
+RACES_SAMPLED_DATA_COMBINED = pandas.concat(
+    list(RACES_SAMPLED_DATA.values())
+)
+
+SELECTED_RACES = streamlit.multiselect(
+    "TODO: Select sampled data according to race",
+    options=RACES,
+    default=[
+        "Caucasian",
+        "African-American"
+    ]
+)
+
+for non_selected_race in list(
+        set(RACES) - set(SELECTED_RACES)
+):
+    RACES_SAMPLED_DATA_COMBINED = RACES_SAMPLED_DATA_COMBINED[
+        RACES_SAMPLED_DATA_COMBINED.race != non_selected_race
+    ]
+
+THRESHOLD = streamlit.slider(
+    "TODO: Choose a threshold",
+    min_value=0,
+    max_value=10,
+    value=7
+)
+
+RACES_SAMPLED_DATA_COMBINED["action"] = RACES_SAMPLED_DATA_COMBINED.decile_score > THRESHOLD
+
+DECILE_SCORE_CHART_BASE = altair.Chart(
+    RACES_SAMPLED_DATA_COMBINED
+).mark_bar(
+    tooltip=altair.TooltipContent("encoding")
+).encode(
+    x="decile_score:O",
+    y="count(is_recid):Q",
+    column=altair.Column(
+        "action:N",
+        sort=["Released", "Jailed"]
+    ),
+    color="is_recid:N"
+).transform_calculate(
+    action="{0: 'Released', 1: 'Jailed'}[datum.action]"
+).transform_window(
+    x="rank()",
+    groupby=["decile_score"]
+)
+
+DECILE_SCORE_CHART_ALL = DECILE_SCORE_CHART_BASE
+
+DECILE_SCORE_CHART_RACES = DECILE_SCORE_CHART_BASE.encode(
+    row="race:N"
+)
+
+streamlit.altair_chart(
+    DECILE_SCORE_CHART_ALL
+)
+
+ALL_COUNT = len(
+    RACES_SAMPLED_DATA_COMBINED
+)
+
+ALL_TN, ALL_FP, ALL_FN, ALL_TP = confusion_matrix(
+    RACES_SAMPLED_DATA_COMBINED.is_recid,
+    RACES_SAMPLED_DATA_COMBINED.action
+).ravel()
+
+streamlit.markdown(
+    markdown_list(
+        *[
+            f"`{key}`: `{value}` / `{ALL_COUNT}` = `{(value / ALL_COUNT):.02f}`"
+            for key, value in [
+                ("TP", ALL_TP),
+                ("TN", ALL_TN),
+                ("FP", ALL_FP),
+                ("FN", ALL_FN)
+            ]
+        ]
+    )
+)
+
+streamlit.altair_chart(
+    DECILE_SCORE_CHART_RACES
 )
 
 streamlit.header(
