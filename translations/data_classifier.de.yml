@@ -1,7 +1,14 @@
 de:
 
   header_classifier_training: Training eines Klassifikators für Rückfälligkeit
-  select_features_label: Features auswählen
+
+  train_implemented_classifier: Nun werden werden wir einen implementierten Klassifikator der Bibliothek `scikit-learn` auf Rückfälligkeit der Verurteilten trainieren
+  train_feature_selection: Die unten ausgewählten Features werden verwendet, um das System zu trainieren und die Spalte `%{label}` wird als _Ziel_ oder _Label_ verwendet.
+
+  select_features: Features auswählen
+  select_label: Label auswählen
+
+  train_test_split_explanation: Die Daten werden zufällig getrennt nach %{train_percentage}% Trainingsdaten und %{test_percentage}% Testdaten, sodass wir das System später auf Daten testen können, die es noch nicht kennt
   train_test_split_code: Training-Test-Aufteilung Code
   for_training: zum Training
   for_testing: zum Testen
@@ -11,11 +18,18 @@ de:
   target_column:
     one: Zielspalte
     many: Zielspalten
+
   classifier_configuration_values: Klassifikator-Konfigurationswerte
   max_leaf_nodes: Maximale Anzahl an Blattknoten
+
   decision_tree_classifier_training_code: Entscheidungsbaum-Klassifikator Code
+  classifier_initialization: "Zunächst wird der Klassifikator (`DecisionTreeClassifier`) mit konkreten Parametern (hier: `max_leaf_nodes`) initialisiert"
+  classifier_training: Dann wird er angepasst durch das Trainieren mit den Trainingsdaten
+
   decision_tree_structure: Entscheidungsbaum-Struktur
+
   confusion_matrix_values: Verwirrungsmatrix-Werte
+  prediction_metrics_code: Testvorhersage und -Metriken Code
 
   tp_name: True Positive
   tp_description: Korrekt vorhergesagt als rückfällig, tatsächlich rückfällig

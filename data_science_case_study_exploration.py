@@ -579,6 +579,7 @@ streamlit.altair_chart(
     boxplot_chart
 )
 
+# Training Recidivism Classifier
 streamlit.header(
     ":card_file_box: " + translation("data_classifier.header_classifier_training")
 )
@@ -607,10 +608,35 @@ CATEGORIES_COLUMNS = [
     "race"
 ]
 
-SELECTED_INPUT_DATA_FEATURES = streamlit.multiselect(
-    translation("data_classifier.select_features_label"),
+
+FEATURE_SELECTION_CONTAINER = streamlit.beta_container()
+
+FEATURE_SELECTION_CONTAINER.markdown(
+    markdown_list(
+        translation("data_classifier.train_implemented_classifier")
+    )
+)
+
+FEATURE_SELECTION_COLUMN, LABEL_SELECTION_COLUMN = streamlit.beta_columns(2)
+
+SELECTED_INPUT_DATA_FEATURES = FEATURE_SELECTION_COLUMN.multiselect(
+    translation("data_classifier.select_features"),
     options=INPUT_DATA_FEATURES + CATEGORIES_COLUMNS,
     default=INPUT_DATA_FEATURES
+)
+
+SELECTED_INPUT_DATA_LABEL = LABEL_SELECTION_COLUMN.radio(
+    translation("data_classifier.select_label"),
+    options=[
+        "is_recid",
+        "is_violent_recid"
+    ]
+)
+
+FEATURE_SELECTION_CONTAINER.markdown(
+    markdown_list(
+        translation("data_classifier.train_feature_selection", label=SELECTED_INPUT_DATA_LABEL)
+    )
 )
 
 INPUT_DATA = CRIMINAL_PEOPLE_DATA[
@@ -628,7 +654,7 @@ INPUT_DATA = pandas.get_dummies(
 
 LABEL_DATA = CRIMINAL_PEOPLE_DATA[
     [
-        "is_recid"
+        SELECTED_INPUT_DATA_LABEL
     ]
 ]
 
@@ -638,6 +664,16 @@ TRAIN_TEST_SPLIT_CODE_EXPANDER = streamlit.beta_expander(
 )
 
 TRAIN_PERCENTAGE, TEST_PERCENTAGE = (75, 25)
+
+TRAIN_TEST_SPLIT_CODE_EXPANDER.markdown(
+    markdown_list(
+        translation(
+            "data_classifier.train_test_split_explanation",
+            train_percentage=TRAIN_PERCENTAGE,
+            test_percentage=TEST_PERCENTAGE
+        )
+    )
+)
 
 TRAIN_TEST_SPLIT_CODE_EXPANDER.code(
     f"""
@@ -685,6 +721,13 @@ DECISION_TREE_CLASSIFIER_CODE_EXPANDER = CLASSIFIER_CODE_COLUMN.beta_expander(
     expanded=True
 )
 
+DECISION_TREE_CLASSIFIER_CODE_EXPANDER.markdown(
+    markdown_list(
+        translation("data_classifier.classifier_initialization"),
+        translation("data_classifier.classifier_training")
+    )
+)
+
 DECISION_TREE_CLASSIFIER_CODE_EXPANDER.code(
     f"""
 from sklearn.tree import DecisionTreeClassifier, export_text
@@ -723,8 +766,18 @@ with streamlit.spinner():
             f"feature_{index}",
             column
         )
+    if SELECTED_INPUT_DATA_LABEL == "is_violent_recid":
+        REPLACE_LABELS = [
+            "is_not_violent_recid",
+            "is_violent_recid"
+        ]
+    else:
+        REPLACE_LABELS = [
+            "is_not_recid",
+            "is_recid"
+        ]
 
-    for index, target in enumerate(["is_not_recid", "is_recid"]):
+    for index, target in enumerate(REPLACE_LABELS):
         TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace(
             f"class: {index}",
             f"class: {target}"
@@ -755,7 +808,11 @@ CONFUSION_COLUMN.markdown(
     "#### " + translation("data_classifier.confusion_matrix_values")
 )
 
-CONFUSION_COLUMN.code(
+CONFUSION_CODE_EXPANDER = CONFUSION_COLUMN.beta_expander(
+    label=translation("data_classifier.prediction_metrics_code")
+)
+
+CONFUSION_CODE_EXPANDER.code(
     """
 from sklearn.metrics import confusion_matrix
 
@@ -824,7 +881,7 @@ METRICS_COLUMN.markdown(
 )
 
 METRICS_COLUMN.latex(
-    "\\frac{TP}{TP + FP} = " + f"{tp / (tp + fp):.2f}"
+    "\\frac{TP}{TP + FP} = " + (f"{tp / (tp + fp):.2f}" if tp else "0.00")
 )
 
 # Recall
@@ -833,10 +890,8 @@ METRICS_COLUMN.markdown(
 )
 
 METRICS_COLUMN.latex(
-    "\\frac{TP}{TP + FN} = " + f"{tp / (tp + fn):.2f}"
+    "\\frac{TP}{TP + FN} = " + (f"{tp / (tp + fn):.2f}" if tp else "0.00")
 )
-
-streamlit.subheader("TODO: What happens if we add `race` to the input data?")
 
 streamlit.header(
     "🧭 " + "TODO: Explanation of COMPAS"
