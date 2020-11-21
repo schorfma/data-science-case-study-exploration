@@ -580,7 +580,7 @@ streamlit.altair_chart(
 )
 
 streamlit.header(
-    ":slot_machine: " + translation("data_classifier.header_classifier_training")
+    ":card_file_box: " + translation("data_classifier.header_classifier_training")
 )
 
 (
