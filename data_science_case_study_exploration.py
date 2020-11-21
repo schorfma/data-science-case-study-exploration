@@ -246,6 +246,43 @@ streamlit.header(
     ":wave: " + "TODO: Introduction and Outline"
 )
 
+INTRODUCTION_COLUMN, PROCESS_COLUMN = streamlit.beta_columns([2, 1])
+
+INTRODUCTION_COLUMN.markdown(
+    "TODO: Introduction Text"
+)
+
+INTRODUCTION_COLUMN.subheader("TODO: Outline")
+
+OUTLINE = [
+    ":floppy_disk: " + translation("data_access.header"),
+    ":bar_chart: " + "TODO: Data Visualization",
+    ":card_file_box: " + "TODO: Training a Recidivism Classifier",
+    "🧭 " + "TODO: Explanation of COMPAS",
+    "👆 " + "TODO: COMPAS Interactive Threshold Choosing"
+]
+
+INTRODUCTION_COLUMN.markdown(
+    markdown_list(*OUTLINE, numbered=True)
+)
+
+streamlit.sidebar.subheader("TODO: Outline")
+
+streamlit.sidebar.markdown(
+    markdown_list(*OUTLINE, numbered=True)
+)
+
+PROCESS_COLUMN.image(
+    "./images/data-science-process.png",
+    use_column_width=True
+)
+
+PROCESS_COLUMN.markdown(
+    "Mojassamehleiden, "
+    "[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), "
+    "[File:CRISPDM-Extended-Majid.png](https://commons.wikimedia.org/wiki/File:CRISPDM-Extended-Majid.png) via Wikimedia Commons"
+)
+
 # Database Access
 streamlit.header(
     ":floppy_disk: " + translation("data_access.header")
@@ -541,8 +578,7 @@ streamlit.altair_chart(
 
 streamlit.header(
     ":slot_machine: " +
-    "TODO: Create and explain system to classify "
-    "recidivism risk with scikit-learn"
+    "TODO: Training a Recidivism Classifier"
 )
 
 (
@@ -800,9 +836,27 @@ streamlit.header(
     "🧭 " + "TODO: Explanation of COMPAS"
 )
 
+streamlit.write(
+    "TODO: Critical assessment of data insights"
+)
+
+streamlit.write(
+    "TODO: Ethical view. "
+    "Prevent misappropriation of system"
+)
+
+streamlit.write(
+    "TODO: Use systems only where it can be beneficial. "
+    "i.e. Target high recidivism risk people for more rehabilitation programmes"
+)
+
 streamlit.header(
     "👆 " +
     "TODO: COMPAS Interactive Threshold Choosing"
+)
+
+streamlit.markdown(
+    "TODO: Create one visualization for all visualizations"
 )
 
 streamlit.header(
