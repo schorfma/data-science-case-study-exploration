@@ -435,10 +435,10 @@ streamlit.dataframe(
 )
 
 streamlit.header(
-    ":bar_chart: " + "TODO: Data Visualization"
+    ":bar_chart: " + translation("data_visualization.data_visualization_head")
 )
 
-streamlit.subheader("TODO: Correlation Matrix")
+streamlit.subheader(translation("data_visualization.correlation_matrix_label"))
 
 correlation_columns = list(CRIMINAL_PEOPLE_DATA.columns)
 correlation_columns.remove("decile_score")
@@ -451,12 +451,13 @@ criminal_people_data_certain_columns = CRIMINAL_PEOPLE_DATA[
 ]
 
 correlation_gender = streamlit.radio(
-    "TODO: Correlation according to genders",
+    translation("data_visualization.correlation_according_to_genders"),
     options=[
         "All",
         "Female",
         "Male"
-    ]
+    ],
+    format_func=lambda option: translation(f"data_visualization.gender_option_{option.lower()}")
 )
 
 if correlation_gender != "All":
@@ -525,13 +526,13 @@ streamlit.code(
 )
 
 age_bins_step = streamlit.radio(
-    "TODO: Select Age Category Step",
+    translation("data_visualization.select_age_category_step_label"),
     options=[5, 10, 15],
-    format_func=lambda option: f"{option:02d} years"
+    format_func=lambda option: translation("data_visualization.years", count=f"{option:02d}")
 )
 
 BOXPLOT_CODE_EXPANDER = streamlit.beta_expander(
-    label="TODO: Boxplot Code",
+    label=translation("data_visualization.boxplot_code_label"),
     expanded=True
 )
 
@@ -539,7 +540,7 @@ BOXPLOT_CODE_EXPANDER.code(
     f"""
 boxplot_chart = altair.Chart(
     CRIMINAL_PEOPLE_DATA[
-        # TODO: Get only needed columns
+        # {translation("data_visualization.boxplot_only_needed_columns")}
         [
             "age",
             "priors_count",
@@ -579,8 +580,7 @@ streamlit.altair_chart(
 )
 
 streamlit.header(
-    ":slot_machine: " +
-    "TODO: Training a Recidivism Classifier"
+    ":slot_machine: " + translation("data_classifier.header_classifier_training")
 )
 
 (
@@ -608,7 +608,7 @@ CATEGORIES_COLUMNS = [
 ]
 
 SELECTED_INPUT_DATA_FEATURES = streamlit.multiselect(
-    "TODO: Select Features",
+    translation("data_classifier.select_features_label"),
     options=INPUT_DATA_FEATURES + CATEGORIES_COLUMNS,
     default=INPUT_DATA_FEATURES
 )
@@ -631,7 +631,7 @@ LABEL_DATA = CRIMINAL_PEOPLE_DATA[
 ]
 
 TRAIN_TEST_SPLIT_CODE_EXPANDER = streamlit.beta_expander(
-    "TODO: Train Test Split Code",
+    translation("data_classifier.train_test_split_code"),
     expanded=True
 )
 
@@ -642,13 +642,13 @@ TRAIN_TEST_SPLIT_CODE_EXPANDER.code(
 from sklearn.model_selection import train_test_split
 
 (
-    input_train_data,  # {TRAIN_PERCENTAGE}% for Training
-    input_test_data,   # {TEST_PERCENTAGE}% for Testing
-    label_train_data,  # {TRAIN_PERCENTAGE}% for Training
-    label_test_data    # {TEST_PERCENTAGE}% for Testing
+    input_train_data,  # {TRAIN_PERCENTAGE}% {translation("data_classifier.for_training")}
+    input_test_data,   # {TEST_PERCENTAGE}% {translation("data_classifier.for_testing")}
+    label_train_data,  # {TRAIN_PERCENTAGE}% {translation("data_classifier.for_training")}
+    label_test_data    # {TEST_PERCENTAGE}% {translation("data_classifier.for_testing")}
 ) = train_test_split(
-    input_data,  # Feature Columns: {", ".join(INPUT_DATA.columns)}
-    label_data,  # Target Column: is_recid
+    input_data,  # {translation("data_classifier.feature_column", count=len(INPUT_DATA.columns))}: {", ".join(INPUT_DATA.columns)}
+    label_data,  # {translation("data_classifier.target_column", count=len(LABEL_DATA.columns))}: {", ".join(LABEL_DATA.columns)}
     random_state=0
 )
     """
@@ -668,18 +668,18 @@ from sklearn.model_selection import train_test_split
 CLASSIFIER_CODE_COLUMN, MAX_LEAF_NODES_SLIDER_COLUMN = streamlit.beta_columns(2)
 
 MAX_LEAF_NODES_SLIDER_COLUMN.markdown(
-    "#### " + "TODO: Classifier configuration values"
+    "#### " + translation("data_classifier.classifier_configuration_values")
 )
 
 max_leaf_nodes = MAX_LEAF_NODES_SLIDER_COLUMN.slider(
-    "TODO: Max Leaf Nodes",
+    translation("data_classifier.max_leaf_nodes"),
     min_value=3,
     max_value=20,
     value=5
 )
 
 DECISION_TREE_CLASSIFIER_CODE_EXPANDER = CLASSIFIER_CODE_COLUMN.beta_expander(
-    "TODO: Decision Tree Classifier Training Code",
+    translation("data_classifier.decision_tree_classifier_training_code"),
     expanded=True
 )
 
@@ -731,7 +731,7 @@ with streamlit.spinner():
     TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace("<=", "≤")
 
     TREE_VIEW_COLUMN.markdown(
-        "#### " + "TODO: Decision Tree Structure"
+        "#### " + translation("data_classifier.decision_tree_structure")
     )
 
     TREE_VIEW_COLUMN.code(
@@ -748,7 +748,7 @@ TEST_DATA_COUNT = len(INPUT_TEST_DATA)
 tn, fp, fn, tp = CONFUSION_MATRIX.ravel()
 
 CONFUSION_COLUMN.markdown(
-    "#### " + "TODO: Confusion Matrix Values"
+    "#### " + translation("data_classifier.confusion_matrix_values")
 )
 
 CONFUSION_COLUMN.code(
@@ -774,26 +774,26 @@ CONFUSION_COLUMN.markdown(
             for key, name, description, value in [
                 (
                     "tp",
-                    "True Positive",
-                    "Correctly predicted as recid, actually recid",
+                    translation("data_classifier.tp_name"),
+                    translation("data_classifier.tp_description"),
                     tp
                 ),
                 (
                     "tn",
-                    "True Negative",
-                    "Correctly predicted as not recid, actually not recid",
+                    translation("data_classifier.tn_name"),
+                    translation("data_classifier.tn_description"),
                     tn
                 ),
                 (
                     "fp",
-                    "False Positive",
-                    "Incorrectly predicted as recid, actually not recid",
+                    translation("data_classifier.fp_name"),
+                    translation("data_classifier.fp_description"),
                     fp
                 ),
                 (
                     "fn",
-                    "False Negative",
-                    "Incorrectly predicted as not recid, actually recid",
+                    translation("data_classifier.fn_name"),
+                    translation("data_classifier.fn_description"),
                     fn
                 )
             ]
@@ -802,12 +802,12 @@ CONFUSION_COLUMN.markdown(
 )
 
 METRICS_COLUMN.markdown(
-    "#### " + "TODO: Related Metrics"
+    "#### " + translation("data_classifier.related_metrics")
 )
 
 # Accuracy
 METRICS_COLUMN.markdown(
-    "##### Accuracy"
+    "##### " + translation("data_classifier.accuracy")
 )
 
 METRICS_COLUMN.latex(
@@ -816,7 +816,7 @@ METRICS_COLUMN.latex(
 
 # Precision
 METRICS_COLUMN.markdown(
-    "##### Precision"
+    "##### " + translation("data_classifier.precision")
 )
 
 METRICS_COLUMN.latex(
@@ -825,7 +825,7 @@ METRICS_COLUMN.latex(
 
 # Recall
 METRICS_COLUMN.markdown(
-    "##### Recall"
+    "##### " + translation("data_classifier.recall")
 )
 
 METRICS_COLUMN.latex(

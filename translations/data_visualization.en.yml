@@ -1,0 +1,16 @@
+en:
+
+  data_visualization_head: Data Visualzation
+
+  correlation_matrix_label: Correlation Matrix
+  correlation_according_to_genders: Correlation according to genders
+
+  gender_option_all: All
+  gender_option_female: Female
+  gender_option_male: Male
+
+  select_age_category_step_label: Select Age Category Step
+  years: "%{count} years"
+
+  boxplot_code_label: Boxplot Code
+  boxplot_only_needed_columns: Get only needed columns

@@ -1,0 +1,35 @@
+en:
+
+  header_classifier_training: Training a Recidivism Classifier
+  select_features_label: Select Features
+  train_test_split_code: Train Test Split Code
+  for_training: for Training
+  for_testing: for Testing
+  feature_column:
+    one: Feature Column
+    many: Feature Columns
+  target_column:
+    one: Target Column
+    many: Target Columns
+  classifier_configuration_values: Classifier configuration values
+  max_leaf_nodes: Maximum number of leaf nodes
+  decision_tree_classifier_training_code: Decision Tree Classifier Training Code
+  decision_tree_structure: Decision Tree Structure
+  confusion_matrix_values: Confusion Matrix Values
+
+  tp_name: True Positive
+  tp_description: Correctly predicted as recid, actually recid
+
+  tn_name: True Negative
+  tn_description: Correctly predicted as not recid, actually not recid
+
+  fp_name: False Positive
+  fp_description: Incorrectly predicted as recid, actually not recid
+
+  fn_name: False Negative
+  fn_description: Incorrectly predicted as not recid, actually recid
+
+  related_metrics: Related Metrics
+  accuracy: Accuracy
+  precision: Precision
+  recall: Recall

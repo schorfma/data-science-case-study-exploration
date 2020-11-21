@@ -1,0 +1,15 @@
+de:
+
+  data_visualization_head: Datenvisualierung
+
+  correlation_matrix_label: Korrelationsmatrix
+  correlation_according_to_genders: Korrelation entsprechend der Geschechter
+
+  gender_option_all: Alle
+  gender_option_female: Weiblich
+  gender_option_male: Männlich
+
+  select_age_category_step_label: Wähle ein Altersgruppen-Intervall
+  years: "%{count} Jahre"
+
+  boxplot_only_needed_columns: Nur Holen der benötigten Spalten

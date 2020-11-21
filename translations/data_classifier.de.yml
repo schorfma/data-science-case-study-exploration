@@ -1,0 +1,32 @@
+de:
+
+  header_classifier_training: Training eines Klassifikators für Rückfälligkeit
+  select_features_label: Features auswählen
+  train_test_split_code: Training-Test-Aufteilung Code
+  for_training: zum Training
+  for_testing: zum Testen
+  feature_column:
+    one: Feature-Spalte
+    many: Feature-Spalten
+  target_column:
+    one: Zielspalte
+    many: Zielspalten
+  classifier_configuration_values: Klassifikator-Konfigurationswerte
+  max_leaf_nodes: Maximale Anzahl an Blattknoten
+  decision_tree_classifier_training_code: Entscheidungsbaum-Klassifikator Code
+  decision_tree_structure: Entscheidungsbaum-Struktur
+  confusion_matrix_values: Verwirrungsmatrix-Werte
+
+  tp_name: True Positive
+  tp_description: Korrekt vorhergesagt als rückfällig, tatsächlich rückfällig
+
+  tn_name: True Negative
+  tn_description: Korrekt vorhergesagt als nicht rückfällig, tatsächlich nicht rückfällig
+
+  fp_name: False Positive
+  fp_description: Inkorrekt vorhergesagt als rückfällig, tatsächlich nicht rückfällig
+
+  fn_name: False Negative
+  fn_description: Inkorrekt vorhergesagt als nicht rückfällig, tatsächlich rückfällig
+
+  related_metrics: Metriken mit Bezug dazu
