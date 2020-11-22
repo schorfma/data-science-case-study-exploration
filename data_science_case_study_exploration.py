@@ -993,6 +993,12 @@ THRESHOLD = streamlit.slider(
 
 RACES_SAMPLED_DATA_COMBINED["action"] = RACES_SAMPLED_DATA_COMBINED.decile_score > THRESHOLD
 
+RACES_SAMPLED_DATA_COMBINED["correct"] = RACES_SAMPLED_DATA_COMBINED.is_recid == RACES_SAMPLED_DATA_COMBINED.action
+
+SHOW_CORRECT = streamlit.checkbox(
+    "TODO: Show Correct"
+)
+
 DECILE_SCORE_CHART_BASE = altair.Chart(
     RACES_SAMPLED_DATA_COMBINED
 ).mark_bar(
@@ -1004,9 +1010,13 @@ DECILE_SCORE_CHART_BASE = altair.Chart(
         "action:N",
         sort=["Released", "Jailed"]
     ),
-    color="is_recid:N"
+    color=(
+        "is_recid:N" if not SHOW_CORRECT
+        else "correct:N"
+    )
 ).transform_calculate(
-    action="{0: 'Released', 1: 'Jailed'}[datum.action]"
+    action="{0: 'Released', 1: 'Jailed'}[datum.action]",
+    correct="{0: 'Incorrect', 1: 'Correct'}[datum.correct]"
 ).transform_window(
     x="rank()",
     groupby=["decile_score"]
