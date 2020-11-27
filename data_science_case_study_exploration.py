@@ -951,7 +951,7 @@ SAMPLE_SIZE = streamlit.slider(
 RACES_SAMPLED_DATA = {
     race: THRESHOLD_CHOOSING_BASE_DATA[
         THRESHOLD_CHOOSING_BASE_DATA.race == race
-    ].sample(n=SAMPLE_SIZE, replace=True)
+    ].sample(n=SAMPLE_SIZE, replace=True, random_state=0)
     for race in RACES
 }
 
