@@ -17,7 +17,7 @@ de:
         - Verwendet diese, um die Wahrscheinlichkeit vorherzusagen, ob ein Angeklagter wegen eines neuen Verbrechens in der Zeit bis zur Gerichtsverhandlung verhaftet wird
     * Die Vorhersage ist nur eine Empfehlung mit Risiko-Scores (`1` - `10`)
     * Wir werden den Schwellenwert von COMPAS "hohes Risiko" (höher als `7`) verwenden,
-    * COMPAS kann nur eine statistische Wahrscheinlichkeit bieten mit der ein Angeklagter  straffällig wird
+    * COMPAS kann nur eine statistische Wahrscheinlichkeit bieten mit der ein Angeklagter straffällig wird
         - Richter entscheiden jedoch, ob sie den Angeklagten freilassen oder festhalten
 
   ethical_view_header: Ethische Sicht auf das COMPAS-System
