@@ -1,1 +1,25 @@
 de:
+
+  header: Explanation of COMPAS
+
+  explanation_compas_header: Erklärung des COMPAS-Systems
+
+  explanation_compas: |
+    * **COMPAS** (Correctional Offender Management Profiling for Alternative Sanctions)
+        - Algorithmus zur Risikoabschätzungs, die im US-Strafrechtssystem verwendet werden
+    * Wird von Richtern für die Entscheidung genutzt, ob ein Angeklagter in Haft gehalten werden sollte oder während des Wartens auf den Prozess herausgelassen werden
+    * Der Algorithmus basiert auf historischen Daten von Angeklagten (137 Fragen und Anworten), um Korrelationen zu finden
+        - Verwendet diese, um die Wahrscheinlichkeit vorherzusagen, ob ein Angeklagter wegen eines neuen Verbrechens in der Zeit bis zur Gerichtsverhandlung verhaftet wird
+    * Die Vorhersage ist nur eine Empfehlung mit Risiko-Scores (`1` - `10`)
+    * Wir werden den Schwellenwert von COMPAS "hohes Risiko" (höher als `7`) verwenden,
+    * COMPAS kann nur eine statistische Wahrscheinlichkeit bieten mit der ein Angeklagter  straffällig wird
+        - Richter entscheiden jedoch, ob sie den Angeklagten freilassen oder festhalten
+
+  ethical_view_header: Ethische Sicht auf das COMPAS-System
+
+  ethical_view: |
+    * COMPAS bezieht Ethnien nicht in die Berechnung seiner Risikobewertungen ein (Gesetz)
+    * Die Untersuchung ergab jedoch, dass das Instrument immer noch gegen Schwarze voreingenommen war
+    * Unter den Angeklagten, die nie erneut verhaftet wurden, waren Schwarze Angeklagte doppelt so wahrscheinlich als Weiße, die von COMPAS als risikoreich eingestuft wurden
+    *  COMPAS wurde entwickelt, um aggregierte Vorhersagen über Personengruppen zu machen, die ähnliche Merkmale aufweisen, und nicht Vorhersagen über bestimmte Personen
+        - Risiko des Missbrauchs der Daten oder unreflektierte Nutzung ohne kritische Betrachtung

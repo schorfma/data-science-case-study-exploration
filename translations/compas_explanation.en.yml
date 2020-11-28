@@ -1,1 +1,25 @@
 en:
+  header: Explanation of COMPAS
+
+  explanation_compas_header: Explanation of the COMPAS System
+
+  explanation_compas: |
+    * **COMPAS** (Correctional Offender Management Profiling for Alternative Sanctions)
+        - Algorithm "risk assessment" tools used in the US criminal legal system
+    * Used to help judges determine whether a defendant should be kept in jail or be allowed out while awaiting trial
+    * It trains on historical defendant data (137 questions and answers) to find correlations
+        - Uses these to predict the likelihood that a defendant will be arrested for a new crime during trial-waiting.
+    * Prediction is recommendation with risk scores (`1` - `10`)
+    * We are going to use the threshold of COMPAS "high risk" (greater than `7`)
+    * As COMPAS can only offer a statistical probability that a defendant will be rearrested pre-trial
+        - Judges have to decide whether to release or detain the
+        defendant
+
+  ethical_view_header: Ethical View of the COMPAS System
+
+  ethical_view: |
+    * COMPAS doesn't include race in calculating its risk scores (conform to Law)
+    * Investigation however argued that the tool was still biased against blacks.
+        - Among defendants who were never rearrested, black defendants were twice as likely as white ones to have been labeled high-risk by COMPAS
+    * COMPAS was designed to make aggregate predictions about groups of people who share similar characteristics, rather than predictions about specific individuals
+        - Risk of Misuse of the Data or unreflected use without critical view

@@ -1,4 +1,5 @@
 en:
+  header: Sources
 
   # Data Science Case Study Exploration
   this_gitlab_url: https://gitlab.com/fdmuds-data-science/data-science-case-study-exploration
@@ -42,3 +43,11 @@ en:
   technology_review_ai_fairer_judge_organization: MIT Technology Review
   technology_review_ai_fairer_judge_authors: Karen Hao and Jonathan Stray
   technology_review_ai_fairer_judge_date: October 17, 2019
+
+  # Northpointe COMPAS FAQ Document
+  northpointe_compas_faq_url: http://www.northpointeinc.com/files/downloads/FAQ_Document.pdf
+  northpointe_compas_faq_title: COMPAS Risk & Need Assessment System
+  northpointe_compas_faq_subtitle: Selected Questions Posed by Inquiring Agencies
+  northpointe_compas_faq_organization: Northpointe Inc.
+  northpointe_compas_faq_authors: Northpointe Inc.
+  northpointe_compas_faq_date: "2012"

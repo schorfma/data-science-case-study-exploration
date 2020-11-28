@@ -388,7 +388,7 @@ OUTLINE = [
     ":floppy_disk: " + translation("data_access.header"),
     ":bar_chart: " + translation("data_visualization.header"),
     ":card_file_box: " + translation("data_classifier.header"),
-    "🧭 " + "TODO: Explanation of COMPAS",
+    "🧭 " + translation("compas_explanation.header"),
     "👆 " + translation("compas_threshold.header")
 ]
 
@@ -1007,19 +1007,27 @@ streamlit.header(
     COMPAS_EXPLANATION_HEADER
 )
 
-streamlit.write(
-    "TODO: Critical assessment of data insights"
-)
+(
+    COMPAS_EXPLANATION_COLUMN, COMPAS_ETHICAL_VIEW_COLUMN
+) = streamlit.beta_columns(2)
 
-streamlit.write(
-    "TODO: Ethical view. "
-    "Prevent misappropriation of system"
-)
+with COMPAS_EXPLANATION_COLUMN:
+    streamlit.subheader(
+        translation("compas_explanation.explanation_compas_header")
+    )
 
-streamlit.write(
-    "TODO: Use systems only where it can be beneficial. "
-    "i.e. Target high recidivism risk people for more rehabilitation programmes"
-)
+    streamlit.markdown(
+        translation("compas_explanation.explanation_compas")
+    )
+
+with COMPAS_ETHICAL_VIEW_COLUMN:
+    streamlit.subheader(
+        translation("compas_explanation.ethical_view_header")
+    )
+
+    streamlit.markdown(
+        translation("compas_explanation.ethical_view")
+    )
 
 streamlit.header(
     COMPAS_THRESHOLD_HEADER
@@ -1235,7 +1243,7 @@ for index, section, comment, preview in zip(
 
 streamlit.header(
     ":books: " +
-    "TODO: Streamlit und Quellen"
+    translation("sources.header")
 )
 
 streamlit.info(
@@ -1248,7 +1256,8 @@ SOURCES = [
     "propublica_article_machine_bias",
     "propublica_article_compas_analysis",
     "propublica_github_compas_analysis",
-    "technology_review_ai_fairer_judge"
+    "technology_review_ai_fairer_judge",
+    "northpointe_compas_faq"
 ]
 
 SOURCE_ATTRIBUTES = [
