@@ -30,6 +30,7 @@ en:
   scikit_learn_algorithm_cheat_sheet: "[scikit-learn Algorithm Cheatsheet](https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)"
 
   # Streamlit
+  streamlit_intro: Last but not least the library _Streamlit_ enabled us to create this interactive web application
   streamlit_name: Streamlit
   streamlit_url: https://www.streamlit.io
   streamlit_logo: ./images/streamlit-logo.png

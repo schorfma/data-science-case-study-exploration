@@ -1,0 +1,15 @@
+en:
+  header: Introduction and Outline
+
+  introduction: |
+    * This interactive case study will guide you through most parts involved when doing _Data Science_
+        - We will not show the steps of preparing and validating the data and omit steps subsequent to the evaluation of the Machine Learning model
+    * Primarily this presentations deals with the real data and models for predicting the recidivism of defendants
+        - Among training a classifier for this task, we will also look into the real model _COMPAS_ and its ethical implications
+    * After this interactive experience you should have a basic understanding of the processes involved and their implications
+        - Also you will see, that not much programming is required to get started
+        - Feel free to visit this interactive web application following its presentation and start experimenting
+
+  outline_header: Outline
+
+  outline_recap_header: Summarized Outline

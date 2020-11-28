@@ -1,0 +1,15 @@
+de:
+  header: Einleitung und Überblick
+
+  introduction: |
+    * Diese interaktive Fallstudie wird euch durch die meisten Bestandteile des Betreibens von _Data Science_ leiten
+        - Wir werden nicht die Schritte des Vorbereitens und Validieren der Daten zeigen und die auf die Evaluierung des "Machine Learning"-Modells folgenden Schritte weglassen
+    * Primär beschäftigt sich diese Präsentation mit den realen Daten und Modellen für die Vorhersage der Rückfälligkeit von Angeklagten
+        - Neben dem Training eines Klassifikators für diesen Zweck, werden wir auch auf das reale Modell _COMPAS_ und seine ethischen Implikationen schauen
+    * Nach dieser interaktiven Erfahrung solltet ihr ein grundlegendes Verständnis der involvierten Prozesse und ihrer Implikationen haben
+        - Außerdem werdet ihr sehen, dass um anzufangen gar nicht so viel Programmierung erforderlich ist
+        - Besucht gerne diese interaktive Web-Anwendung im Nachgang der Präsentation und fangt an zu experimentieren
+
+  outline_header: Überblick
+
+  outline_recap_header: Zusammenfassender Überblick

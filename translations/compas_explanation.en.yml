@@ -1,6 +1,9 @@
 en:
   header: Explanation of COMPAS
 
+  compas_acronym: COMPAS
+  compas_acronym_full: Correctional Offender Management Profiling for Alternative Sanctions
+
   explanation_compas_header: Explanation of the COMPAS System
 
   explanation_compas: |

@@ -3,6 +3,7 @@ de:
   # Common
   created_by: Erstellt von %{authors}
   source_available: Quellcode verfügbar auf %{source_url}
+    live_avaible: Live-Version verfügbar auf %{live_url}
   info: Informationen
   data_source:
     one: Datenquelle

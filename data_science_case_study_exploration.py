@@ -373,16 +373,18 @@ streamlit.title(
 )
 
 streamlit.header(
-    ":wave: " + "TODO: Introduction and Outline"
+    ":wave: " + translation("introduction.header")
 )
 
 INTRODUCTION_COLUMN, PROCESS_COLUMN = streamlit.beta_columns([2, 1])
 
 INTRODUCTION_COLUMN.markdown(
-    "TODO: Introduction Text"
+    translation("introduction.introduction")
 )
 
-INTRODUCTION_COLUMN.subheader("TODO: Outline")
+INTRODUCTION_COLUMN.subheader(
+    translation("introduction.outline_header")
+)
 
 OUTLINE = [
     ":floppy_disk: " + translation("data_access.header"),
@@ -404,7 +406,9 @@ INTRODUCTION_COLUMN.markdown(
     markdown_list(*OUTLINE, numbered=True)
 )
 
-streamlit.sidebar.subheader("TODO: Outline")
+streamlit.sidebar.subheader(
+    translation("introduction.outline_header")
+)
 
 streamlit.sidebar.markdown(
     markdown_list(*OUTLINE, numbered=True)
@@ -558,7 +562,7 @@ COLUMNS_EXPLANATION_COLUMN.markdown(
 )
 
 streamlit.subheader(
-    "TODO: Descriptive Statistics"
+    translation("data_access.subheader_describe")
 )
 
 streamlit.markdown(
@@ -1007,6 +1011,8 @@ streamlit.header(
     COMPAS_EXPLANATION_HEADER
 )
 
+streamlit.write("TODO: Quotes?")
+
 (
     COMPAS_EXPLANATION_COLUMN, COMPAS_ETHICAL_VIEW_COLUMN
 ) = streamlit.beta_columns(2)
@@ -1206,7 +1212,7 @@ for race in sorted(SELECTED_RACES):
 
 streamlit.header(
     ":clipboard: " +
-    "TODO: Summary"
+    translation("introduction.outline_recap_header")
 )
 
 OUTLINE_COMMENTS = [
@@ -1221,9 +1227,8 @@ OUTLINE_PREVIEW_ITEMS = [
     DEFENDANTS_DATA.head(n=3),
     CORRELATION_MATRIX.properties(width=400, height=300),
     f"![scikit-learn]({translation('libraries.scikit_learn_logo_url')})",
-    "COMPAS "
-    "(Correctional Offender Management Profiling "
-    "for Alternative Sanctions)",
+    f"{translation('compas_explanation.compas_acronym')} "
+    f"{translation('compas_explanation.compas_acronym_full')}",
     DECILE_SCORE_CHART_ALL
 ]
 
@@ -1247,7 +1252,7 @@ streamlit.header(
 )
 
 streamlit.info(
-    "TODO: Last but not least:"
+    translation("libraries.streamlit_intro")
 )
 
 STREAMLIT_LOGO_COLUMN, STREAMLIT_DESCRIPTION_COLUMN = show_library_two_columns("streamlit")

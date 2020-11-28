@@ -13,6 +13,8 @@ en:
 
   subheader_data_impression: Get an impression of the data
   data_frame_number_columns: The table contains `%{variable} = %{value}` columns, also called _features_ or _attributes_
+
+  subheader_describe: Descriptive Statistics
   data_frame_describe: The `DataFrame`'s `describe()` method generates descriptive statistics for each numerical column
 
   defendants_column_list: List of Columns
