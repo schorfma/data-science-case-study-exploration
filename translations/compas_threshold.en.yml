@@ -1,0 +1,7 @@
+en:
+  header: COMPAS Interactive Threshold Choosing
+
+  sample_size_slider: Select Sample Size
+  select_race_samples: Select sampled data according to race (each race sampled to %{sample_size} people)
+  threshold_slider: Choose a threshold for recommending COMPAS scores above the threshold as recidivists
+  show_correct_checkbox: Color correctness of predictions in the charts

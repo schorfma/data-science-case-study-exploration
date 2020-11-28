@@ -6,7 +6,7 @@ Authors:
 Since:
     2020-11-13
 Version:
-    2020-11-19
+    2020-11-28
 """
 
 from pathlib import Path
@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix
 # Definition of Global Variables
 
 # Version date
-VERSION = "2020-11-19"
+VERSION = "2020-11-28"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
@@ -103,7 +103,6 @@ class TranslationFunction(Protocol):
     ) -> Text:
         pass
 
-@streamlit.cache()
 def load_translation(
         translation_path: Path,
         language: Text,
@@ -235,9 +234,6 @@ def confusion_metrics(
         fn: int,
         container: streamlit._DeltaGenerator = streamlit._main
 ):
-    container.markdown(
-        "#### " + translation("data_classifier.related_metrics")
-    )
 
     # Accuracy
     container.markdown(
@@ -947,7 +943,12 @@ tn, fp, fn, tp = confusion_matrix(
 
 confusion_values(tp, tn, fp, fn, CONFUSION_COLUMN)
 
-confusion_metrics(tp, tn, fp, fn, METRICS_COLUMN)
+confusion_metrics(
+    tp, tn, fp, fn, METRICS_COLUMN.beta_expander(
+        translation("data_classifier.related_metrics"),
+        expanded=True
+    )
+)
 
 streamlit.header(
     "🧭 " + "TODO: Explanation of COMPAS"
@@ -969,11 +970,7 @@ streamlit.write(
 
 streamlit.header(
     "👆 " +
-    "TODO: COMPAS Interactive Threshold Choosing"
-)
-
-streamlit.markdown(
-    "TODO: Create one visualization for all visualizations"
+    translation("compas_threshold.header")
 )
 
 THRESHOLD_CHOOSING_BASE_DATA = CRIMINAL_PEOPLE_DATA[
@@ -993,7 +990,7 @@ RACES = list(
 )
 
 SAMPLE_SIZE = streamlit.slider(
-    "TODO: Sample Size",
+    translation("compas_threshold.sample_size_slider"),
     min_value=100,
     max_value=500,
     step=100,
@@ -1021,7 +1018,10 @@ RACES_SAMPLED_DATA_COMBINED = pandas.concat(
 )
 
 SELECTED_RACES = streamlit.multiselect(
-    "TODO: Select sampled data according to race",
+    translation(
+        "compas_threshold.select_race_samples",
+        sample_size=SAMPLE_SIZE
+    ),
     options=RACES,
     default=[
         "Caucasian",
@@ -1037,7 +1037,7 @@ for non_selected_race in list(
     ]
 
 THRESHOLD = streamlit.slider(
-    "TODO: Choose a threshold",
+    translation("compas_threshold.threshold_slider"),
     min_value=0,
     max_value=10,
     value=7
@@ -1048,7 +1048,7 @@ RACES_SAMPLED_DATA_COMBINED["action"] = RACES_SAMPLED_DATA_COMBINED.decile_score
 RACES_SAMPLED_DATA_COMBINED["correct"] = RACES_SAMPLED_DATA_COMBINED.is_recid == RACES_SAMPLED_DATA_COMBINED.action
 
 SHOW_CORRECT = streamlit.checkbox(
-    "TODO: Show Correct"
+    translation("compas_threshold.show_correct_checkbox")
 )
 
 DECILE_SCORE_CHART_BASE = altair.Chart(
@@ -1124,9 +1124,21 @@ for race in sorted(SELECTED_RACES):
 
     RACES_CONFUSION_COLUMN.subheader(f"`{race}`")
 
-    confusion_values(race_tp, race_tn, race_fp, race_fn, RACES_CONFUSION_COLUMN)
+    confusion_values(
+        race_tp, race_tn, race_fp, race_fn,
+        RACES_CONFUSION_COLUMN.beta_expander(
+            translation("data_classifier.confusion_matrix_values"),
+            expanded=False
+        )
+    )
 
-    confusion_metrics(race_tp, race_tn, race_fp, race_fn, RACES_CONFUSION_COLUMN)
+    confusion_metrics(
+        race_tp, race_tn, race_fp, race_fn,
+        RACES_CONFUSION_COLUMN.beta_expander(
+            translation("data_classifier.related_metrics"),
+            expanded=True
+        )
+    )
 
 streamlit.header(
     ":clipboard: " +

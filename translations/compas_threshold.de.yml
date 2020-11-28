@@ -1,0 +1,7 @@
+de:
+  header: Interaktive Auswahl des COMPAS-Schwellwerts
+
+  sample_size_slider: Auswahl einer Sample-Größe
+  select_race_samples: Auswahl der gesampelten Daten gemäß Ethnien (Jede Ethnie gesampled auf %{sample_size} Personen)
+  threshold_slider: Auswahl eines Schwellwerts, sodass COMPAS-Werte über dem Schwellwert als rückfällig eingeschätzt werden
+  show_correct_checkbox: Farbige Hervorhebung der Korrektheit der Vorhersagen in den Diagrammen
