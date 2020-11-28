@@ -2,8 +2,18 @@ en:
 
   data_visualization_head: Data Visualization
 
+  data_visualization_intro: |
+    * Decision making increasingly relies on data
+    * Data comes at us with such volume
+    * Need of some layer of abstraction, such as visual one
+
   correlation_matrix_label: Correlation Matrix
   correlation_according_to_genders: Correlation according to genders
+
+  data_correlation_intro: |
+    * When we speak of correlation, we usually speak of the _Pearson_ correlation
+    * Or simply called correlation coefficient
+    * Correlation is a measure of the statistical relationship between two data sets
 
   gender_option_all: All
   gender_option_female: Female

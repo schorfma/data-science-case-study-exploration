@@ -2,6 +2,11 @@ de:
 
   data_visualization_head: Datenvisualierung
 
+  data_visualization_intro: |
+    * Das Treffen von Entscheidungen erfordert zunehmend Daten
+    * Die Daten liegen in großer Menge vor
+    * Zum Verständnis wird eine Abstraktionsschicht benötigt - wie eine visuelle
+
   correlation_matrix_label: Korrelationsmatrix
   correlation_according_to_genders: Korrelation entsprechend der Geschechter
 

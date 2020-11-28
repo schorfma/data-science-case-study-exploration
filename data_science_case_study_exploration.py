@@ -185,6 +185,87 @@ def show_library_two_columns(
     return logo_column, description_column
 
 
+def confusion_values(
+        tp: int,
+        tn: int,
+        fp: int,
+        fn: int,
+        container: streamlit._DeltaGenerator = streamlit._main
+):
+    data_count = sum([tp, tn, fp, fn])
+    container.markdown(
+        markdown_list(
+            *[
+                f"`{key}` / **{name}**: `{value}` / `{data_count}` = "
+                f"`{(value / data_count):.2f}` ({description})"
+                for key, name, description, value in [
+                    (
+                        "tp",
+                        translation("data_classifier.tp_name"),
+                        translation("data_classifier.tp_description"),
+                        tp
+                    ),
+                    (
+                        "tn",
+                        translation("data_classifier.tn_name"),
+                        translation("data_classifier.tn_description"),
+                        tn
+                    ),
+                    (
+                        "fp",
+                        translation("data_classifier.fp_name"),
+                        translation("data_classifier.fp_description"),
+                        fp
+                    ),
+                    (
+                        "fn",
+                        translation("data_classifier.fn_name"),
+                        translation("data_classifier.fn_description"),
+                        fn
+                    )
+                ]
+            ]
+        )
+    )
+
+def confusion_metrics(
+        tp: int,
+        tn: int,
+        fp: int,
+        fn: int,
+        container: streamlit._DeltaGenerator = streamlit._main
+):
+    container.markdown(
+        "#### " + translation("data_classifier.related_metrics")
+    )
+
+    # Accuracy
+    container.markdown(
+        "##### " + translation("data_classifier.accuracy")
+    )
+
+    container.latex(
+        "\\frac{TP + TN}{TP + TN + FP + FN} = " + f"{(tp + tn) / sum([tp, tn, fp, fn]):.2f}"
+    )
+
+    # Precision
+    container.markdown(
+        "##### " + translation("data_classifier.precision")
+    )
+
+    container.latex(
+        "\\frac{TP}{TP + FP} = " + (f"{tp / (tp + fp):.2f}" if tp else "0.00")
+    )
+
+    # Recall
+    container.markdown(
+        "##### " + translation("data_classifier.recall")
+    )
+
+    container.latex(
+        "\\frac{TP}{TP + FN} = " + (f"{tp / (tp + fn):.2f}" if tp else "0.00")
+    )
+
 # Streamlit Script
 
 streamlit.set_page_config(
@@ -438,6 +519,10 @@ streamlit.header(
     ":bar_chart: " + translation("data_visualization.data_visualization_head")
 )
 
+streamlit.markdown(
+    translation("data_visualization.data_visualization_intro")
+)
+
 streamlit.subheader(translation("data_visualization.correlation_matrix_label"))
 
 correlation_columns = list(CRIMINAL_PEOPLE_DATA.columns)
@@ -513,6 +598,10 @@ correlation_plot = base_correlation_plot.mark_rect(
 )
 
 CORRELATION_MATRIX = correlation_plot + correlation_plot_text
+
+streamlit.markdown(
+    translation("data_visualization.data_correlation_intro")
+)
 
 streamlit.altair_chart(
     CORRELATION_MATRIX.properties(
@@ -831,71 +920,9 @@ tn, fp, fn, tp = confusion_matrix(
     """
 )
 
-CONFUSION_COLUMN.markdown(
-    markdown_list(
-        *[
-            f"`{key}` / **{name}**: `{value}` / `{TEST_DATA_COUNT}` = "
-            f"`{(value / TEST_DATA_COUNT):.2f}` ({description})"
-            for key, name, description, value in [
-                (
-                    "tp",
-                    translation("data_classifier.tp_name"),
-                    translation("data_classifier.tp_description"),
-                    tp
-                ),
-                (
-                    "tn",
-                    translation("data_classifier.tn_name"),
-                    translation("data_classifier.tn_description"),
-                    tn
-                ),
-                (
-                    "fp",
-                    translation("data_classifier.fp_name"),
-                    translation("data_classifier.fp_description"),
-                    fp
-                ),
-                (
-                    "fn",
-                    translation("data_classifier.fn_name"),
-                    translation("data_classifier.fn_description"),
-                    fn
-                )
-            ]
-        ]
-    )
-)
+confusion_values(tp, tn, fp, fn, CONFUSION_COLUMN)
 
-METRICS_COLUMN.markdown(
-    "#### " + translation("data_classifier.related_metrics")
-)
-
-# Accuracy
-METRICS_COLUMN.markdown(
-    "##### " + translation("data_classifier.accuracy")
-)
-
-METRICS_COLUMN.latex(
-    "\\frac{TP + TN}{TP + TN + FP + FN} = " + f"{(tp + tn) / TEST_DATA_COUNT:.2f}"
-)
-
-# Precision
-METRICS_COLUMN.markdown(
-    "##### " + translation("data_classifier.precision")
-)
-
-METRICS_COLUMN.latex(
-    "\\frac{TP}{TP + FP} = " + (f"{tp / (tp + fp):.2f}" if tp else "0.00")
-)
-
-# Recall
-METRICS_COLUMN.markdown(
-    "##### " + translation("data_classifier.recall")
-)
-
-METRICS_COLUMN.latex(
-    "\\frac{TP}{TP + FN} = " + (f"{tp / (tp + fn):.2f}" if tp else "0.00")
-)
+confusion_metrics(tp, tn, fp, fn, METRICS_COLUMN)
 
 streamlit.header(
     "🧭 " + "TODO: Explanation of COMPAS"
@@ -1008,13 +1035,21 @@ DECILE_SCORE_CHART_BASE = altair.Chart(
     y="count(is_recid):Q",
     column=altair.Column(
         "action:N",
-        sort=["Released", "Jailed"]
+        sort="descending"
     ),
-    color=(
+    color=altair.Color(
         "is_recid:N" if not SHOW_CORRECT
-        else "correct:N"
+        else "correct:N",
+        scale=altair.Scale(
+            domain=["Not Recid", "Recid"],
+            range=["Blue", "Orange"]
+        ) if not SHOW_CORRECT else altair.Scale(
+            domain=["Incorrect", "Correct"],
+            range=["Red", "Green"]
+        )
     )
 ).transform_calculate(
+    is_recid="{0: 'Not Recid', 1: 'Recid'}[datum.is_recid]",
     action="{0: 'Released', 1: 'Jailed'}[datum.action]",
     correct="{0: 'Incorrect', 1: 'Correct'}[datum.correct]"
 ).transform_window(
@@ -1025,10 +1060,12 @@ DECILE_SCORE_CHART_BASE = altair.Chart(
 DECILE_SCORE_CHART_ALL = DECILE_SCORE_CHART_BASE
 
 DECILE_SCORE_CHART_RACES = DECILE_SCORE_CHART_BASE.encode(
-    row="race:N"
+    row=altair.Row("race:N", sort="ascending")
 )
 
-streamlit.altair_chart(
+ALL_CHART_COLUMN, ALL_CONFUSION_COLUMN = streamlit.beta_columns(2)
+
+ALL_CHART_COLUMN.altair_chart(
     DECILE_SCORE_CHART_ALL
 )
 
@@ -1041,23 +1078,31 @@ ALL_TN, ALL_FP, ALL_FN, ALL_TP = confusion_matrix(
     RACES_SAMPLED_DATA_COMBINED.action
 ).ravel()
 
-streamlit.markdown(
-    markdown_list(
-        *[
-            f"`{key}`: `{value}` / `{ALL_COUNT}` = `{(value / ALL_COUNT):.02f}`"
-            for key, value in [
-                ("TP", ALL_TP),
-                ("TN", ALL_TN),
-                ("FP", ALL_FP),
-                ("FN", ALL_FN)
-            ]
-        ]
-    )
-)
+confusion_values(ALL_TP, ALL_TN, ALL_FP, ALL_FN, ALL_CONFUSION_COLUMN)
 
-streamlit.altair_chart(
+confusion_metrics(ALL_TP, ALL_TN, ALL_FP, ALL_FN, ALL_CONFUSION_COLUMN)
+
+RACES_CHART_COLUMN, RACES_CONFUSION_COLUMN = streamlit.beta_columns(2)
+
+RACES_CHART_COLUMN.altair_chart(
     DECILE_SCORE_CHART_RACES
 )
+
+for race in sorted(SELECTED_RACES):
+    race_tn, race_fp, race_fn, race_tp = confusion_matrix(
+        RACES_SAMPLED_DATA_COMBINED[
+            RACES_SAMPLED_DATA_COMBINED.race == race
+        ].is_recid,
+        RACES_SAMPLED_DATA_COMBINED[
+            RACES_SAMPLED_DATA_COMBINED.race == race
+        ].action
+    ).ravel()
+
+    RACES_CONFUSION_COLUMN.subheader(f"`{race}`")
+
+    confusion_values(race_tp, race_tn, race_fp, race_fn, RACES_CONFUSION_COLUMN)
+
+    confusion_metrics(race_tp, race_tn, race_fp, race_fn, RACES_CONFUSION_COLUMN)
 
 streamlit.header(
     ":clipboard: " +
