@@ -362,11 +362,17 @@ streamlit.sidebar.info(
         ),
         translation(
             "common.source_available",
-            source_url=translation("sources.this_gitlab_url")
+            source_url=(
+                f"[{translation('sources.this_gitlab_title')}]"
+                f"({translation('sources.this_gitlab_url')})"
+            )
         ),
         translation(
             "common.live_available",
-            live_url=translation("sources.this_live_url")
+            live_url=(
+                f"[{translation('sources.this_live_title')}]"
+                f"({translation('sources.this_live_url')})"
+            )
         )
     )
 )
