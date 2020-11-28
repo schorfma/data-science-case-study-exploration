@@ -345,11 +345,19 @@ INTRODUCTION_COLUMN.subheader("TODO: Outline")
 
 OUTLINE = [
     ":floppy_disk: " + translation("data_access.header"),
-    ":bar_chart: " + "TODO: Data Visualization",
+    ":bar_chart: " + translation("data_visualization.header"),
     ":card_file_box: " + "TODO: Training a Recidivism Classifier",
     "🧭 " + "TODO: Explanation of COMPAS",
     "👆 " + "TODO: COMPAS Interactive Threshold Choosing"
 ]
+
+(
+    DATA_ACCESS_HEADER,
+    DATA_VISUALIZAZION_HEADER,
+    DATA_CLASSIFIER_HEADER,
+    COMPAS_EXPLANATION_HEADER,
+    COMPAS_THRESHOLD_HEADER
+) = OUTLINE
 
 INTRODUCTION_COLUMN.markdown(
     markdown_list(*OUTLINE, numbered=True)
@@ -374,7 +382,7 @@ PROCESS_COLUMN.markdown(
 
 # Database Access
 streamlit.header(
-    ":floppy_disk: " + translation("data_access.header")
+    DATA_ACCESS_HEADER
 )
 
 streamlit.info(
@@ -524,11 +532,11 @@ streamlit.dataframe(
 )
 
 streamlit.header(
-    ":bar_chart: " + translation("data_visualization.data_visualization_head")
+    DATA_VISUALIZAZION_HEADER
 )
 
 streamlit.markdown(
-    translation("data_visualization.data_visualization_intro")
+    translation("data_visualization.intro")
 )
 
 streamlit.subheader(translation("data_visualization.correlation_matrix_label"))
@@ -695,7 +703,7 @@ BOXPLOT_OBSERVATION_COLUMN.markdown(
 
 # Training Recidivism Classifier
 streamlit.header(
-    ":card_file_box: " + translation("data_classifier.header_classifier_training")
+    DATA_CLASSIFIER_HEADER
 )
 
 (
@@ -951,7 +959,7 @@ confusion_metrics(
 )
 
 streamlit.header(
-    "🧭 " + "TODO: Explanation of COMPAS"
+    COMPAS_EXPLANATION_HEADER
 )
 
 streamlit.write(
@@ -969,8 +977,7 @@ streamlit.write(
 )
 
 streamlit.header(
-    "👆 " +
-    translation("compas_threshold.header")
+    COMPAS_THRESHOLD_HEADER
 )
 
 THRESHOLD_CHOOSING_BASE_DATA = CRIMINAL_PEOPLE_DATA[
@@ -1179,3 +1186,62 @@ streamlit.header(
     ":books: " +
     "TODO: Streamlit und Quellen"
 )
+
+streamlit.info(
+    "TODO: Last but not least:"
+)
+
+STREAMLIT_LOGO_COLUMN, STREAMLIT_DESCRIPTION_COLUMN = show_library_two_columns("streamlit")
+
+SOURCES = [
+    "propublica_article_machine_bias",
+    "propublica_article_compas_analysis",
+    "propublica_github_compas_analysis",
+    "technology_review_ai_fairer_judge"
+]
+
+SOURCE_ATTRIBUTES = [
+    "url",
+    "title",
+    "subtitle",
+    "organization",
+    "authors",
+    "date"
+]
+
+for source in SOURCES:
+    (
+        source_url,
+        source_title,
+        source_subtitle,
+        source_organization,
+        source_authors,
+        source_date
+    ) = (
+        translation(f"sources.{source}_{attribute}")
+        for attribute in SOURCE_ATTRIBUTES
+    )
+
+
+
+    streamlit.subheader(
+        f"_{source_organization}_, "
+        f"`{source_date}`: "
+        f"{source_title}"
+    )
+
+    SOURCE_INFO_COLUMN, SOURCE_AUTHOR_COLUMN = streamlit.beta_columns([2, 1])
+
+    with SOURCE_INFO_COLUMN:
+        streamlit.markdown(
+            f"> {source_subtitle}"
+        )
+
+        streamlit.markdown(
+            f"<{source_url}>"
+        )
+
+    with SOURCE_AUTHOR_COLUMN:
+        streamlit.info(
+            f"{translation('common.created_by', authors=source_authors)}"
+        )

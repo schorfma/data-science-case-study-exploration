@@ -1,8 +1,8 @@
 en:
 
-  data_visualization_head: Data Visualization
+  header: Data Visualization
 
-  data_visualization_intro: |
+  intro: |
     * Decision making increasingly relies on data
     * Data comes at us with such volume
     * Need of some layer of abstraction, such as visual one

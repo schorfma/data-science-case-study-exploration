@@ -14,12 +14,15 @@ en:
   propublica_article_machine_bias_url: https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing
   propublica_article_machine_bias_title: Machine Bias
   propublica_article_machine_bias_subtitle: There's software used across the country to predict future criminals. And it's biased against blacks.
-  propublica_article_machine_bias_authors: Julia Angwin, Jeff Larson, Surya Mattu and Lauren Kirchner, ProPublica
+  propublica_article_machine_bias_organization: ProPublica
+  propublica_article_machine_bias_authors: Julia Angwin, Jeff Larson, Surya Mattu and Lauren Kirchner
   propublica_article_machine_bias_date: May 23, 2016
 
   # ProPublica Article COMPAS Analysis
   propublica_article_compas_analysis_url: https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm
   propublica_article_compas_analysis_title: How We Analyzed the COMPAS Recidivism Algorithm
+  propublica_article_compas_analysis_subtitle: Across the nation, judges, probation and parole officers are increasingly using algorithms to assess a criminal defendant's likelihood of becoming a recidivist – a term used to describe criminals who re-offend. [...]
+  propublica_article_compas_analysis_organization: ProPublica
   propublica_article_compas_analysis_authors: Jeff Larson, Surya Mattu, Lauren Kirchner and Julia Angwin
   propublica_article_compas_analysis_date: May 23, 2016
 
@@ -28,6 +31,7 @@ en:
   propublica_github_compas_analysis_platform: GitHub
   propublica_github_compas_analysis_title: propublica / compas-analysis
   propublica_github_compas_analysis_subtitle: This repository contains a Jupyter notebook and data for the ProPublica story "Machine Bias."
+  propublica_github_compas_analysis_organization: ProPublica
   propublica_github_compas_analysis_authors: ProPublica
   propublica_github_compas_analysis_date: June 13, 2017
 
@@ -35,5 +39,6 @@ en:
   technology_review_ai_fairer_judge_url: https://www.technologyreview.com/2019/10/17/75285/ai-fairer-than-judge-criminal-risk-assessment-algorithm/
   technology_review_ai_fairer_judge_title: Can you make AI fairer than a judge? Play our courtroom algorithm game
   technology_review_ai_fairer_judge_subtitle: The US criminal legal system uses predictive algorithms to try to make the judicial process less biased. But there’s a deeper problem.
+  technology_review_ai_fairer_judge_organization: MIT Technology Review
   technology_review_ai_fairer_judge_authors: Karen Hao and Jonathan Stray
   technology_review_ai_fairer_judge_date: October 17, 2019
