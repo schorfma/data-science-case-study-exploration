@@ -185,13 +185,28 @@ def show_library_two_columns(
 
 
 def confusion_values(
-        tp: int,
-        tn: int,
-        fp: int,
-        fn: int,
+        true_positive: int,
+        true_negative: int,
+        false_positive: int,
+        false_negative: int,
         container: streamlit._DeltaGenerator = streamlit._main
 ):
-    data_count = sum([tp, tn, fp, fn])
+    """Explains confusion values and shows relative share.
+
+    Args:
+        true_positive:
+            Number of True Positives.
+        true_negative:
+            Number of True Negatives.
+        false_positive:
+            Number of False Positives.
+        false_negative:
+            Number of False Negatives.
+        container:
+            Streamlit container to display the information in.
+    """
+    # pylint: disable=invalid-name
+    data_count = sum([true_positive, true_negative, false_positive, false_negative])
     container.markdown(
         markdown_list(
             *[
@@ -202,25 +217,25 @@ def confusion_values(
                         "tp",
                         translation("data_classifier.tp_name"),
                         translation("data_classifier.tp_description"),
-                        tp
+                        true_positive
                     ),
                     (
                         "tn",
                         translation("data_classifier.tn_name"),
                         translation("data_classifier.tn_description"),
-                        tn
+                        true_negative
                     ),
                     (
                         "fp",
                         translation("data_classifier.fp_name"),
                         translation("data_classifier.fp_description"),
-                        fp
+                        false_positive
                     ),
                     (
                         "fn",
                         translation("data_classifier.fn_name"),
                         translation("data_classifier.fn_description"),
-                        fn
+                        false_negative
                     )
                 ]
             ]
@@ -228,12 +243,30 @@ def confusion_values(
     )
 
 def confusion_metrics(
-        tp: int,
-        tn: int,
-        fp: int,
-        fn: int,
+        true_positive: int,
+        true_negative: int,
+        false_positive: int,
+        false_negative: int,
         container: streamlit._DeltaGenerator = streamlit._main
 ):
+    """Explains confusion metrics and shows their formulas.
+
+    Args:
+        true_positive:
+            Number of True Positives.
+        true_negative:
+            Number of True Negatives.
+        false_positive:
+            Number of False Positives.
+        false_negative:
+            Number of False Negatives.
+        container:
+            Streamlit container to display the information in.
+    """
+
+    data_count = sum(
+        [true_positive, true_negative, false_positive, false_negative]
+    )
 
     # Accuracy
     container.markdown(
@@ -245,7 +278,8 @@ def confusion_metrics(
     )
 
     container.latex(
-        "\\frac{TP + TN}{TP + TN + FP + FN} = " + f"{(tp + tn) / sum([tp, tn, fp, fn]):.2f}"
+        "\\frac{TP + TN}{TP + TN + FP + FN} = " +
+        f"{(true_positive + true_negative) / data_count:.2f}"
     )
 
     # Precision
@@ -258,7 +292,11 @@ def confusion_metrics(
     )
 
     container.latex(
-        "\\frac{TP}{TP + FP} = " + (f"{tp / (tp + fp):.2f}" if tp else "0.00")
+        "\\frac{TP}{TP + FP} = " +
+        (
+            f"{true_positive / (true_positive + false_positive):.2f}"
+            if true_positive else "0.00"
+        )
     )
 
     # Recall
@@ -271,7 +309,10 @@ def confusion_metrics(
     )
 
     container.latex(
-        "\\frac{TP}{TP + FN} = " + (f"{tp / (tp + fn):.2f}" if tp else "0.00")
+        "\\frac{TP}{TP + FN} = " + (
+            f"{true_positive / (true_positive + false_negative):.2f}"
+            if true_positive else "0.00"
+        )
     )
 
 # Streamlit Script
@@ -377,7 +418,9 @@ PROCESS_COLUMN.image(
 PROCESS_COLUMN.markdown(
     "Mojassamehleiden, "
     "[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), "
-    "[File:CRISPDM-Extended-Majid.png](https://commons.wikimedia.org/wiki/File:CRISPDM-Extended-Majid.png) via Wikimedia Commons"
+    "[File:CRISPDM-Extended-Majid.png]"
+    "(https://commons.wikimedia.org/wiki/File:CRISPDM-Extended-Majid.png) "
+    "via Wikimedia Commons"
 )
 
 # Database Access
@@ -797,6 +840,7 @@ TRAIN_TEST_SPLIT_CODE_EXPANDER.markdown(
     )
 )
 
+# pylint: disable=line-too-long
 TRAIN_TEST_SPLIT_CODE_EXPANDER.code(
     f"""
 from sklearn.model_selection import train_test_split
@@ -813,6 +857,7 @@ from sklearn.model_selection import train_test_split
 )
     """
 )
+# pylint: enable=line-too-long
 
 (
     INPUT_TRAIN_DATA,
@@ -1050,9 +1095,13 @@ THRESHOLD = streamlit.slider(
     value=7
 )
 
-RACES_SAMPLED_DATA_COMBINED["action"] = RACES_SAMPLED_DATA_COMBINED.decile_score > THRESHOLD
+RACES_SAMPLED_DATA_COMBINED["action"] = (
+    RACES_SAMPLED_DATA_COMBINED.decile_score > THRESHOLD
+)
 
-RACES_SAMPLED_DATA_COMBINED["correct"] = RACES_SAMPLED_DATA_COMBINED.is_recid == RACES_SAMPLED_DATA_COMBINED.action
+RACES_SAMPLED_DATA_COMBINED["correct"] = (
+    RACES_SAMPLED_DATA_COMBINED.is_recid == RACES_SAMPLED_DATA_COMBINED.action
+)
 
 SHOW_CORRECT = streamlit.checkbox(
     translation("compas_threshold.show_correct_checkbox")
@@ -1163,8 +1212,10 @@ OUTLINE_COMMENTS = [
 OUTLINE_PREVIEW_ITEMS = [
     DEFENDANTS_DATA.head(n=3),
     CORRELATION_MATRIX.properties(width=400, height=300),
-    "![scikit-learn](https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg)",
-    "4",
+    f"![scikit-learn]({translation('libraries.scikit_learn_logo_url')})",
+    "COMPAS "
+    "(Correctional Offender Management Profiling "
+    "for Alternative Sanctions)",
     DECILE_SCORE_CHART_ALL
 ]
 

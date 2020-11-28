@@ -19,6 +19,7 @@ en:
   scikit_learn_name: scikit-learn
   scikit_learn_url: https://scikit-learn.org
   scikit_learn_logo: ./images/scikit-learn-logo.png
+  scikit_learn_logo_url: https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg
   scikit_learn_description: |
     **scikit-learn** (`sklearn`) - Machine Learning in Python
 
