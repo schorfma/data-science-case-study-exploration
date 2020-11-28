@@ -2,6 +2,10 @@
 
 An interactive explanation about **Data Science** with the exploration of a **Case Study** realized with _Streamlit_
 
+## Live Web Application
+
+* <https://share.streamlit.io/schorfma/data-science-case-study-exploration/data_science_case_study_exploration.py>
+
 ## Installation
 
 * Have _Python ≥ 3.8.0_ installed
