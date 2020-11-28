@@ -244,6 +244,10 @@ def confusion_metrics(
         "##### " + translation("data_classifier.accuracy")
     )
 
+    container.markdown(
+        translation("data_classifier.accuracy_description")
+    )
+
     container.latex(
         "\\frac{TP + TN}{TP + TN + FP + FN} = " + f"{(tp + tn) / sum([tp, tn, fp, fn]):.2f}"
     )
@@ -253,6 +257,10 @@ def confusion_metrics(
         "##### " + translation("data_classifier.precision")
     )
 
+    container.markdown(
+        translation("data_classifier.precision_description")
+    )
+
     container.latex(
         "\\frac{TP}{TP + FP} = " + (f"{tp / (tp + fp):.2f}" if tp else "0.00")
     )
@@ -260,6 +268,10 @@ def confusion_metrics(
     # Recall
     container.markdown(
         "##### " + translation("data_classifier.recall")
+    )
+
+    container.markdown(
+        translation("data_classifier.recall_description")
     )
 
     container.latex(
@@ -1054,8 +1066,7 @@ DECILE_SCORE_CHART_BASE = altair.Chart(
         "is_recid:N" if not SHOW_CORRECT
         else "correct:N",
         scale=altair.Scale(
-            domain=["Not Recid", "Recid"],
-            range=["Blue", "Orange"]
+            domain=["Not Recid", "Recid"]
         ) if not SHOW_CORRECT else altair.Scale(
             domain=["Incorrect", "Correct"],
             range=["Red", "Green"]
@@ -1135,7 +1146,7 @@ OUTLINE_PREVIEW_ITEMS = [
     CORRELATION_MATRIX.properties(width=400, height=300),
     "![scikit-learn](https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg)",
     "4",
-    "5"
+    DECILE_SCORE_CHART_ALL
 ]
 
 for index, section, comment, preview in zip(

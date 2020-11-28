@@ -44,3 +44,6 @@ de:
   fn_description: Inkorrekt vorhergesagt als nicht rückfällig, tatsächlich rückfällig
 
   related_metrics: Metriken mit Bezug dazu
+  accuracy_description: Anteil der korrekten Vorhersagen (`TP`, `TN`, Vorhergesagte Rückfälligkeit == Tatsächliche Rückfälligkeit) an allen Vorhersagen
+  precision_description: Anteil der korrekt vorhergesagten rückfälligen Täter (`TP`) an allen Personen, die als rückfällig vorhergesagt wurden (`TP`, `FP`)
+  recall_description: Anteil der korrekt vorhergesagten rückfälligen Tätern (`TP`) an allen, die tatsächlich rückfällig geworden sind (`TP`, `FN`)

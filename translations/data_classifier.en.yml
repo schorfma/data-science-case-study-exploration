@@ -45,5 +45,8 @@ en:
 
   related_metrics: Related Metrics
   accuracy: Accuracy
+  accuracy_description: Share of correct predictions (`TP`, `TN`, Predicted Recidivism == Actual Recidivism) in all predictions
   precision: Precision
+  precision_description: Share of correctly predicted recidivists (`TP`) in all people predicted as recidivists (`TP`, `FP`)
   recall: Recall
+  recall_description: Share of correctly predicted recidivists (`TP`) in all actual recidivists (`TP`, `FN`)
