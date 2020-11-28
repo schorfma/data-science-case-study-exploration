@@ -11,7 +11,7 @@ de:
   explanation_compas: |
     * **COMPAS** (Correctional Offender Management Profiling for Alternative Sanctions)
         - Kommerzielles Produkt der _Northpointe Inc._
-        - Algorithmus zur Risikoabschätzungs, die im US-Strafrechtssystem verwendet werden
+        - Algorithmus zur Risikoabschätzung, die im US-Strafrechtssystem verwendet werden
     * Wird von Richtern für die Entscheidung genutzt, ob ein Angeklagter in Haft gehalten werden sollte oder während des Wartens auf den Prozess herausgelassen werden
     * Der Algorithmus basiert auf historischen Daten von Angeklagten (137 Fragen und Anworten), um Korrelationen zu finden
         - Verwendet diese, um die Wahrscheinlichkeit vorherzusagen, ob ein Angeklagter wegen eines neuen Verbrechens in der Zeit bis zur Gerichtsverhandlung verhaftet wird
