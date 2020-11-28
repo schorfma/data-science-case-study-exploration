@@ -9,7 +9,7 @@ en:
   # Common
   created_by: Created by %{authors}
   source_available: Source code available on %{source_url}
-  live_avaible: Live version available on %{live_url}
+  live_available: Live version available on %{live_url}
   info: Information
   data_source:
     one: Data source
