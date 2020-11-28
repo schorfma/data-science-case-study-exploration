@@ -1,6 +1,9 @@
 de:
 
   header: Datenvisualierung
+  summary: |
+    * Korrelationsmatrix zum Auswerten linearer Zusammenhänge
+    * Überblick über ausgewählte Spalten über Boxplot-Diagramm
 
   intro: |
     * Das Treffen von Entscheidungen erfordert zunehmend Daten

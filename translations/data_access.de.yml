@@ -1,6 +1,11 @@
 de:
 
   header: Zugriff auf die Daten
+  summary: |
+    * Inspektion der Daten
+    * Auswahl nutzbarer Spalten
+    * Deskriptive Statistiken zu den Spalten
+
   use_real_data_defendants_broward_county: Wir werden reale Daten aus _Broward County_, _Florida_, _USA_ zu Angeklagten, welche zwischen `2013` und `2014` für Verbrechen vor Gericht standen, verwenden
   simplicity_data_table: Der Einfachheit halber starten wir mit den Daten, die bereits in Form eines Tabellen-Objektes (`pandas.DataFrame`) importiert wurden
   data_frame_inspection: Zuerst lasst uns dieses `DataFrame` inspizieren

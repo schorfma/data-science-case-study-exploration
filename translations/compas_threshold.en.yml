@@ -1,5 +1,9 @@
 en:
-  header: COMPAS Interactive Threshold Choosing
+  header: COMPAS Interactive Threshold Exploration
+  summary: |
+    * Interpretation of the COMPAS score
+    * Explorable thresholds with related metrics
+    * Proving the racial bias
 
   sample_size_slider: Select Sample Size
   select_race_samples: Select sampled data according to race (each race sampled to %{sample_size} people)

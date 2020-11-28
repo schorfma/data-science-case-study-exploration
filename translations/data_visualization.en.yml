@@ -1,6 +1,9 @@
 en:
 
   header: Data Visualization
+  summary: |
+    * Correlation matrix for examining linear relationships
+    * Overview over selected columns via a boxplot chart
 
   intro: |
     * Decision making increasingly relies on data

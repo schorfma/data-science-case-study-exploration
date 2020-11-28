@@ -1,5 +1,9 @@
 en:
   header: Explanation of COMPAS
+  summary: |
+    * Explanation of the COMPAS system
+    * Ethical implications of the COMPAS system
+        - i.e. Repurposing
 
   compas_acronym: COMPAS
   compas_acronym_full: Correctional Offender Management Profiling for Alternative Sanctions
@@ -8,6 +12,7 @@ en:
 
   explanation_compas: |
     * **COMPAS** (Correctional Offender Management Profiling for Alternative Sanctions)
+        - Commercial product of _Northpointe Inc._
         - Algorithm "risk assessment" tools used in the US criminal legal system
     * Used to help judges determine whether a defendant should be kept in jail or be allowed out while awaiting trial
     * It trains on historical defendant data (137 questions and answers) to find correlations

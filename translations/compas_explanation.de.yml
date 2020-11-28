@@ -1,11 +1,16 @@
 de:
 
   header: Explanation of COMPAS
+  summary: |
+    * Erklärung des COMPAS-Systems
+    * Ethische Implikationen des COMPAS-Systems
+        - z.B. Zweckentfremdung
 
   explanation_compas_header: Erklärung des COMPAS-Systems
 
   explanation_compas: |
     * **COMPAS** (Correctional Offender Management Profiling for Alternative Sanctions)
+        - Kommerzielles Produkt der _Northpointe Inc._
         - Algorithmus zur Risikoabschätzungs, die im US-Strafrechtssystem verwendet werden
     * Wird von Richtern für die Entscheidung genutzt, ob ein Angeklagter in Haft gehalten werden sollte oder während des Wartens auf den Prozess herausgelassen werden
     * Der Algorithmus basiert auf historischen Daten von Angeklagten (137 Fragen und Anworten), um Korrelationen zu finden

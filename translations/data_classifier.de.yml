@@ -1,6 +1,14 @@
 de:
 
   header: Training eines Klassifikators für Rückfälligkeit
+  summary: |
+    * Durchführung einer Aufteilung in Trainings- und Testdaten
+    * Training einer existieren Entschediungsbaum-Klassifikator-Implementierung
+    * Welche Datenspalten und Parameter-Werte sollen verwendet werden?
+    * Verwirrungsmatrix-Werte und verwandte Metriken
+        - Accuracy
+        - Precision
+        - Recall
 
   train_implemented_classifier: Nun werden werden wir einen implementierten Klassifikator der Bibliothek `scikit-learn` auf Rückfälligkeit der Verurteilten trainieren
   train_feature_selection: Die unten ausgewählten Features werden verwendet, um das System zu trainieren und die Spalte `%{label}` wird als _Ziel_ oder _Label_ verwendet.

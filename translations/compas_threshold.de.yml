@@ -1,5 +1,9 @@
 de:
-  header: Interaktive Auswahl des COMPAS-Schwellwerts
+  header: Interaktive Erkundung des COMPAS-Schwellwerts
+  summary: |
+    * Interpretation der COMPAS-Score
+    * Erkundbare Schwellwerte mit dazugehörigen Metriken
+    * Beweis der ethnischen Voreingenommenheit
 
   sample_size_slider: Auswahl einer Sample-Größe
   select_race_samples: Auswahl der gesampelten Daten gemäß Ethnien (Jede Ethnie gesampled auf %{sample_size} Personen)

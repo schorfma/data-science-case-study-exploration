@@ -1220,19 +1220,19 @@ streamlit.header(
 )
 
 OUTLINE_COMMENTS = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5"
+    translation("data_access.summary"),
+    translation("data_visualization.summary"),
+    translation("data_classifier.summary"),
+    translation("compas_explanation.summary"),
+    translation("compas_threshold.summary")
 ]
 
 OUTLINE_PREVIEW_ITEMS = [
     DEFENDANTS_DATA.head(n=3),
     CORRELATION_MATRIX.properties(width=400, height=300),
     f"![scikit-learn]({translation('libraries.scikit_learn_logo_url')})",
-    f"{translation('compas_explanation.compas_acronym')} "
-    f"{translation('compas_explanation.compas_acronym_full')}",
+    f"#### {translation('compas_explanation.compas_acronym')} "
+    f"({translation('compas_explanation.compas_acronym_full')})",
     DECILE_SCORE_CHART_ALL
 ]
 

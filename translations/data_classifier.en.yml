@@ -1,6 +1,14 @@
 en:
 
   header: Training a Recidivism Classifier
+  summary: |
+    * Train-Test-Split
+    * Training of an existing Decision Tree Classifier implementation
+    * Which data columns and parameter values to use?
+    * Confusion matrix values and related metrics
+        - Accuracy
+        - Precision
+        - Recall
 
   train_implemented_classifier: Now we are going to train an implemented Classifier of the library `scikit-learn` on recidivism of convicted people
   train_feature_selection: The features selected below will be used to train the system and the column `%{label}` is used as the _target_ or _label_
