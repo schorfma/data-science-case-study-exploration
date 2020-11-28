@@ -346,9 +346,9 @@ INTRODUCTION_COLUMN.subheader("TODO: Outline")
 OUTLINE = [
     ":floppy_disk: " + translation("data_access.header"),
     ":bar_chart: " + translation("data_visualization.header"),
-    ":card_file_box: " + "TODO: Training a Recidivism Classifier",
+    ":card_file_box: " + translation("data_classifier.header"),
     "🧭 " + "TODO: Explanation of COMPAS",
-    "👆 " + "TODO: COMPAS Interactive Threshold Choosing"
+    "👆 " + translation("compas_threshold.header")
 ]
 
 (
@@ -417,16 +417,16 @@ PANDAS_LOGO_COLUMN, PANDAS_DESCRIPTION_COLUMN = show_library_two_columns(
 streamlit.code("import pandas")
 
 with streamlit.echo():
-    CRIMINAL_PEOPLE_DATA: pandas.DataFrame
+    DEFENDANTS_DATA: pandas.DataFrame
 
-CRIMINAL_PEOPLE_DATA = pandas.read_sql_table(
+DEFENDANTS_DATA = pandas.read_sql_table(
     table_name="people",
     con=COMPAS_DATABASE_CONNECTION,
     index_col="id"
 )
 
-CRIMINAL_PEOPLE_DATA = CRIMINAL_PEOPLE_DATA[
-    CRIMINAL_PEOPLE_DATA.is_recid != -1
+DEFENDANTS_DATA = DEFENDANTS_DATA[
+    DEFENDANTS_DATA.is_recid != -1
 ]
 
 streamlit.markdown(
@@ -441,7 +441,7 @@ streamlit.subheader(
 )
 
 with streamlit.echo():
-    length_table = len(CRIMINAL_PEOPLE_DATA)
+    length_table = len(DEFENDANTS_DATA)
 
 streamlit.markdown(
     markdown_list(
@@ -460,14 +460,14 @@ streamlit.subheader(
 )
 
 with streamlit.echo():
-    head_of_table = CRIMINAL_PEOPLE_DATA.head()
+    head_of_table = DEFENDANTS_DATA.head()
 
 streamlit.dataframe(
     head_of_table
 )
 
 with streamlit.echo():
-    number_columns = len(CRIMINAL_PEOPLE_DATA.columns)
+    number_columns = len(DEFENDANTS_DATA.columns)
 
 streamlit.markdown(
     markdown_list(
@@ -482,21 +482,21 @@ streamlit.markdown(
 COLUMNS_LIST_COLUMN, COLUMNS_EXPLANATION_COLUMN = streamlit.beta_columns(2)
 
 COLUMNS_LIST_COLUMN.markdown(
-    "#### " + translation("data_access.criminal_people_column_list")
+    "#### " + translation("data_access.defendants_column_list")
 )
 
 COLUMNS_LIST_COLUMN.write(
-    list(CRIMINAL_PEOPLE_DATA.columns)
+    list(DEFENDANTS_DATA.columns)
 )
 
 COLUMNS_EXPLANATION_COLUMN.markdown(
     paragraphs(
-        "#### " + translation("data_access.criminal_people_column_explanations"),
+        "#### " + translation("data_access.defendants_column_explanations"),
         markdown_list(
             *[
                 f"`{column_name}`\n    - " +
                 translation(
-                    f"data_access.criminal_people_column_{column_name}"
+                    f"data_access.defendants_column_{column_name}"
                 ) for column_name in [
                     "sex",
                     "race",
@@ -525,7 +525,7 @@ streamlit.markdown(
 )
 
 with streamlit.echo():
-    table_description = CRIMINAL_PEOPLE_DATA.describe()
+    table_description = DEFENDANTS_DATA.describe()
 
 streamlit.dataframe(
     table_description
@@ -545,13 +545,13 @@ streamlit.markdown(
     translation("data_visualization.data_correlation_intro")
 )
 
-correlation_columns = list(CRIMINAL_PEOPLE_DATA.columns)
+correlation_columns = list(DEFENDANTS_DATA.columns)
 correlation_columns.remove("decile_score")
 correlation_columns.remove("c_days_from_compas")
 correlation_columns.remove("num_r_cases")
 correlation_columns.remove("r_days_from_arrest")
 
-criminal_people_data_certain_columns = CRIMINAL_PEOPLE_DATA[
+defendants_data_certain_columns = DEFENDANTS_DATA[
     correlation_columns
 ]
 
@@ -566,13 +566,13 @@ correlation_gender = streamlit.radio(
 )
 
 if correlation_gender != "All":
-    criminal_people_data_certain_columns = criminal_people_data_certain_columns[
-        criminal_people_data_certain_columns.sex == correlation_gender
+    defendants_data_certain_columns = defendants_data_certain_columns[
+        defendants_data_certain_columns.sex == correlation_gender
     ]
 
-criminal_people_data_correlations = criminal_people_data_certain_columns.corr()
+defendants_data_correlations = defendants_data_certain_columns.corr()
 
-correlation_data = criminal_people_data_correlations.stack().reset_index().rename(
+correlation_data = defendants_data_correlations.stack().reset_index().rename(
     columns={
         0: "correlation",
         "level_0": "first",
@@ -655,7 +655,7 @@ BOXPLOT_CODE_EXPANDER = streamlit.beta_expander(
 BOXPLOT_CODE_EXPANDER.code(
     f"""
 boxplot_chart = altair.Chart(
-    CRIMINAL_PEOPLE_DATA[
+    DEFENDANTS_DATA[
         # {translation("data_visualization.boxplot_only_needed_columns")}
         [
             "age",
@@ -675,7 +675,7 @@ boxplot_chart = altair.Chart(
 )
 
 boxplot_chart = altair.Chart(
-    CRIMINAL_PEOPLE_DATA[
+    DEFENDANTS_DATA[
         [
             "age",
             "priors_count",
@@ -761,7 +761,7 @@ FEATURE_SELECTION_CONTAINER.markdown(
     )
 )
 
-INPUT_DATA = CRIMINAL_PEOPLE_DATA[
+INPUT_DATA = DEFENDANTS_DATA[
     SELECTED_INPUT_DATA_FEATURES
 ]
 
@@ -774,7 +774,7 @@ INPUT_DATA = pandas.get_dummies(
     columns=list(SELECTED_CATEGORIES_COLUMNS)
 )
 
-LABEL_DATA = CRIMINAL_PEOPLE_DATA[
+LABEL_DATA = DEFENDANTS_DATA[
     [
         SELECTED_INPUT_DATA_LABEL
     ]
@@ -980,7 +980,7 @@ streamlit.header(
     COMPAS_THRESHOLD_HEADER
 )
 
-THRESHOLD_CHOOSING_BASE_DATA = CRIMINAL_PEOPLE_DATA[
+THRESHOLD_CHOOSING_BASE_DATA = DEFENDANTS_DATA[
     [
         "sex",
         "race",
@@ -989,7 +989,7 @@ THRESHOLD_CHOOSING_BASE_DATA = CRIMINAL_PEOPLE_DATA[
         "is_violent_recid"
     ]
 ][
-    CRIMINAL_PEOPLE_DATA.decile_score != -1
+    DEFENDANTS_DATA.decile_score != -1
 ]
 
 RACES = list(
@@ -1161,7 +1161,7 @@ OUTLINE_COMMENTS = [
 ]
 
 OUTLINE_PREVIEW_ITEMS = [
-    CRIMINAL_PEOPLE_DATA.head(n=3),
+    DEFENDANTS_DATA.head(n=3),
     CORRELATION_MATRIX.properties(width=400, height=300),
     "![scikit-learn](https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg)",
     "4",
