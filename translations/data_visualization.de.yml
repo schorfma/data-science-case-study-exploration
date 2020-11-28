@@ -10,11 +10,29 @@ de:
   correlation_matrix_label: Korrelationsmatrix
   correlation_according_to_genders: Korrelation entsprechend der Geschechter
 
+  data_correlation_intro: |
+    * Wenn wir von einer Korrelation sprechen, ist es hier eine _Pearson_-Korrelation
+    * Korrelation ist ein Maß des linearen Zusammenhangs zwischen zwei Datenreihen
+
+  correlation_observations: |
+    * Das Alter (`age`) weist eine schwache, negative Korrelation zu der Rückfälligkeit (`is_recid`) und Fällen in der Jugend (`juv_...`) auf
+        - Letzteres könnte theoretisch auch an nicht-digitalisierten Jugend-Akten liegen (Daten ≠ Realität)
+    * Eine schwach positive Korrelation zwischen Alter (`age`) und Vorstrafen (`priors_count`)
+        - Könnte daran liegen, dass ein älterer Mensch bereits mehr Lebenszeit hatte, um Straftaten zu begehen
+    * Die Vorstrafen (`priors_count`) sind schwach positiv korreliert mit der Rückfälligkeit (`is_recid`)
+
   gender_option_all: Alle
   gender_option_female: Weiblich
   gender_option_male: Männlich
 
   select_age_category_step_label: Wähle ein Altersgruppen-Intervall
   years: "%{count} Jahre"
+
+  boxplot_observations: |
+    * Die rückfälligen Täter weisen in jedem Altersgruppen-Intervall einen höheren `priors_count` Median auf
+    * Dies verhält sich für Männer und Frauen gleichermaßen
+    * Männer haben ingesamt mehr Vorstrafen (`priors_count`)
+    * Personen die ingesamt weniger Vorstrafen (`priors_count`) aufweisen, wurden in dem Untersuchungszeitraum seltener rückfällig (`is_recid`)
+    * Dennoch ist es unmöglich klar zwischen rückfalligen Tätern und nicht rückfälligen Tätern bei den Personen mit wenigen Vorstrafen zu unterscheiden
 
   boxplot_only_needed_columns: Nur Holen der benötigten Spalten

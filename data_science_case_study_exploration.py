@@ -525,6 +525,10 @@ streamlit.markdown(
 
 streamlit.subheader(translation("data_visualization.correlation_matrix_label"))
 
+streamlit.markdown(
+    translation("data_visualization.data_correlation_intro")
+)
+
 correlation_columns = list(CRIMINAL_PEOPLE_DATA.columns)
 correlation_columns.remove("decile_score")
 correlation_columns.remove("c_days_from_compas")
@@ -551,8 +555,6 @@ if correlation_gender != "All":
     ]
 
 criminal_people_data_correlations = criminal_people_data_certain_columns.corr()
-
-streamlit.write("TODO: Pearson Correlation")
 
 correlation_data = criminal_people_data_correlations.stack().reset_index().rename(
     columns={
@@ -599,15 +601,20 @@ correlation_plot = base_correlation_plot.mark_rect(
 
 CORRELATION_MATRIX = correlation_plot + correlation_plot_text
 
-streamlit.markdown(
-    translation("data_visualization.data_correlation_intro")
-)
+(
+    CORRELATION_MATRIX_COLUMN,
+    CORRELATION_OBSERVATION_COLUMN
+) = streamlit.beta_columns([2, 1])
 
-streamlit.altair_chart(
+CORRELATION_MATRIX_COLUMN.altair_chart(
     CORRELATION_MATRIX.properties(
         width=800,
         height=800
     )
+)
+
+CORRELATION_OBSERVATION_COLUMN.markdown(
+    translation("data_visualization.correlation_observations")
 )
 
 ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
@@ -668,8 +675,14 @@ boxplot_chart = altair.Chart(
     row="sex:N"
 )
 
-streamlit.altair_chart(
+BOXPLOT_CHART_COLUMN, BOXPLOT_OBSERVATION_COLUMN = streamlit.beta_columns([2, 1])
+
+BOXPLOT_CHART_COLUMN.altair_chart(
     boxplot_chart
+)
+
+BOXPLOT_OBSERVATION_COLUMN.markdown(
+    translation("data_visualization.boxplot_observations")
 )
 
 # Training Recidivism Classifier

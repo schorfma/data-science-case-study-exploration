@@ -12,8 +12,14 @@ en:
 
   data_correlation_intro: |
     * When we speak of correlation, we usually speak of the _Pearson_ correlation
-    * Or simply called correlation coefficient
-    * Correlation is a measure of the statistical relationship between two data sets
+    * Correlation is a measure of the linear relationship between two data series
+
+  correlation_observations: |
+    * The age (`age`) exhibits a weak negative correlation with the recidivism (`is_recid`) and juvenile cases (`juv_...`)
+        - The latter could theoretically also be due to non-digitalized youth files for older people
+    * A weak positive correlation between age (`age`) and criminal record (`priors_count`)
+        - Could be connected to the fact that older people already had more life time to commit crimes
+    * The criminal record (`priors_count`) exhibits a weak positive correlation with recidivism (`is_recid`)
 
   gender_option_all: All
   gender_option_female: Female
@@ -21,6 +27,13 @@ en:
 
   select_age_category_step_label: Select Age Category Step
   years: "%{count} years"
+
+  boxplot_observations: |
+    * The recidivists show a higher `priors_count` mean value in each age group interval
+    * This observation is true for men and women
+    * Men over all have more prior convictions (`priors_count`)
+    * The people with overall less prior convictions (`priors_count`) were less likely to become recidivists (`is_recid`) in the observation period
+    * Nevertheless it is impossible to clearly distinguish between recidivists and non-recidivists for people with a low count of prior convictions (`priors_count`)
 
   boxplot_code_label: Boxplot Code
   boxplot_only_needed_columns: Get only needed columns
