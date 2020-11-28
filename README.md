@@ -1,10 +1,8 @@
-# Data Science Case Study Exploration
+# 🔬 Data Science Case Study Exploration
 
 An interactive explanation about **Data Science** with the exploration of a **Case Study** realized with _Streamlit_
 
-## Live Web Application
-
-* <https://share.streamlit.io/schorfma/data-science-case-study-exploration/data_science_case_study_exploration.py>
+## [✨ Live Web Application](https://share.streamlit.io/schorfma/data-science-case-study-exploration/data_science_case_study_exploration.py)
 
 ## Installation
 
