@@ -505,7 +505,7 @@ DEFENDANTS_DATA = DEFENDANTS_DATA[
 # Adding ordinal charge degree column
 DEFENDANTS_DATA = DEFENDANTS_DATA.assign(
     charge_degree=DEFENDANTS_DATA.c_charge_degree.transform(
-        CHARGE_DEGREES.get
+        lambda charge_degree_code: CHARGE_DEGREES.get(charge_degree_code)
     )
 )
 
