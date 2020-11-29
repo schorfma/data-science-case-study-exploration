@@ -406,7 +406,7 @@ OUTLINE = [
 
 (
     DATA_ACCESS_HEADER,
-    DATA_VISUALIZAZION_HEADER,
+    DATA_VISUALIZATION_HEADER,
     DATA_CLASSIFIER_HEADER,
     COMPAS_EXPLANATION_HEADER,
     COMPAS_THRESHOLD_HEADER
@@ -482,9 +482,32 @@ DEFENDANTS_DATA = pandas.read_sql_table(
     index_col="id"
 )
 
+# Mapping Charge Degrees to ordinal classes
+CHARGE_DEGREES: Dict[Text, int] = {
+    "(F1)": 1,
+    "(F2)": 2,
+    "(F3)": 3,
+    "(F4)": 4,
+    "(F5)": 5,
+    "(F6)": 6,
+    "(F7)": 7,
+    "(M1)": 8,
+    "(M2)": 9,
+    "(M3)": 10
+}
+
 DEFENDANTS_DATA = DEFENDANTS_DATA[
     DEFENDANTS_DATA.is_recid != -1
+][
+    DEFENDANTS_DATA.c_charge_degree.isin(list(CHARGE_DEGREES.keys()))
 ]
+
+# Adding ordinal charge degree column
+DEFENDANTS_DATA = DEFENDANTS_DATA.assign(
+    charge_degree=DEFENDANTS_DATA.c_charge_degree.transform(
+        CHARGE_DEGREES.get
+    )
+)
 
 streamlit.markdown(
     markdown_list(
@@ -589,7 +612,7 @@ streamlit.dataframe(
 )
 
 streamlit.header(
-    DATA_VISUALIZAZION_HEADER
+    DATA_VISUALIZATION_HEADER
 )
 
 streamlit.markdown(
@@ -780,6 +803,7 @@ INPUT_DATA_FEATURES = [
     "juv_misd_count",
     "juv_other_count",
     "priors_count",  # Prior Convictions
+    "charge_degree"  # 1 (First Degree Felony Charge) - 10 (Misdemeanour)
 ]
 
 CATEGORIES_COLUMNS = [
