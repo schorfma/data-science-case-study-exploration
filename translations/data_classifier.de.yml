@@ -3,7 +3,7 @@ de:
   header: Training eines Klassifikators für Rückfälligkeit
   summary: |
     * Durchführung einer Aufteilung in Trainings- und Testdaten
-    * Training einer existieren Entschediungsbaum-Klassifikator-Implementierung
+    * Training einer existierenden Entscheidungsbaum-Klassifikator-Implementierung
     * Welche Datenspalten und Parameter-Werte sollen verwendet werden?
     * Verwirrungsmatrix-Werte und verwandte Metriken
         - Accuracy
