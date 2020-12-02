@@ -3,8 +3,12 @@ de:
 
   introduction: |
     * Diese interaktive Fallstudie wird euch durch die meisten Bestandteile des Betreibens von _Data Science_ leiten
-        - Wir werden nicht die Schritte des Vorbereitens und Validieren der Daten zeigen und die auf die Evaluierung des "Machine Learning"-Modells folgenden Schritte weglassen
-    * Primär beschäftigt sich diese Präsentation mit den realen Daten und Modellen für die Vorhersage der Rückfälligkeit von Angeklagten
+        - Wir werden nicht die Schritte des Vorbereitens und Validierens der Daten zeigen und die auf die Evaluierung des "Machine Learning"-Modells folgenden Schritte weglassen
+
+    #### Wir können wir einen Datensatz verwenden, um die Rückfälligkeit von Angeklagten zu klassifizieren und was sind die Implikationen eines solches Systems?
+
+    * Primär beschäftigt sich diese Präsentation mit den realen Daten und Modellen für die Vorhersage der Rückfälligkeit von Angeklagten in einem Bezirk in den USA
+        - Rückfälligkeit wird hier definiert als erneute Verhaftung innerhalb der folgenden zwei Jahre nach der Ausgangsverhaftung
         - Neben dem Training eines Klassifikators für diesen Zweck, werden wir auch auf das reale Modell _COMPAS_ und seine ethischen Implikationen schauen
     * Nach dieser interaktiven Erfahrung solltet ihr ein grundlegendes Verständnis der involvierten Prozesse und ihrer Implikationen haben
         - Außerdem werdet ihr sehen, dass um anzufangen gar nicht so viel Programmierung erforderlich ist

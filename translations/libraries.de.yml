@@ -1,2 +1,4 @@
 de:
+  library: Bibliothek
+
   streamlit_intro: Zu guter letzt weisen wir noch auf die großartige Bibliothek _Streamlit_ hin, welche es uns ermöglichte diese interaktive Webanwendung zu erstellen

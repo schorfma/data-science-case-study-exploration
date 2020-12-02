@@ -4,7 +4,11 @@ en:
   introduction: |
     * This interactive case study will guide you through most parts involved when doing _Data Science_
         - We will not show the steps of preparing and validating the data and omit steps subsequent to the evaluation of the Machine Learning model
-    * Primarily this presentations deals with the real data and models for predicting the recidivism of defendants
+
+    #### How can we use a dataset to classify defendants' recidivism and what are the implications of such a system?
+
+    * Primarily this presentations deals with the real data and models for predicting the recidivism of defendants arrested for crimes in a County in the United States
+        - Recidivism is defined here as getting arrested again within the following two years after the arrest
         - Among training a classifier for this task, we will also look into the real model _COMPAS_ and its ethical implications
     * After this interactive experience you should have a basic understanding of the processes involved and their implications
         - Also you will see, that not much programming is required to get started

@@ -39,6 +39,8 @@ en:
   confusion_matrix_values: Confusion Matrix Values
   prediction_metrics_code: Test Prediction and Metrics Code
 
+  data_count: "**Test Data Count**: `%{count}`"
+
   tp_name: True Positive
   tp_description: Correctly predicted as recid, actually recid
 
@@ -52,9 +54,16 @@ en:
   fn_description: Incorrectly predicted as not recid, actually recid
 
   related_metrics: Related Metrics
+
   accuracy: Accuracy
   accuracy_description: Share of correct predictions (`TP`, `TN`, Predicted Recidivism == Actual Recidivism) in all predictions
+  accuracy_numbers: "The recidivism class of `%{correct_percentage}%` of the `%{all}` defendants was predicted correctly. For `%{incorrect_percentage}%` of the defendants the prediction was wrong."
+
+
   precision: Precision
   precision_description: Share of correctly predicted recidivists (`TP`) in all people predicted as recidivists (`TP`, `FP`)
+  precision_numbers: "Of `%{positive_prediction}` defendants predicted as recidivists `%{true_percentage}%` were actual recidivists. `%{false_percentage}%` would not have been released, despite actually not becoming recidivists."
+
   recall: Recall
   recall_description: Share of correctly predicted recidivists (`TP`) in all actual recidivists (`TP`, `FN`)
+  recall_numbers: "Of `%{positive_actual}` defendants actually being recidivists `%{positive_percentage}%` were predicted correctly as recidivists. `%{negative_percentage}%` would not have been kept in jail, despite actually becoming recidivists."

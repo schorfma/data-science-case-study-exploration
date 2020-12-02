@@ -31,6 +31,6 @@ en:
   defendants_column_juv_misd_count: Count of juvenile misdemeanor cases
   defendants_column_juv_other_count: Count of other juvenile cases
   defendants_column_priors_count: Count of prior convictions
-  defendants_column_c_charge_degree: Charge degree during this conviction
+  defendants_column_charge_degree: "Charge degree during this conviction: `1` (First Degree Felony Charge) - `10` (Weak Misdemeanour)"
   defendants_column_is_recid: Whether defendant showed recidivism within the next two years
   defendants_column_is_violent_recid: Whether defendant showed violent recidivism within the next two years

@@ -1,5 +1,7 @@
 en:
 
+  library: Library
+
   # pandas
   pandas_name: pandas
   pandas_url: https://pandas.pydata.org/

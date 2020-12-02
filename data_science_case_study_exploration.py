@@ -6,7 +6,7 @@ Authors:
 Since:
     2020-11-13
 Version:
-    2020-11-28
+    2020-12-02
 """
 
 from pathlib import Path
@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix
 # Definition of Global Variables
 
 # Version date
-VERSION = "2020-11-28"
+VERSION = "2020-12-02"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
@@ -169,7 +169,8 @@ def show_library_two_columns(
 
     description_column.markdown(
         paragraphs(
-            "#### `{name}`".format(
+            "#### {library} `{name}`".format(
+                library=translation("libraries.library"),
                 name=translation(f"libraries.{library_name}_name")
             ),
             "<{url}>".format(
@@ -209,9 +210,9 @@ def confusion_values(
     data_count = sum([true_positive, true_negative, false_positive, false_negative])
     container.markdown(
         markdown_list(
+            translation("data_classifier.data_count", count=data_count),
             *[
-                f"`{key}` / **{name}**: `{value}` / `{data_count}` = "
-                f"`{(value / data_count):.2f}` ({description})"
+                f"`{key}` / **{name}**: `{value}` ({description})"
                 for key, name, description, value in [
                     (
                         "tp",
@@ -277,9 +278,20 @@ def confusion_metrics(
         translation("data_classifier.accuracy_description")
     )
 
+    accuracy = (true_positive + true_negative) / data_count
+
     container.latex(
         "\\frac{TP + TN}{TP + TN + FP + FN} = " +
-        f"{(true_positive + true_negative) / data_count:.2f}"
+        f"{accuracy:.2f}"
+    )
+
+    container.markdown(
+        translation(
+            "data_classifier.accuracy_numbers",
+            all=data_count,
+            correct_percentage=f"{accuracy * 100:.0f}",
+            incorrect_percentage=f"{(1 - accuracy) * 100:.0f}"
+        )
     )
 
     # Precision
@@ -291,11 +303,22 @@ def confusion_metrics(
         translation("data_classifier.precision_description")
     )
 
+    precision = true_positive / (true_positive + false_positive)
+
     container.latex(
         "\\frac{TP}{TP + FP} = " +
         (
-            f"{true_positive / (true_positive + false_positive):.2f}"
+            f"{precision:.2f}"
             if true_positive else "0.00"
+        )
+    )
+
+    container.markdown(
+        translation(
+            "data_classifier.precision_numbers",
+            positive_prediction=(true_positive + false_positive),
+            true_percentage=f"{precision * 100:.0f}",
+            false_percentage=f"{(1 - precision) * 100:.0f}"
         )
     )
 
@@ -308,10 +331,21 @@ def confusion_metrics(
         translation("data_classifier.recall_description")
     )
 
+    recall = true_positive / (true_positive + false_negative)
+
     container.latex(
         "\\frac{TP}{TP + FN} = " + (
-            f"{true_positive / (true_positive + false_negative):.2f}"
+            f"{recall:.2f}"
             if true_positive else "0.00"
+        )
+    )
+
+    container.markdown(
+        translation(
+            "data_classifier.recall_numbers",
+            positive_actual=(true_positive + false_negative),
+            positive_percentage=f"{recall * 100:.0f}",
+            negative_percentage=f"{(1 - recall) * 100:.0f}"
         )
     )
 
@@ -569,6 +603,19 @@ COLUMNS_LIST_COLUMN.write(
     list(DEFENDANTS_DATA.columns)
 )
 
+RELEVANT_COLUMNS = [
+    "sex",
+    "race",
+    "age",
+    "juv_fel_count",
+    "juv_misd_count",
+    "juv_other_count",
+    "priors_count",
+    "charge_degree",
+    "is_recid",
+    "is_violent_recid"
+]
+
 COLUMNS_EXPLANATION_COLUMN.markdown(
     paragraphs(
         "#### " + translation("data_access.defendants_column_explanations"),
@@ -577,18 +624,7 @@ COLUMNS_EXPLANATION_COLUMN.markdown(
                 f"`{column_name}`\n    - " +
                 translation(
                     f"data_access.defendants_column_{column_name}"
-                ) for column_name in [
-                    "sex",
-                    "race",
-                    "age",
-                    "juv_fel_count",
-                    "juv_misd_count",
-                    "juv_other_count",
-                    "priors_count",
-                    "c_charge_degree",
-                    "is_recid",
-                    "is_violent_recid"
-                ]
+                ) for column_name in RELEVANT_COLUMNS
             ]
         )
     )
@@ -603,6 +639,10 @@ streamlit.markdown(
         translation("data_access.data_frame_describe")
     )
 )
+
+DEFENDANTS_DATA = DEFENDANTS_DATA[
+    RELEVANT_COLUMNS + ["decile_score"]
+]
 
 with streamlit.echo():
     table_description = DEFENDANTS_DATA.describe()
@@ -627,9 +667,6 @@ streamlit.markdown(
 
 correlation_columns = list(DEFENDANTS_DATA.columns)
 correlation_columns.remove("decile_score")
-correlation_columns.remove("c_days_from_compas")
-correlation_columns.remove("num_r_cases")
-correlation_columns.remove("r_days_from_arrest")
 
 defendants_data_certain_columns = DEFENDANTS_DATA[
     correlation_columns
@@ -704,8 +741,8 @@ CORRELATION_MATRIX = correlation_plot + correlation_plot_text
 
 CORRELATION_MATRIX_COLUMN.altair_chart(
     CORRELATION_MATRIX.properties(
-        width=800,
-        height=800
+        width=600,
+        height=600
     )
 )
 
@@ -774,7 +811,10 @@ boxplot_chart = altair.Chart(
 BOXPLOT_CHART_COLUMN, BOXPLOT_OBSERVATION_COLUMN = streamlit.beta_columns([2, 1])
 
 BOXPLOT_CHART_COLUMN.altair_chart(
-    boxplot_chart
+    boxplot_chart.properties(
+        width=300,
+        height=300
+    )
 )
 
 BOXPLOT_OBSERVATION_COLUMN.markdown(
@@ -1173,7 +1213,7 @@ DECILE_SCORE_CHART_BASE = altair.Chart(
             domain=["Not Recid", "Recid"]
         ) if not SHOW_CORRECT else altair.Scale(
             domain=["Incorrect", "Correct"],
-            range=["Red", "Green"]
+            range=["Tomato", "LimeGreen"]
         )
     )
 ).transform_calculate(

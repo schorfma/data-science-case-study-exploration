@@ -10,7 +10,7 @@ de:
         - Precision
         - Recall
 
-  train_implemented_classifier: Nun werden werden wir einen implementierten Klassifikator der Bibliothek `scikit-learn` auf Rückfälligkeit der Verurteilten trainieren
+  train_implemented_classifier: Nun werden wir einen implementierten Klassifikator der Bibliothek `scikit-learn` auf Rückfälligkeit der Verurteilten trainieren
   train_feature_selection: Die unten ausgewählten Features werden verwendet, um das System zu trainieren und die Spalte `%{label}` wird als _Ziel_ oder _Label_ verwendet.
 
   select_features: Features auswählen
@@ -39,6 +39,8 @@ de:
   confusion_matrix_values: Verwirrungsmatrix-Werte
   prediction_metrics_code: Testvorhersage und -Metriken Code
 
+  data_count: "**Testdaten-Anzahl**: `%{count}`"
+
   tp_name: True Positive
   tp_description: Korrekt vorhergesagt als rückfällig, tatsächlich rückfällig
 
@@ -52,6 +54,12 @@ de:
   fn_description: Inkorrekt vorhergesagt als nicht rückfällig, tatsächlich rückfällig
 
   related_metrics: Metriken mit Bezug dazu
+
   accuracy_description: Anteil der korrekten Vorhersagen (`TP`, `TN`, Vorhergesagte Rückfälligkeit == Tatsächliche Rückfälligkeit) an allen Vorhersagen
+  accuracy_numbers: "Die Rückfälligkeitsklasse von `%{correct_percentage}%` der `%{all}` Angeklagten wurde korrekt vorhergesagt. Für `%{incorrect_percentage}%` der Angeklagten war die Vorhersage falsch."
+
   precision_description: Anteil der korrekt vorhergesagten rückfälligen Täter (`TP`) an allen Personen, die als rückfällig vorhergesagt wurden (`TP`, `FP`)
+  precision_numbers: "Von `%{positive_prediction}` als rückfällig vorhergesagten Angeklagten waren `%{true_percentage}%` tatsächlich rückfällig. `%{false_percentage}%` wären nicht freigelassen worden, obwohl sie tatsächlich nicht rückfällig wurden."
+
   recall_description: Anteil der korrekt vorhergesagten rückfälligen Tätern (`TP`) an allen, die tatsächlich rückfällig geworden sind (`TP`, `FN`)
+  recall_numbers: "Von `%{positive_actual}` tatsächlich rückfälligen Anegklagten wurden `%{positive_percentage}%` korrekt als rückfälig erkannt. `%{negative_percentage}%` wären nicht im Gefängnis behalten worden, obwohl sie tatsächlich rückfällig wurden."
