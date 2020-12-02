@@ -11,12 +11,11 @@ de:
   explanation_compas: |
     * **COMPAS** (Correctional Offender Management Profiling for Alternative Sanctions)
         - Kommerzielles Produkt der _Northpointe Inc._
-        - Algorithmus zur Risikoabschätzung, die im US-Strafrechtssystem verwendet werden
-    * Wird von Richtern für die Entscheidung genutzt, ob ein Angeklagter in Haft gehalten werden sollte oder während des Wartens auf den Prozess herausgelassen werden
-    * Der Algorithmus basiert auf historischen Daten von Angeklagten (137 Fragen und Anworten), um Korrelationen zu finden
-        - Verwendet diese, um die Wahrscheinlichkeit vorherzusagen, ob ein Angeklagter wegen eines neuen Verbrechens in der Zeit bis zur Gerichtsverhandlung verhaftet wird
+        - Algorithmus zur Risikoabschätzung, wird im US-Strafrechtssystem verwendet
+    * Wird von Richtern als Entscheidungshilfe genutzt, ob ein Angeklagter bis zum Gerichtsverfahren in (Untersuchungs-)Haft gehalten werden sollte oder nicht
+    * Der Algorithmus basiert auf historischen Daten von Angeklagten (137 Fragen und Anworten), um Korrelationen zur Risikoabschätzung zu finden
     * Die Vorhersage ist nur eine Empfehlung mit Risiko-Scores (`1` - `10`)
-    * Wir werden den Schwellenwert von COMPAS "hohes Risiko" (höher als `7`) verwenden,
+    * Wir werden den Schwellwert von COMPAS "hohes Risiko" (höher als `7`) verwenden
     * COMPAS kann nur eine statistische Wahrscheinlichkeit bieten mit der ein Angeklagter straffällig wird
         - Richter entscheiden jedoch, ob sie den Angeklagten freilassen oder festhalten
 
@@ -24,7 +23,8 @@ de:
 
   ethical_view: |
     * COMPAS bezieht Ethnien nicht in die Berechnung seiner Risikobewertungen ein (Gesetz)
-    * Die Untersuchung ergab jedoch, dass das Instrument immer noch gegen Schwarze voreingenommen war
-    * Unter den Angeklagten, die nie erneut verhaftet wurden, waren Schwarze Angeklagte doppelt so wahrscheinlich als Weiße, die von COMPAS als risikoreich eingestuft wurden
-    *  COMPAS wurde entwickelt, um aggregierte Vorhersagen über Personengruppen zu machen, die ähnliche Merkmale aufweisen, und nicht Vorhersagen über bestimmte Personen
+    * Die Untersuchung ergab jedoch, dass der Algorithmus immer noch gegen Schwarze voreingenommen war
+       - Die Wahrscheinlichkeit eines hohen Risiko-Scores bei schwarzen erstmalig Angeklagten war doppelt so hoch, wie bei weißen
+    *  COMPAS wurde entwickelt, um aggregierte Vorhersagen über Personengruppen mit ähnlichen Merkmalen zu treffen
+        - Damit sollte COMPAS ursprünglich als präventives Werkzeug genutzt werden 
         - Risiko des Missbrauchs der Daten oder unreflektierte Nutzung ohne kritische Betrachtung
