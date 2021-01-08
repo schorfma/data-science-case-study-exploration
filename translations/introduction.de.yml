@@ -2,8 +2,10 @@ de:
   header: Einleitung und Überblick
 
   introduction: |
+    * Zunächst werfen wir einen Blick auf den Begriff _Data Science_
+
+  further_introduction: |
     * Diese interaktive Fallstudie wird euch durch die meisten Bestandteile des Betreibens von _Data Science_ leiten
-        - Wir werden nicht die Schritte des Vorbereitens und Validierens der Daten zeigen und die auf die Evaluierung des "Machine Learning"-Modells folgenden Schritte weglassen
 
     #### Wir können wir einen Datensatz verwenden, um die Rückfälligkeit von Angeklagten zu klassifizieren und was sind die Implikationen eines solches Systems?
 

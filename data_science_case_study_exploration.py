@@ -420,27 +420,12 @@ streamlit.title(
     ":microscope: " + translation("common.title")
 )
 
-streamlit.header(
-    ":wave: " + translation("introduction.header")
-)
+separator()
 
-# TODO: Rewrite Introduction
-
-# TODO: What's the Issue?
-
-# TODO: Explain terms on the right (COMPAS, Recidivism, Data Science)
-
-INTRODUCTION_COLUMN, PROCESS_COLUMN = streamlit.beta_columns([2, 1])
-
-INTRODUCTION_COLUMN.markdown(
-    translation("introduction.introduction")
-)
-
-INTRODUCTION_COLUMN.subheader(
-    translation("introduction.outline_header")
-)
+streamlit.header("Outline")  # TODO: Localization
 
 OUTLINE = [
+    ":wave: " + "Introduction",  # TODO: Localization
     ":floppy_disk: " + translation("data_access.header"),
     ":bar_chart: " + translation("data_visualization.header"),
     ":card_file_box: " + translation("data_classifier.header"),
@@ -449,6 +434,7 @@ OUTLINE = [
 ]
 
 (
+    INTRODUCTION_HEADER,
     DATA_ACCESS_HEADER,
     DATA_VISUALIZATION_HEADER,
     DATA_CLASSIFIER_HEADER,
@@ -456,7 +442,7 @@ OUTLINE = [
     COMPAS_THRESHOLD_HEADER
 ) = OUTLINE
 
-INTRODUCTION_COLUMN.markdown(
+streamlit.markdown(
     markdown_list(*OUTLINE, numbered=True)
 )
 
@@ -468,17 +454,116 @@ streamlit.sidebar.markdown(
     markdown_list(*OUTLINE, numbered=True)
 )
 
-PROCESS_COLUMN.image(
+separator()
+
+streamlit.header(INTRODUCTION_HEADER)
+
+streamlit.markdown("Terminology of _Data Science_ and explanation of the system _COMPAS_")  # TODO: Localization
+
+separator()
+
+streamlit.subheader("Terminology")  # TODO: Localization
+
+streamlit.markdown(
+    translation("introduction.introduction")
+)
+
+(
+    TERM_STATISTICS,
+    TERM_DATA_SCIENCE,
+    TERM_MACHINE_LEARNING
+) = streamlit.beta_columns(3)
+
+TERM_STATISTICS.info(  # TODO: Localization
+    "#### Statistics\n"
+    "\n"
+    "Explaining data from a theoretical and mathematical perspective"
+)
+
+TERM_DATA_SCIENCE.info(  # TODO: Localization
+    "#### Data Science\n"
+    "\n"
+    "Application of computational or statistical methods to gain insight in some real world problem"
+)
+
+TERM_DATA_SCIENCE.image(
     "./images/data-science-process.png",
     use_column_width=True
 )
 
-PROCESS_COLUMN.markdown(
+TERM_DATA_SCIENCE.markdown(
     "Mojassamehleiden, "
     "[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), "
     "[File:CRISPDM-Extended-Majid.png]"
     "(https://commons.wikimedia.org/wiki/File:CRISPDM-Extended-Majid.png) "
     "via Wikimedia Commons"
+)
+
+TERM_MACHINE_LEARNING.info(  # TODO: Localization
+    "#### Machine Learning\n"
+    "\n"
+    "Programming computers so they can learn from data"
+)
+
+TERM_MACHINE_LEARNING.image(
+    "images/MachineLearning-Context.png",
+    use_column_width=True
+)
+
+separator()
+
+streamlit.subheader("Case Study: _COMPAS_")
+
+(
+    COMPAS_INTRODUCTION,
+    COMPAS_TERMS,
+    COMPAS_ANIMATION
+) = streamlit.beta_columns(3)
+
+COMPAS_INTRODUCTION.markdown(
+    markdown_list(  # TODO: Localization
+        "Commercial product of _Northpointe Inc._",
+        "Algorithm used in the US justice system"
+    )
+)
+
+COMPAS_INTRODUCTION.markdown(
+    "#### What the Algorithm does"  # TODO: Localization
+)
+
+COMPAS_INTRODUCTION.markdown(
+    markdown_list(  # TODO: Localization
+        "Trained on historical defendant data (137 questions and answers)",
+        "Prediction of likelihood (from `1` to `10`) that a defendant will be arrested again (Recidivism)"
+    )
+)
+
+COMPAS_INTRODUCTION.markdown(
+    "#### The Problem"  # TODO: Localization
+)
+
+COMPAS_INTRODUCTION.markdown(
+    # TODO: Localization
+    "> How fair can this system be and what could possibly or actually go wrong?"
+    # when a Caucasian male with prior armed robbery convictions is rated low risk, whereas an African-American female without prior convictions is rated high risk for taking a kid's bike from the street"
+)
+
+COMPAS_TERMS.info(
+    "#### _COMPAS_\n"
+    "\n"
+    "Correctional Offender Management Profiling for Alternative Sanctions"
+)
+
+COMPAS_TERMS.info(
+    "#### Recidivism\n"
+    "\n"
+    "Criminally offend again within the next two years"
+)
+
+COMPAS_ANIMATION.image(
+    "https://wp.technologyreview.com/wp-content/uploads/2019/10/mit-alg-yb-02-7.gif",
+    use_column_width=True,
+    caption="Source: MIT Technology Review (Can you make AI fairer than a judge? Play our courtroom algorithm game)"  # TODO: Localization
 )
 
 separator()
@@ -488,7 +573,13 @@ streamlit.header(
     DATA_ACCESS_HEADER
 )
 
-streamlit.info(
+(
+    DATA_SOURCE_FIRST,
+    DATA_SOURCE_SECOND,
+    DATA_SOURCE_INFO
+) = streamlit.beta_columns(3)
+
+DATA_SOURCE_INFO.info(
     paragraphs(
         "### {}".format(translation("common.data_source", count=1)),
         "{platform} `{title}`: <{url}>".format(
@@ -506,17 +597,32 @@ COMPAS_DATABASE_CONNECTION: sqlalchemy.engine.Connectable = sqlalchemy.create_en
     "sqlite:///" + PROPUBLICA_COMPAS_DATABASE_PATH.as_posix()
 )
 
-streamlit.markdown(
-    markdown_list(
-        translation("data_access.use_real_data_defendants_broward_county"),
-        translation("data_access.simplicity_data_table")
+DATA_SOURCE_FIRST.markdown(
+    markdown_list(  # TODO: Localization
+        "Assessment of the _COMPAS_ recidivism algorithm conducted by Non-profit organization _ProPublica_",
+        "**Goal**: Determine accuracy and test whether the algorithm was biased against certain groups"
     )
 )
 
-streamlit.code("import pandas")
+DATA_SOURCE_SECOND.markdown(
+    markdown_list(  # TODO: Localization
+        "Data obtained through a public records request",
+        "Initial data for all `18,610` defendants who received _COMPAS_ scores in `2013` and `2014` in _Broward County, Florida, United States_",
+    )
+)
 
-with streamlit.echo():
-    DEFENDANTS_DATA: pandas.DataFrame
+DATA_VARIABLE_CODE = streamlit.beta_expander(
+    "Data Variable Code",  # TODO: Localization
+    expanded=False
+)
+
+DATA_VARIABLE_CODE.code("import pandas")
+
+DATA_VARIABLE_CODE.code(
+    "DEFENDANTS_DATA: pandas.DataFrame"
+)
+
+DEFENDANTS_DATA: pandas.DataFrame
 
 DEFENDANTS_DATA = pandas.read_sql_table(
     table_name="people",
@@ -551,51 +657,78 @@ DEFENDANTS_DATA = DEFENDANTS_DATA.assign(
     )
 )
 
-streamlit.markdown(
-    markdown_list(
-        translation("data_access.data_frame_inspection"),
-        translation("data_access.data_frame_how_many_entries")
-    )
-)
+separator()
 
 streamlit.subheader(
     translation("data_access.subheader_how_much_data")
 )
 
-with streamlit.echo():
-    length_table = len(DEFENDANTS_DATA)
+DATA_SIZE_CODE = streamlit.beta_expander(
+    "Data Size Code",  # TODO: Localization
+    expanded=False
+)
+
+
+DATA_SIZE_CODE.code(
+    "length_table = len(DEFENDANTS_DATA)"
+)
+
+length_table = len(DEFENDANTS_DATA)
 
 streamlit.markdown(
     markdown_list(
         translation(
             "data_access.data_frame_number_rows",
-            variable="length_table",
             value=length_table
-        ),
-        translation("data_access.data_frame_display_not_all"),
-        translation("data_access.data_frame_display_head")
+        )
     )
 )
+
+separator()
 
 streamlit.subheader(
     translation("data_access.subheader_data_impression")
 )
 
-with streamlit.echo():
-    head_of_table = DEFENDANTS_DATA.head()
+streamlit.markdown(
+    markdown_list(
+        translation("data_access.data_frame_display_not_all"),
+        translation("data_access.data_frame_display_head")
+    )
+)
+
+DATA_HEAD_CODE = streamlit.beta_expander(
+    "Data Head Code",  # TODO: Localization
+    expanded=False
+)
+
+DATA_HEAD_CODE.code(
+    "head_of_table = DEFENDANTS_DATA.head()"
+)
+
+head_of_table = DEFENDANTS_DATA.head()
 
 streamlit.dataframe(
     head_of_table
 )
 
-with streamlit.echo():
-    number_columns = len(DEFENDANTS_DATA.columns)
+separator()
+
+NUMBER_DATA_COLUMNS_CODE = streamlit.beta_expander(
+    "Number of Data Columns Code",  # TODO: Localization
+    expanded=False
+)
+
+NUMBER_DATA_COLUMNS_CODE.code(
+    "number_columns = len(DEFENDANTS_DATA.columns)"
+)
+
+number_columns = len(DEFENDANTS_DATA.columns)
 
 streamlit.markdown(
     markdown_list(
         translation(
             "data_access.data_frame_number_columns",
-            variable="number_columns",
             value=number_columns
         )
     )
@@ -638,6 +771,8 @@ COLUMNS_EXPLANATION_COLUMN.markdown(
     )
 )
 
+separator()
+
 streamlit.subheader(
     translation("data_access.subheader_describe")
 )
@@ -652,12 +787,22 @@ DEFENDANTS_DATA = DEFENDANTS_DATA[
     RELEVANT_COLUMNS + ["decile_score"]
 ]
 
-with streamlit.echo():
-    table_description = DEFENDANTS_DATA.describe()
+DESCRIBE_COLUMNS_CODE = streamlit.beta_expander(
+    "Describe Columns Code",  # TODO: Localization
+    expanded=False
+)
+
+DESCRIBE_COLUMNS_CODE.code(
+    "table_description = DEFENDANTS_DATA.describe()"
+)
+
+table_description = DEFENDANTS_DATA.describe()
 
 streamlit.dataframe(
     table_description
 )
+
+separator()
 
 streamlit.header(
     DATA_VISUALIZATION_HEADER
@@ -666,6 +811,8 @@ streamlit.header(
 streamlit.markdown(
     translation("data_visualization.intro")
 )
+
+separator()
 
 streamlit.subheader(translation("data_visualization.correlation_matrix_label"))
 
@@ -754,13 +901,66 @@ CORRELATION_MATRIX_COLUMN.altair_chart(
     )
 )
 
-CORRELATION_OBSERVATION_COLUMN.markdown(
-    translation("data_visualization.correlation_observations")
+AGE_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+    "age ↔ is_recid",
+    expanded=False
 )
 
-streamlit.code(
-    "import altair"
+AGE_RECID_EXPANDER.markdown(
+    markdown_list(  # TODO: Localization
+        "Weak negative correlation between age (`age`) and recidivism (`is_recid`)"
+    )
 )
+
+AGE_JUV_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+    "age ↔ juv_...",
+    expanded=False
+)
+
+AGE_JUV_EXPANDER.markdown(
+    markdown_list(  # TODO: Localization
+        "Weak negative correlation between age (`age`) and juvenile cases (`juv_...`)",
+        "This could be due to non-digitalized youth files for older people"
+    )
+)
+
+AGE_PRIORS_COUNT_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+    "age ↔ priors_count",
+    expanded=False
+)
+
+AGE_PRIORS_COUNT_EXPANDER.markdown(
+    markdown_list(  # TODO: Localization
+        "Weak positive correlation between age (`age`) and criminal record of convictions (`priors_count`)",
+        "Could be connected to the fact that older people already had more life time to commit crimes"
+    )
+)
+
+PRIORS_COUNT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+    "priors_count ↔ is_recid",
+    expanded=False
+)
+
+PRIORS_COUNT_RECID_EXPANDER.markdown(
+    markdown_list(  # TODO: Localization
+        "Weak positive correlation between criminal record of convictions (`priors_count`) and actual recidivism (`is_recid`)",
+    )
+)
+
+RECID_VIOLENT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+    "is_recid ↔ is_violent_recid",
+    expanded=False
+)
+RECID_VIOLENT_RECID_EXPANDER.markdown(
+    markdown_list(  # TODO: Localization
+        "Recidivism (`is_recid`) and Violent Recidivism (`is_violent_recid`) are more strongly correlated",
+        "This is due to the dependent condition that to be a violent recidivist, one automatically is also a recidivist"
+    )
+)
+
+separator()
+
+streamlit.subheader("Boxplot Chart")  # TODO: Localization
 
 age_bins_step = streamlit.radio(
     translation("data_visualization.select_age_category_step_label"),
@@ -770,7 +970,11 @@ age_bins_step = streamlit.radio(
 
 BOXPLOT_CODE_EXPANDER = streamlit.beta_expander(
     label=translation("data_visualization.boxplot_code_label"),
-    expanded=True
+    expanded=False
+)
+
+BOXPLOT_CODE_EXPANDER.code(
+    "import altair"
 )
 
 BOXPLOT_CODE_EXPANDER.code(
@@ -804,9 +1008,9 @@ boxplot_chart = altair.Chart(
             "sex"
         ]
     ]
-).mark_boxplot().encode(
+).mark_boxplot(outliers=True).encode(
     x=altair.X("age:Q", bin=altair.Bin(step=age_bins_step)),
-    y="priors_count:Q",
+    y=altair.Y("priors_count:Q"),
     color="is_recid:N",
     column="is_recid:N",
     row="sex:N"
@@ -817,13 +1021,15 @@ BOXPLOT_CHART_COLUMN, BOXPLOT_OBSERVATION_COLUMN = streamlit.beta_columns([2, 1]
 BOXPLOT_CHART_COLUMN.altair_chart(
     boxplot_chart.properties(
         width=300,
-        height=300
+        height=200
     )
 )
 
 BOXPLOT_OBSERVATION_COLUMN.markdown(
     translation("data_visualization.boxplot_observations")
 )
+
+separator()
 
 # Training Recidivism Classifier
 streamlit.header(
@@ -1283,6 +1489,7 @@ streamlit.header(
 )
 
 OUTLINE_COMMENTS = [
+    "Introduction Comments (Terminology)",  # TODO: Localization
     translation("data_access.summary"),
     translation("data_visualization.summary"),
     translation("data_classifier.summary"),
@@ -1291,6 +1498,7 @@ OUTLINE_COMMENTS = [
 ]
 
 OUTLINE_PREVIEW_ITEMS = [
+    "TODO",
     DEFENDANTS_DATA.head(n=3),
     CORRELATION_MATRIX.properties(width=400, height=300),
     f"![scikit-learn]({translation('libraries.scikit_learn_logo_url')})",

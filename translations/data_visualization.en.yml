@@ -8,7 +8,7 @@ en:
   intro: |
     * Decision making increasingly relies on data
     * Data comes at us with such volume
-    * Need of some layer of abstraction, such as visual one
+    * Need for some layer of abstraction, such as visual one
 
   correlation_matrix_label: Correlation Matrix
   correlation_according_to_genders: Correlation according to genders
@@ -38,5 +38,5 @@ en:
     * The people with overall less prior convictions (`priors_count`) were less likely to become recidivists (`is_recid`) in the observation period
     * Nevertheless it is impossible to clearly distinguish between recidivists and non-recidivists for people with a low count of prior convictions (`priors_count`)
 
-  boxplot_code_label: Boxplot Code
+  boxplot_code_label: Boxplot Chart Code
   boxplot_only_needed_columns: Get only needed columns

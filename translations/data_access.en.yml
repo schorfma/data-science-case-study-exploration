@@ -12,15 +12,15 @@ en:
   data_frame_how_many_entries: How many entries or rows does it have?
 
   subheader_how_much_data: How much data do we have?
-  data_frame_number_rows: The data table contains `%{variable} = %{value}` rows, also called _instances_ or _samples_
+  data_frame_number_rows: The data table contains `%{value}` rows, also called _instances_ or _samples_
   data_frame_display_not_all: We won't need to display so many rows to get an impression of the data
   data_frame_display_head: That's why we only display the _head_ (first few rows) of the table
 
   subheader_data_impression: Get an impression of the data
-  data_frame_number_columns: The table contains `%{variable} = %{value}` columns, also called _features_ or _attributes_
+  data_frame_number_columns: The table contains `%{value}` columns, also called _features_ or _attributes_
 
   subheader_describe: Descriptive Statistics
-  data_frame_describe: The `DataFrame`'s `describe()` method generates descriptive statistics for each numerical column
+  data_frame_describe: Here descriptive statistics for each numerical column are generated
 
   defendants_column_list: List of Columns
   defendants_column_explanations: Column Explanations
@@ -31,6 +31,6 @@ en:
   defendants_column_juv_misd_count: Count of juvenile misdemeanor cases
   defendants_column_juv_other_count: Count of other juvenile cases
   defendants_column_priors_count: Count of prior convictions
-  defendants_column_charge_degree: "Charge degree during this conviction: `1` (First Degree Felony Charge) - `10` (Weak Misdemeanour)"
+  defendants_column_charge_degree: "Ordinal variant of charge degree during this conviction: `1` (First Degree Felony Charge) - `10` (Weak Misdemeanour)"
   defendants_column_is_recid: Whether defendant showed recidivism within the next two years
   defendants_column_is_violent_recid: Whether defendant showed violent recidivism within the next two years

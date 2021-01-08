@@ -2,8 +2,10 @@ en:
   header: Introduction and Outline
 
   introduction: |
+    * First we have a look at the term _Data Science_.
+
+  further_introduction: |
     * This interactive case study will guide you through most parts involved when doing _Data Science_
-        - We will not show the steps of preparing and validating the data and omit steps subsequent to the evaluation of the Machine Learning model
 
     #### How can we use a dataset to classify defendants' recidivism and what are the implications of such a system?
 

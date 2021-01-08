@@ -12,15 +12,15 @@ de:
   data_frame_how_many_entries: Wie viele Einträge oder Zeilen hat es?
 
   subheader_how_much_data: Wie viele Daten haben wir?
-  data_frame_number_rows: Die Datentabelle enthält `%{variable} = %{value}` Zeilen, auch _Instanzen_ oder _Samples_ genannt
+  data_frame_number_rows: Die Datentabelle enthält `%{value}` Zeilen, auch _Instanzen_ oder _Samples_ genannt
   data_frame_display_not_all: Wir werden nicht so viele Zeilen anzeigen müssen, um einen Eindruck von den Daten zu erhalten
   data_frame_display_head: Daher zeigen wir nur den _head_ (die ersten paar Zeilen) der Tabelle an
 
   subheader_data_impression: Einen Eindruck der Daten erhalten
-  data_frame_number_columns: Die Tabelle enthält `%{variable} = %{value}` Spalten, auch _Features_ oder _Attribute_ genannt
+  data_frame_number_columns: Die Tabelle enthält `%{value}` Spalten, auch _Features_ oder _Attribute_ genannt
 
   subheader_describe: Deskriptive Statistiken
-  data_frame_describe: Die `describe()`-Methode des `DataFrame`s generiert deskriptive Statistiken für jede numerische Spalte
+  data_frame_describe: Hier werden deskriptive Statistiken für jede numerische Spalte generiert
 
   defendants_column_list: Liste der Spalten
   defendants_column_explanations: Spaltenerklärungen
@@ -31,6 +31,6 @@ de:
   defendants_column_juv_misd_count: Anzahl an Jugendordnungswidrigkeiten
   defendants_column_juv_other_count: Anzahl an weiteren Fällen in der Jugend
   defendants_column_priors_count: Anzahl an vorherigen Verurteilungen
-  defendants_column_charge_degree: "Schweregrad der Anklage während dieses Schuldspruchs: `1` (Straftat ersten Grades) - `10` (Leichte Ordnungswidrigkeit)"
+  defendants_column_charge_degree: "Ordinale Variante des Schweregrad der Anklage während dieses Schuldspruchs: `1` (Straftat ersten Grades) - `10` (Leichte Ordnungswidrigkeit)"
   defendants_column_is_recid: Ob die angeklagte Person innerhalb der folgenden zwei Jahre rückfällig geworden ist
   defendants_column_is_violent_recid: Ob die angeklagte Person innerhalb der folgenden zwei Jahre gewalttätig rückfällig geworden ist

@@ -38,4 +38,5 @@ de:
     * Personen die ingesamt weniger Vorstrafen (`priors_count`) aufweisen, wurden in dem Untersuchungszeitraum seltener rückfällig (`is_recid`)
     * Dennoch ist es unmöglich klar zwischen rückfalligen Tätern und nicht rückfälligen Tätern bei den Personen mit wenigen Vorstrafen zu unterscheiden
 
+  boxplot_code_label: Boxplot Diagramm Code
   boxplot_only_needed_columns: Nur Holen der benötigten Spalten
