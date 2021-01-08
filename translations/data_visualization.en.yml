@@ -1,6 +1,6 @@
 en:
 
-  header: Data Visualization
+  header: Exploratory Data Analysis
   summary: |
     * Correlation matrix for examining linear relationships
     * Overview over selected columns via a boxplot chart

@@ -1,6 +1,6 @@
 de:
 
-  header: Datenvisualisierung
+  header: Explorative Datenanalyse
   summary: |
     * Korrelationsmatrix zum Auswerten linearer Zusammenhänge
     * Überblick über ausgewählte Spalten über Boxplot-Diagramm

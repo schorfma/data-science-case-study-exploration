@@ -144,6 +144,10 @@ def load_translation(
     return i18n.t
 
 
+def separator():
+    streamlit.markdown("---")
+
+
 def show_library_two_columns(
         library_name: Text
 ) -> Tuple[Any, Any]:
@@ -420,6 +424,12 @@ streamlit.header(
     ":wave: " + translation("introduction.header")
 )
 
+# TODO: Rewrite Introduction
+
+# TODO: What's the Issue?
+
+# TODO: Explain terms on the right (COMPAS, Recidivism, Data Science)
+
 INTRODUCTION_COLUMN, PROCESS_COLUMN = streamlit.beta_columns([2, 1])
 
 INTRODUCTION_COLUMN.markdown(
@@ -471,6 +481,8 @@ PROCESS_COLUMN.markdown(
     "via Wikimedia Commons"
 )
 
+separator()
+
 # Database Access
 streamlit.header(
     DATA_ACCESS_HEADER
@@ -499,10 +511,6 @@ streamlit.markdown(
         translation("data_access.use_real_data_defendants_broward_county"),
         translation("data_access.simplicity_data_table")
     )
-)
-
-PANDAS_LOGO_COLUMN, PANDAS_DESCRIPTION_COLUMN = show_library_two_columns(
-    "pandas"
 )
 
 streamlit.code("import pandas")
@@ -750,10 +758,6 @@ CORRELATION_OBSERVATION_COLUMN.markdown(
     translation("data_visualization.correlation_observations")
 )
 
-ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
-    "altair"
-)
-
 streamlit.code(
     "import altair"
 )
@@ -824,17 +828,6 @@ BOXPLOT_OBSERVATION_COLUMN.markdown(
 # Training Recidivism Classifier
 streamlit.header(
     DATA_CLASSIFIER_HEADER
-)
-
-(
-    SCIKIT_LEARN_LOGO_COLUMN,
-    SCIKIT_LEARN_DESCRIPTION_COLUMN
-) = show_library_two_columns(
-    "scikit_learn"
-)
-
-SCIKIT_LEARN_DESCRIPTION_COLUMN.markdown(
-    translation("libraries.scikit_learn_algorithm_cheat_sheet")
 )
 
 INPUT_DATA_FEATURES = [
@@ -1329,7 +1322,28 @@ streamlit.info(
     translation("libraries.streamlit_intro")
 )
 
-STREAMLIT_LOGO_COLUMN, STREAMLIT_DESCRIPTION_COLUMN = show_library_two_columns("streamlit")
+STREAMLIT_LOGO_COLUMN, STREAMLIT_DESCRIPTION_COLUMN = show_library_two_columns(
+    "streamlit"
+)
+
+PANDAS_LOGO_COLUMN, PANDAS_DESCRIPTION_COLUMN = show_library_two_columns(
+    "pandas"
+)
+
+ALTAIR_LOGO_COLUMN, ALTAIR_DESCRIPTION_COLUMN = show_library_two_columns(
+    "altair"
+)
+
+(
+    SCIKIT_LEARN_LOGO_COLUMN,
+    SCIKIT_LEARN_DESCRIPTION_COLUMN
+) = show_library_two_columns(
+    "scikit_learn"
+)
+
+SCIKIT_LEARN_DESCRIPTION_COLUMN.markdown(
+    translation("libraries.scikit_learn_algorithm_cheat_sheet")
+)
 
 SOURCES = [
     "propublica_article_machine_bias",
