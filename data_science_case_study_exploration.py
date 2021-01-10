@@ -51,6 +51,7 @@ PROPUBLICA_COMPAS_DATABASE_PATH = Path(
 NEW_LINE = "\n"
 NEW_PARAGRAPH = NEW_LINE * 2
 
+ALTAIR_FONT_SIZE = 16
 
 # Definition of Functions
 
@@ -898,6 +899,17 @@ CORRELATION_MATRIX_COLUMN.altair_chart(
     CORRELATION_MATRIX.properties(
         width=600,
         height=600
+    ).configure_axis(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    ).configure_title(
+        fontSize=ALTAIR_FONT_SIZE
+    ).configure_legend(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    ).configure_header(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
     )
 )
 
@@ -1022,6 +1034,17 @@ BOXPLOT_CHART_COLUMN.altair_chart(
     boxplot_chart.properties(
         width=300,
         height=200
+    ).configure_axis(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    ).configure_title(
+        fontSize=ALTAIR_FONT_SIZE
+    ).configure_legend(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    ).configure_header(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
     )
 )
 
@@ -1050,16 +1073,17 @@ CATEGORIES_COLUMNS = [
     "race"
 ]
 
+FEATURE_SELECTION_COLUMN, LABEL_SELECTION_COLUMN = streamlit.beta_columns(2)
 
-FEATURE_SELECTION_CONTAINER = streamlit.beta_container()
-
-FEATURE_SELECTION_CONTAINER.markdown(
-    markdown_list(
-        translation("data_classifier.train_implemented_classifier")
-    )
+FEATURE_SELECTION_COLUMN.image(
+    "./images/Classifier-DefendantData-Left.png",
+    use_column_width=True
 )
 
-FEATURE_SELECTION_COLUMN, LABEL_SELECTION_COLUMN = streamlit.beta_columns(2)
+LABEL_SELECTION_COLUMN.image(
+    "./images/Classifier-DefendantData-Right.png",
+    use_column_width=True
+)
 
 SELECTED_INPUT_DATA_FEATURES = FEATURE_SELECTION_COLUMN.multiselect(
     translation("data_classifier.select_features"),
@@ -1075,7 +1099,7 @@ SELECTED_INPUT_DATA_LABEL = LABEL_SELECTION_COLUMN.radio(
     ]
 )
 
-FEATURE_SELECTION_CONTAINER.markdown(
+streamlit.markdown(
     markdown_list(
         translation("data_classifier.train_feature_selection", label=SELECTED_INPUT_DATA_LABEL)
     )
@@ -1100,14 +1124,13 @@ LABEL_DATA = DEFENDANTS_DATA[
     ]
 ]
 
-TRAIN_TEST_SPLIT_CODE_EXPANDER = streamlit.beta_expander(
-    translation("data_classifier.train_test_split_code"),
-    expanded=True
-)
+separator()
+
+streamlit.subheader("Train Test Split")  # TODO: Localization
 
 TRAIN_PERCENTAGE, TEST_PERCENTAGE = (75, 25)
 
-TRAIN_TEST_SPLIT_CODE_EXPANDER.markdown(
+streamlit.markdown(
     markdown_list(
         translation(
             "data_classifier.train_test_split_explanation",
@@ -1115,6 +1138,11 @@ TRAIN_TEST_SPLIT_CODE_EXPANDER.markdown(
             test_percentage=TEST_PERCENTAGE
         )
     )
+)
+
+TRAIN_TEST_SPLIT_CODE_EXPANDER = streamlit.beta_expander(
+    translation("data_classifier.train_test_split_code"),
+    expanded=False
 )
 
 # pylint: disable=line-too-long
@@ -1147,29 +1175,36 @@ from sklearn.model_selection import train_test_split
     random_state=0
 )
 
-CLASSIFIER_CODE_COLUMN, MAX_LEAF_NODES_SLIDER_COLUMN = streamlit.beta_columns(2)
+separator()
 
-MAX_LEAF_NODES_SLIDER_COLUMN.markdown(
+streamlit.subheader("Configuration and Training of the Classifier")  # TODO: Localization
+
+DECISION_TREE_CLASSIFIER_CODE_EXPANDER = streamlit.beta_expander(
+    translation("data_classifier.decision_tree_classifier_training_code"),
+    expanded=False
+)
+
+(
+    DECISION_TREE_CLASSIFIER_TERM,
+    DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION,
+    DECISION_TREE_CLASSIFIER_STRUCTURE
+) = streamlit.beta_columns(3)
+
+DECISION_TREE_CLASSIFIER_TERM.info(
+    "#### Decision Tree\n"
+    "\n"
+    "Tree structure where inner nodes represent conditions and leaf nodes represent decisions"
+)
+
+DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION.markdown(
     "#### " + translation("data_classifier.classifier_configuration_values")
 )
 
-max_leaf_nodes = MAX_LEAF_NODES_SLIDER_COLUMN.slider(
+max_leaf_nodes = DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION.slider(
     translation("data_classifier.max_leaf_nodes"),
     min_value=3,
     max_value=20,
     value=5
-)
-
-DECISION_TREE_CLASSIFIER_CODE_EXPANDER = CLASSIFIER_CODE_COLUMN.beta_expander(
-    translation("data_classifier.decision_tree_classifier_training_code"),
-    expanded=True
-)
-
-DECISION_TREE_CLASSIFIER_CODE_EXPANDER.markdown(
-    markdown_list(
-        translation("data_classifier.classifier_initialization"),
-        translation("data_classifier.classifier_training")
-    )
 )
 
 DECISION_TREE_CLASSIFIER_CODE_EXPANDER.code(
@@ -1197,7 +1232,7 @@ ESTIMATOR = DecisionTreeClassifier(
     random_state=0
 )
 
-with streamlit.spinner():
+with streamlit.spinner("Fitting Classifier"):
     ESTIMATOR.fit(
         INPUT_TRAIN_DATA,
         LABEL_TRAIN_DATA
@@ -1231,11 +1266,11 @@ with streamlit.spinner():
 
     TREE_STRUCTURE_TEXT = TREE_STRUCTURE_TEXT.replace("> ", ">")
 
-    TREE_VIEW_COLUMN.markdown(
+    DECISION_TREE_CLASSIFIER_STRUCTURE.markdown(
         "#### " + translation("data_classifier.decision_tree_structure")
     )
 
-    TREE_VIEW_COLUMN.code(
+    DECISION_TREE_CLASSIFIER_STRUCTURE.code(
         TREE_STRUCTURE_TEXT,
         language=None
     )
@@ -1433,7 +1468,18 @@ DECILE_SCORE_CHART_RACES = DECILE_SCORE_CHART_BASE.encode(
 ALL_CHART_COLUMN, ALL_CONFUSION_COLUMN = streamlit.beta_columns(2)
 
 ALL_CHART_COLUMN.altair_chart(
-    DECILE_SCORE_CHART_ALL
+    DECILE_SCORE_CHART_ALL.configure_axis(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    ).configure_title(
+        fontSize=ALTAIR_FONT_SIZE
+    ).configure_legend(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    ).configure_header(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    )
 )
 
 ALL_COUNT = len(
@@ -1452,7 +1498,18 @@ confusion_metrics(ALL_TP, ALL_TN, ALL_FP, ALL_FN, ALL_CONFUSION_COLUMN)
 RACES_CHART_COLUMN, RACES_CONFUSION_COLUMN = streamlit.beta_columns(2)
 
 RACES_CHART_COLUMN.altair_chart(
-    DECILE_SCORE_CHART_RACES
+    DECILE_SCORE_CHART_RACES.configure_axis(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    ).configure_title(
+        fontSize=ALTAIR_FONT_SIZE
+    ).configure_legend(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    ).configure_header(
+        labelFontSize=ALTAIR_FONT_SIZE,
+        titleFontSize=ALTAIR_FONT_SIZE
+    )
 )
 
 for race in sorted(SELECTED_RACES):

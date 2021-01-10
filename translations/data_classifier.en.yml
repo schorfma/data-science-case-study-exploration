@@ -11,7 +11,7 @@ en:
         - Recall
 
   train_implemented_classifier: Now we are going to train an implemented Classifier of the library `scikit-learn` on recidivism of convicted people
-  train_feature_selection: The features selected below will be used to train the system and the column `%{label}` is used as the _target_ or _label_
+  train_feature_selection: The features selected above will be used to train the system and the column `%{label}` is used as the _target_ or _label_
 
   select_features: Select Features
   select_label: Select Label

@@ -11,7 +11,7 @@ de:
         - Recall
 
   train_implemented_classifier: Nun werden wir einen implementierten Klassifikator der Bibliothek `scikit-learn` auf Rückfälligkeit der Verurteilten trainieren
-  train_feature_selection: Die unten ausgewählten Features werden verwendet, um das System zu trainieren und die Spalte `%{label}` wird als _Ziel_ oder _Label_ verwendet.
+  train_feature_selection: Die oben ausgewählten Features werden verwendet, um das System zu trainieren und die Spalte `%{label}` wird als _Ziel_ oder _Label_ verwendet.
 
   select_features: Features auswählen
   select_label: Label auswählen
