@@ -6,7 +6,7 @@ Authors:
 Since:
     2020-11-13
 Version:
-    2021-01-08
+    2021-01-10
 """
 
 from pathlib import Path
@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix
 # Definition of Global Variables
 
 # Version date
-VERSION = "2021-01-08"
+VERSION = "2021-01-10"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
@@ -274,23 +274,29 @@ def confusion_metrics(
         [true_positive, true_negative, false_positive, false_negative]
     )
 
+    (
+        accuracy_column,
+        precision_column,
+        recall_column
+    ) = container.beta_columns(3)
+
     # Accuracy
-    container.markdown(
+    accuracy_column.markdown(
         "##### " + translation("data_classifier.accuracy")
     )
 
-    container.markdown(
+    accuracy_column.markdown(
         translation("data_classifier.accuracy_description")
     )
 
     accuracy = (true_positive + true_negative) / data_count
 
-    container.latex(
-        "\\frac{TP + TN}{TP + TN + FP + FN} = " +
+    accuracy_column.latex(
+        r"\frac{TP + TN}{TP + TN + FP + FN} = " +
         f"{accuracy:.2f}"
     )
 
-    container.markdown(
+    accuracy_column.markdown(
         translation(
             "data_classifier.accuracy_numbers",
             all=data_count,
@@ -300,25 +306,25 @@ def confusion_metrics(
     )
 
     # Precision
-    container.markdown(
+    precision_column.markdown(
         "##### " + translation("data_classifier.precision")
     )
 
-    container.markdown(
+    precision_column.markdown(
         translation("data_classifier.precision_description")
     )
 
     precision = true_positive / (true_positive + false_positive)
 
-    container.latex(
-        "\\frac{TP}{TP + FP} = " +
+    precision_column.latex(
+        r"\frac{TP}{TP + FP} = " +
         (
             f"{precision:.2f}"
             if true_positive else "0.00"
         )
     )
 
-    container.markdown(
+    precision_column.markdown(
         translation(
             "data_classifier.precision_numbers",
             positive_prediction=(true_positive + false_positive),
@@ -328,24 +334,24 @@ def confusion_metrics(
     )
 
     # Recall
-    container.markdown(
+    recall_column.markdown(
         "##### " + translation("data_classifier.recall")
     )
 
-    container.markdown(
+    recall_column.markdown(
         translation("data_classifier.recall_description")
     )
 
     recall = true_positive / (true_positive + false_negative)
 
-    container.latex(
-        "\\frac{TP}{TP + FN} = " + (
+    recall_column.latex(
+        r"\frac{TP}{TP + FN} = " + (
             f"{recall:.2f}"
             if true_positive else "0.00"
         )
     )
 
-    container.markdown(
+    recall_column.markdown(
         translation(
             "data_classifier.recall_numbers",
             positive_actual=(true_positive + false_negative),
@@ -430,7 +436,6 @@ OUTLINE = [
     ":floppy_disk: " + translation("data_access.header"),
     ":bar_chart: " + translation("data_visualization.header"),
     ":card_file_box: " + translation("data_classifier.header"),
-    "🧭 " + translation("compas_explanation.header"),
     "👆 " + translation("compas_threshold.header")
 ]
 
@@ -439,7 +444,6 @@ OUTLINE = [
     DATA_ACCESS_HEADER,
     DATA_VISUALIZATION_HEADER,
     DATA_CLASSIFIER_HEADER,
-    COMPAS_EXPLANATION_HEADER,
     COMPAS_THRESHOLD_HEADER
 ) = OUTLINE
 
@@ -1197,6 +1201,17 @@ DECISION_TREE_CLASSIFIER_TERM.info(
 )
 
 DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION.markdown(
+    "#### Decision Tree Classifier"
+)
+
+DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION.markdown(
+    markdown_list(
+        "Easy to understand and use",
+        "Transparent view into how it arrives at a decision"
+    )
+)
+
+DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION.markdown(
     "#### " + translation("data_classifier.classifier_configuration_values")
 )
 
@@ -1224,8 +1239,6 @@ classifier.fit(
 decision_tree_structure = export_text(classifier)
     """
 )
-
-TREE_VIEW_COLUMN, CONFUSION_COLUMN, METRICS_COLUMN = streamlit.beta_columns(3)
 
 ESTIMATOR = DecisionTreeClassifier(
     max_leaf_nodes=max_leaf_nodes,
@@ -1277,17 +1290,21 @@ with streamlit.spinner("Fitting Classifier"):
 
 LABEL_PREDICTION_DATA = ESTIMATOR.predict(INPUT_TEST_DATA)
 
+separator()
+
+streamlit.subheader("Metrics and Interpretation")  # TODO: Localization
+
 CONFUSION_MATRIX = confusion_matrix(LABEL_TEST_DATA, LABEL_PREDICTION_DATA)
 
 TEST_DATA_COUNT = len(INPUT_TEST_DATA)
 
 tn, fp, fn, tp = CONFUSION_MATRIX.ravel()
 
-CONFUSION_COLUMN.markdown(
+streamlit.markdown(
     "#### " + translation("data_classifier.confusion_matrix_values")
 )
 
-CONFUSION_CODE_EXPANDER = CONFUSION_COLUMN.beta_expander(
+CONFUSION_CODE_EXPANDER = streamlit.beta_expander(
     label=translation("data_classifier.prediction_metrics_code")
 )
 
@@ -1306,42 +1323,34 @@ tn, fp, fn, tp = confusion_matrix(
     """
 )
 
-confusion_values(tp, tn, fp, fn, CONFUSION_COLUMN)
+(
+    CONFUSION_VALUES,
+    CONFUSION_VALUES_IMAGE
+) = streamlit.beta_columns([2, 1])
+
+confusion_values(tp, tn, fp, fn, CONFUSION_VALUES)
+
+CONFUSION_VALUES_IMAGE.image(
+    "./images/ConfusionMetrics.png",
+    use_column_width=True
+)
+
+CONFUSION_VALUES_IMAGE.markdown(
+    "Walber, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Precisionrecall.svg)"
+)
+
+separator()
+
+CONFUSION_METRICS = streamlit.beta_container()
 
 confusion_metrics(
-    tp, tn, fp, fn, METRICS_COLUMN.beta_expander(
+    tp, tn, fp, fn, CONFUSION_METRICS.beta_expander(
         translation("data_classifier.related_metrics"),
         expanded=True
     )
 )
 
-streamlit.header(
-    COMPAS_EXPLANATION_HEADER
-)
-
-streamlit.write("TODO: Quotes?")
-
-(
-    COMPAS_EXPLANATION_COLUMN, COMPAS_ETHICAL_VIEW_COLUMN
-) = streamlit.beta_columns(2)
-
-with COMPAS_EXPLANATION_COLUMN:
-    streamlit.subheader(
-        translation("compas_explanation.explanation_compas_header")
-    )
-
-    streamlit.markdown(
-        translation("compas_explanation.explanation_compas")
-    )
-
-with COMPAS_ETHICAL_VIEW_COLUMN:
-    streamlit.subheader(
-        translation("compas_explanation.ethical_view_header")
-    )
-
-    streamlit.markdown(
-        translation("compas_explanation.ethical_view")
-    )
+separator()
 
 streamlit.header(
     COMPAS_THRESHOLD_HEADER
@@ -1363,7 +1372,12 @@ RACES = list(
     THRESHOLD_CHOOSING_BASE_DATA.race.unique()
 )
 
-SAMPLE_SIZE = streamlit.slider(
+(
+    SAMPLE_RACE_COLUMN,
+    SAMPLE_SIZE_COLUMN
+) = streamlit.beta_columns([2, 1])
+
+SAMPLE_SIZE = SAMPLE_SIZE_COLUMN.slider(
     translation("compas_threshold.sample_size_slider"),
     min_value=100,
     max_value=500,
@@ -1391,7 +1405,7 @@ RACES_SAMPLED_DATA_COMBINED = pandas.concat(
     list(RACES_SAMPLED_DATA.values())
 )
 
-SELECTED_RACES = streamlit.multiselect(
+SELECTED_RACES = SAMPLE_RACE_COLUMN.multiselect(
     translation(
         "compas_threshold.select_race_samples",
         sample_size=SAMPLE_SIZE
@@ -1540,6 +1554,18 @@ for race in sorted(SELECTED_RACES):
         )
     )
 
+separator()
+
+streamlit.subheader(
+    translation("compas_explanation.ethical_view_header")
+)
+
+streamlit.markdown(
+    translation("compas_explanation.ethical_view")
+)
+
+separator()
+
 streamlit.header(
     ":clipboard: " +
     translation("introduction.outline_recap_header")
@@ -1550,7 +1576,6 @@ OUTLINE_COMMENTS = [
     translation("data_access.summary"),
     translation("data_visualization.summary"),
     translation("data_classifier.summary"),
-    translation("compas_explanation.summary"),
     translation("compas_threshold.summary")
 ]
 
@@ -1559,8 +1584,6 @@ OUTLINE_PREVIEW_ITEMS = [
     DEFENDANTS_DATA.head(n=3),
     CORRELATION_MATRIX.properties(width=400, height=300),
     f"![scikit-learn]({translation('libraries.scikit_learn_logo_url')})",
-    f"#### {translation('compas_explanation.compas_acronym')} "
-    f"({translation('compas_explanation.compas_acronym_full')})",
     DECILE_SCORE_CHART_ALL
 ]
 
