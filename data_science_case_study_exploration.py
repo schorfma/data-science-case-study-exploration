@@ -1450,9 +1450,13 @@ DECILE_SCORE_CHART_BASE = altair.Chart(
 ).encode(
     x="decile_score:O",
     y="count(is_recid):Q",
-    column=altair.Column(
+    opacity=altair.Opacity(
         "action:N",
-        sort="descending"
+        scale=altair.Scale(
+            domain=["Released", "Jailed"],
+            range=[1.00, 0.50]
+        )
+        # sort="descending"
     ),
     color=altair.Color(
         "is_recid:N" if not SHOW_CORRECT
@@ -1476,12 +1480,14 @@ DECILE_SCORE_CHART_BASE = altair.Chart(
 DECILE_SCORE_CHART_ALL = DECILE_SCORE_CHART_BASE
 
 DECILE_SCORE_CHART_RACES = DECILE_SCORE_CHART_BASE.encode(
-    row=altair.Row("race:N", sort="ascending")
+    column=altair.Column("race:N", sort="ascending")
 )
 
-ALL_CHART_COLUMN, ALL_CONFUSION_COLUMN = streamlit.beta_columns(2)
+ALL_CHART_CONTAINER = streamlit.beta_container()
 
-ALL_CHART_COLUMN.altair_chart(
+ALL_CONFUSION_CONTAINER = streamlit.beta_container()
+
+ALL_CHART_CONTAINER.altair_chart(
     DECILE_SCORE_CHART_ALL.configure_axis(
         labelFontSize=ALTAIR_FONT_SIZE,
         titleFontSize=ALTAIR_FONT_SIZE
@@ -1505,13 +1511,32 @@ ALL_TN, ALL_FP, ALL_FN, ALL_TP = confusion_matrix(
     RACES_SAMPLED_DATA_COMBINED.action
 ).ravel()
 
-confusion_values(ALL_TP, ALL_TN, ALL_FP, ALL_FN, ALL_CONFUSION_COLUMN)
+confusion_values(
+    ALL_TP, ALL_TN, ALL_FP, ALL_FN,
+    ALL_CONFUSION_CONTAINER.beta_expander(
+        translation("data_classifier.confusion_matrix_values"),
+        expanded=False
+    )
+)
 
-confusion_metrics(ALL_TP, ALL_TN, ALL_FP, ALL_FN, ALL_CONFUSION_COLUMN)
+# TODO: Show all values space-efficiently when not expanded
 
-RACES_CHART_COLUMN, RACES_CONFUSION_COLUMN = streamlit.beta_columns(2)
+confusion_metrics(
+    ALL_TP, ALL_TN, ALL_FP, ALL_FN,
+    ALL_CONFUSION_CONTAINER.beta_expander(
+        translation("data_classifier.related_metrics"),
+        expanded=False
+    )
+)
 
-RACES_CHART_COLUMN.altair_chart(
+separator()
+
+streamlit.subheader("Split by ethnicity")  # TODO: Localization
+
+RACES_CHART_CONTAINER = streamlit.beta_container()
+RACES_CONFUSION_CONTAINER = streamlit.beta_container()
+
+RACES_CHART_CONTAINER.altair_chart(
     DECILE_SCORE_CHART_RACES.configure_axis(
         labelFontSize=ALTAIR_FONT_SIZE,
         titleFontSize=ALTAIR_FONT_SIZE
@@ -1536,11 +1561,11 @@ for race in sorted(SELECTED_RACES):
         ].action
     ).ravel()
 
-    RACES_CONFUSION_COLUMN.subheader(f"`{race}`")
+    RACES_CONFUSION_CONTAINER.markdown(f"#### `{race}`")
 
     confusion_values(
         race_tp, race_tn, race_fp, race_fn,
-        RACES_CONFUSION_COLUMN.beta_expander(
+        RACES_CONFUSION_CONTAINER.beta_expander(
             translation("data_classifier.confusion_matrix_values"),
             expanded=False
         )
@@ -1548,9 +1573,9 @@ for race in sorted(SELECTED_RACES):
 
     confusion_metrics(
         race_tp, race_tn, race_fp, race_fn,
-        RACES_CONFUSION_COLUMN.beta_expander(
+        RACES_CONFUSION_CONTAINER.beta_expander(
             translation("data_classifier.related_metrics"),
-            expanded=True
+            expanded=False
         )
     )
 
@@ -1560,46 +1585,18 @@ streamlit.subheader(
     translation("compas_explanation.ethical_view_header")
 )
 
-streamlit.markdown(
+ETHICAL_VIEW_COLUMN, PREDICTION_FAILS_COLUMN = streamlit.beta_columns(2)
+
+ETHICAL_VIEW_COLUMN.markdown(
     translation("compas_explanation.ethical_view")
 )
 
-separator()
-
-streamlit.header(
-    ":clipboard: " +
-    translation("introduction.outline_recap_header")
+PREDICTION_FAILS_COLUMN.image(
+    "images/COMPAS-Prediction-Fails-Differently.png",
+    use_column_width=True
 )
 
-OUTLINE_COMMENTS = [
-    "Introduction Comments (Terminology)",  # TODO: Localization
-    translation("data_access.summary"),
-    translation("data_visualization.summary"),
-    translation("data_classifier.summary"),
-    translation("compas_threshold.summary")
-]
-
-OUTLINE_PREVIEW_ITEMS = [
-    "TODO",
-    DEFENDANTS_DATA.head(n=3),
-    CORRELATION_MATRIX.properties(width=400, height=300),
-    f"![scikit-learn]({translation('libraries.scikit_learn_logo_url')})",
-    DECILE_SCORE_CHART_ALL
-]
-
-for index, section, comment, preview in zip(
-        range(1, len(OUTLINE) + 1),
-        OUTLINE,
-        OUTLINE_COMMENTS,
-        OUTLINE_PREVIEW_ITEMS
-):
-    section_column, preview_column = streamlit.beta_columns(2)
-
-    section_column.subheader(f"{index}. " + section)
-
-    section_column.markdown(comment)
-
-    preview_column.write(preview)
+separator()
 
 streamlit.header(
     ":books: " +
