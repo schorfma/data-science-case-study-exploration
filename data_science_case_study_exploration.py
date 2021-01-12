@@ -6,7 +6,7 @@ Authors:
 Since:
     2020-11-13
 Version:
-    2021-01-10
+    2021-01-12
 """
 
 from pathlib import Path
@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix
 # Definition of Global Variables
 
 # Version date
-VERSION = "2021-01-10"
+VERSION = "2021-01-12"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
