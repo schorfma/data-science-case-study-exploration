@@ -43,7 +43,7 @@ en:
   defendants_column_list: List of Columns
   defendants_column_explanations: Column Explanations
   defendants_column_sex: Gender of the defendant
-  defendants_column_race: Race / ethnicity of the defendant
+  defendants_column_race: Ethnicity of the defendant
   defendants_column_age: Age of the defendant
   defendants_column_juv_fel_count: Count of juvenile felony cases
   defendants_column_juv_misd_count: Count of juvenile misdemeanor cases

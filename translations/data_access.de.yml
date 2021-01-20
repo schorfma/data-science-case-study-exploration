@@ -43,7 +43,7 @@ de:
   defendants_column_list: Liste der Spalten
   defendants_column_explanations: Spaltenerklärungen
   defendants_column_sex: Geschlecht des Angeklagten
-  defendants_column_race: Rasse / Ethnie des Angeklagten
+  defendants_column_race: Ethnie des Angeklagten
   defendants_column_age: Alter des Angeklagten
   defendants_column_juv_fel_count: Anzahl an Jugendstraftaten
   defendants_column_juv_misd_count: Anzahl an Jugendordnungswidrigkeiten
