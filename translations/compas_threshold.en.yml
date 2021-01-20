@@ -5,6 +5,8 @@ en:
     * Explorable thresholds with related metrics
     * Proving the racial bias
 
+  split_ethnicity: Split by Ethnicity
+
   sample_size_slider: Select Sample Size
   select_race_samples: Select sampled data according to ethnicity (each ethnicity sampled to %{sample_size} people)
   threshold_slider: Choose a threshold for recommending COMPAS scores above the threshold as recidivists

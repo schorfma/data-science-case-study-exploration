@@ -6,6 +6,24 @@ de:
     * Auswahl nutzbarer Spalten
     * Deskriptive Statistiken zu den Spalten
 
+  data_source_first: |
+    * Beurteilung des _COMPAS_ Algorithmus für Rückfälligkeit, die durch die Non-Profit-Organisation _ProPublica_ durchgeführt wurde
+    * **Ziel**: Bestimmung der Genauigkeit und ob der Algorithmus gewissen Gruppen gegenüber voreingenommen (`biased`) ist
+
+  data_source_second: |
+    * Daten wurden durch Anfragen der öffentlichen Aufzeichnungen erhalten
+    * Initial Daten für alle `18.610` Angeklagte, welche `2013` und `2014` _COMPAS_-Ergebnisse in _Broward County, Florida, USA_ erhalten haben
+
+  data_variable_code: Code zur Datenvariable
+
+  data_size_code: Code zur Datenmenge
+
+  data_head_code: Code zum Kopf der Daten (Erste paar Zeilen)
+
+  number_data_columns_code: Code zur Anzahl der Datenspalten
+
+  describe_columns_code: Code zur Beschreibung der Spalten
+
   use_real_data_defendants_broward_county: Wir werden reale Daten aus _Broward County_, _Florida_, _USA_ zu Angeklagten, welche zwischen `2013` und `2014` für Verbrechen vor Gericht standen, verwenden
   simplicity_data_table: Der Einfachheit halber starten wir mit den Daten, die bereits in Form eines Tabellen-Objektes (`pandas.DataFrame`) importiert wurden
   data_frame_inspection: Zuerst lasst uns dieses `DataFrame` inspizieren

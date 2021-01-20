@@ -14,6 +14,7 @@ en:
   data_source:
     one: Data source
     many: Data sources
+  outline: Outline
 
   # General
   title: Data Science Basics with Case Study Exploration

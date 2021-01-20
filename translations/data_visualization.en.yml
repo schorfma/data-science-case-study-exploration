@@ -24,12 +24,32 @@ en:
         - Could be connected to the fact that older people already had more life time to commit crimes
     * The criminal record (`priors_count`) exhibits a weak positive correlation with recidivism (`is_recid`)
 
+  age_recid_observation: |
+    * Weak negative correlation between age (`age`) and recidivism (`is_recid`)
+
+  age_juv_observation: |
+    * Weak negative correlation between age (`age`) and juvenile cases (`juv_...`)
+    * This could be due to non-digitalized youth files for older people
+
+  age_priors_count_observation: |
+    * Weak positive correlation between age (`age`) and criminal record of convictions (`priors_count`)
+    * Could be connected to the fact that older people already had more life time to commit crimes
+
+  priors_count_recid_observation: |
+    * Weak positive correlation between criminal record of convictions (`priors_count`) and actual recidivism (`is_recid`)
+
+  recid_violent_recid_observation: |
+    * Recidivism (`is_recid`) and Violent Recidivism (`is_violent_recid`) are more strongly positively correlated
+    * This is due to the dependent condition that to be a violent recidivist, one automatically is also a recidivist
+
   gender_option_all: All
   gender_option_female: Female
   gender_option_male: Male
 
   select_age_category_step_label: Select Age Category Step
   years: "%{count} years"
+
+  boxplot_chart: Boxplot Chart
 
   boxplot_observations: |
     * The recidivists show a higher `priors_count` mean value in each age group interval

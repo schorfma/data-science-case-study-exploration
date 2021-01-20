@@ -8,6 +8,7 @@ de:
   data_source:
     one: Datenquelle
     many: Datenquellen
+  outline: Inhaltsübersicht
 
   # General
   title: Data Science Grundlagen mit Erkundung einer Fallstudie

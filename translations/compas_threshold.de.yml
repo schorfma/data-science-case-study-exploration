@@ -5,6 +5,8 @@ de:
     * Erkundbare Schwellwerte mit dazugehörigen Metriken
     * Beweis der ethnischen Voreingenommenheit
 
+  split_ethnicity: Aufspalten nach ethnischen Gruppen
+
   sample_size_slider: Auswahl einer Sample-Größe
   select_race_samples: Auswahl der gesampelten Daten gemäß Ethnien (Jede Ethnie gesampled auf %{sample_size} Personen)
   threshold_slider: Auswahl eines Schwellwerts, sodass COMPAS-Werte über dem Schwellwert als rückfällig eingeschätzt werden

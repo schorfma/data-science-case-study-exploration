@@ -24,12 +24,32 @@ de:
         - Könnte daran liegen, dass ein älterer Mensch bereits mehr Lebenszeit hatte, um Straftaten zu begehen
     * Die Vorstrafen (`priors_count`) sind schwach positiv korreliert mit der Rückfälligkeit (`is_recid`)
 
+  age_recid_observation: |
+    * Schwache negative Korrelation zwischen Alter (`age`) und Rückfälligkeit (`is_recid`)
+
+  age_juv_observation: |
+    * Schwache negative Korrelation zwischen Alter (`age`) und Jugendfällen (`juv_...`)
+    * Dies könnte an nicht digitalisierten Jugendstrafakten für ältere Leute liegen
+
+  age_priors_count_observation: |
+    * Schwache positive Korrelation zwischen Alter (`age`) und Größe des Vorstrafenregisters (`priors_count`)
+    * Könnte mit dem Fakt zusammenhängen, dass ältere Leute bereits mehr Lebenszeit zum Begehen von Verbrechen zur Verfügung hatten
+
+  priors_count_recid_observation: |
+    * Schwache positive Korrelation zwischen Größe des Vorstrafenregisters (`priors_count`) und tatsächlicher Rückfälligkeit (`is_recid`)
+
+  recid_violent_recid_observation: |
+    * Rückfälligkeit (`is_recid`) und gewalttätige Rückfälligkeit (`is_violent_recid`) sind stärker positiv korreliert
+    * Dies ist der Abhängigkeit zuzuschreiben, dass ein gewalttätiger Rezidivist automatisch auch ein Rezidivist ist
+
   gender_option_all: Alle
   gender_option_female: Weiblich
   gender_option_male: Männlich
 
   select_age_category_step_label: Wähle ein Altersgruppen-Intervall
   years: "%{count} Jahre"
+
+  boxplot_chart: Boxplot-Diagramm
 
   boxplot_observations: |
     * Die rückfälligen Täter weisen in jedem Altersgruppen-Intervall einen höheren `priors_count` Median auf
@@ -38,5 +58,5 @@ de:
     * Personen die ingesamt weniger Vorstrafen (`priors_count`) aufweisen, wurden in dem Untersuchungszeitraum seltener rückfällig (`is_recid`)
     * Dennoch ist es unmöglich klar zwischen rückfalligen Tätern und nicht rückfälligen Tätern bei den Personen mit wenigen Vorstrafen zu unterscheiden
 
-  boxplot_code_label: Boxplot Diagramm Code
+  boxplot_code_label: Code zum Boxplot-Diagramm
   boxplot_only_needed_columns: Nur Holen der benötigten Spalten

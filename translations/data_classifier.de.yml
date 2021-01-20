@@ -10,6 +10,8 @@ de:
         - Precision
         - Recall
 
+  configuration_and_training: Konfiguration und Training des Klassifikators
+
   train_implemented_classifier: Nun werden wir einen implementierten Klassifikator der Bibliothek `scikit-learn` auf Rückfälligkeit der Verurteilten trainieren
   train_feature_selection: Die oben ausgewählten Features werden verwendet, um das System zu trainieren und die Spalte `%{label}` wird als _Ziel_ oder _Label_ verwendet.
 
@@ -35,6 +37,8 @@ de:
   classifier_training: Dann wird er angepasst durch das Trainieren mit den Trainingsdaten
 
   decision_tree_structure: Entscheidungsbaum-Struktur
+
+  metrics_and_interpretation: Metriken und Interpretation
 
   confusion_matrix_values: Verwirrungsmatrix-Werte
   prediction_metrics_code: Testvorhersage und -Metriken Code

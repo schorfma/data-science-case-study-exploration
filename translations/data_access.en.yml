@@ -6,6 +6,24 @@ en:
     * Selection of usable columns
     * Descriptive statistics of columns
 
+  data_source_first: |
+    * Assessment of the _COMPAS_ recidivism algorithm conducted by Non-profit organization _ProPublica_
+    * **Goal**: Determine accuracy and whether the algorithm is biased against certain groups
+
+  data_source_second: |
+    * Data obtained through a public records request
+    * Initial data for all `18,610` defendants who received _COMPAS_ scores in `2013` and `2014` in _Broward County, Florida, United States_
+
+  data_variable_code: Data Variable Code
+
+  data_size_code: Data Size Code
+
+  data_head_code: Data Head Code (First few lines)
+
+  number_data_columns_code: Number of Data Columns Code
+
+  describe_columns_code: Describe Columns Code
+
   use_real_data_defendants_broward_county: We are going to use real data from _Broward County_, _Florida_, _United States_ collected on defendants in court from `2013` to `2014` for committing a crime
   simplicity_data_table: For simplicity we start out with the data already being a table object (`pandas.DataFrame`)
   data_frame_inspection: First let's inspect this `DataFrame`

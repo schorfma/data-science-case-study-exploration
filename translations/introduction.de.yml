@@ -1,5 +1,45 @@
 de:
-  header: Einleitung und Überblick
+  header: Einleitung
+
+  subtitle: Terminologie der _Data Science_ und Erklärung des Systems _COMPAS_
+
+  terminology: Terminologie
+
+  term_statistics: |
+    #### Statistik
+
+    Die Erklärung der Daten von einer theoretischen und mathematischen Perspektive
+
+  term_data_science: |
+    #### Data Science
+
+    Anwendung von Computer- oder statistischen Methoden, um Erkenntnisse über ein Problem der realen Welt zu erlangen
+
+  term_machine_learning: |
+    #### Machine Learning
+
+    Das Programmieren von Computern, sodass sie von Daten lernen können
+
+  compas_introduction: |
+    * Kommerzielles Produkt von _Northpointe Inc._
+    * Algorithmus, der im U.S.-Justizsystem verwendet wird
+
+    #### Was der Algorithmus macht
+
+    * Trainiert mit historischen Daten von Angeklagten (Antworten auf 137 Fragen)
+    * Vorhersage der Wahrscheinlichkeit (von `1` bis `10`), dass ein Angeklagter erneut verhaftet werden wird (Rückfälligkeit)
+
+    #### Das Problem
+
+    > Wie fair kann dieses System überhaupt sein und was könnte möglicherweise oder tatsächlich schiefgehen?
+
+  term_recidivism: |
+    #### Rückfälligkeit / `Recidivism`
+
+    Innerhalb der nächsten zwei Jahre erneut eine Straftat begehen
+
+  compas_animation_source: |
+    Quelle: MIT Technology Review (Can you make AI fairer than a judge? Play our courtroom algorithm game)
 
   introduction: |
     * Zunächst werfen wir einen Blick auf den Begriff _Data Science_

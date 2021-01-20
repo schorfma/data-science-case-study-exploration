@@ -1,5 +1,50 @@
 en:
-  header: Introduction and Outline
+  header: Introduction
+
+  subtitle: Terminology of _Data Science_ and explanation of the system _COMPAS_
+
+  terminology: Terminology
+
+  term_statistics: |
+    #### Statistics
+
+    Explaining data from a theoretical and mathematical perspective
+
+  term_data_science: |
+    #### Data Science
+
+    Application of computational or statistical methods to gain insight in some real world problem
+
+  term_machine_learning: |
+    #### Machine Learning
+
+    Programming computers so they can learn from data
+
+  compas_introduction: |
+    * Commercial product of _Northpointe Inc._
+    * Algorithm used in the US justice system
+
+    #### What the Algorithm does
+
+    * Trained on historical defendant data (Answers to 137 questions)
+    * Prediction of likelihood (from `1` to `10`) that a defendant will be arrested again (Recidivism)
+
+    #### The Problem
+
+    > How fair can this system be and what could possibly or actually go wrong?
+
+  term_compas: |
+    #### _COMPAS_
+
+    Correctional Offender Management Profiling for Alternative Sanctions
+
+  term_recidivism: |
+    #### Recidivism
+
+    Criminally offend again within the next two years
+
+  compas_animation_source: |
+    Source: MIT Technology Review (Can you make AI fairer than a judge? Play our courtroom algorithm game)
 
   introduction: |
     * First we have a look at the term _Data Science_.

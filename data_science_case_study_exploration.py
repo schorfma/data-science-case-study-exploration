@@ -6,7 +6,7 @@ Authors:
 Since:
     2020-11-13
 Version:
-    2021-01-12
+    2021-01-20
 """
 
 from pathlib import Path
@@ -29,7 +29,7 @@ from sklearn.metrics import confusion_matrix
 # Definition of Global Variables
 
 # Version date
-VERSION = "2021-01-12"
+VERSION = "2021-01-20"
 
 # Path to directory containing the translation files
 TRANSLATION_PATH = Path("./translations")
@@ -429,10 +429,12 @@ streamlit.title(
 
 separator()
 
-streamlit.header("Outline")  # TODO: Localization
+streamlit.header(
+    translation("common.outline")
+)
 
 OUTLINE = [
-    ":wave: " + "Introduction",  # TODO: Localization
+    ":wave: " + translation("introduction.header"),
     ":floppy_disk: " + translation("data_access.header"),
     ":bar_chart: " + translation("data_visualization.header"),
     ":card_file_box: " + translation("data_classifier.header"),
@@ -463,11 +465,15 @@ separator()
 
 streamlit.header(INTRODUCTION_HEADER)
 
-streamlit.markdown("Terminology of _Data Science_ and explanation of the system _COMPAS_")  # TODO: Localization
+streamlit.markdown(
+    translation("introduction.subtitle")
+)
 
 separator()
 
-streamlit.subheader("Terminology")  # TODO: Localization
+streamlit.subheader(
+    translation("introduction.terminology")
+)
 
 streamlit.markdown(
     translation("introduction.introduction")
@@ -479,16 +485,12 @@ streamlit.markdown(
     TERM_MACHINE_LEARNING
 ) = streamlit.beta_columns(3)
 
-TERM_STATISTICS.info(  # TODO: Localization
-    "#### Statistics\n"
-    "\n"
-    "Explaining data from a theoretical and mathematical perspective"
+TERM_STATISTICS.info(
+    translation("introduction.term_statistics")
 )
 
-TERM_DATA_SCIENCE.info(  # TODO: Localization
-    "#### Data Science\n"
-    "\n"
-    "Application of computational or statistical methods to gain insight in some real world problem"
+TERM_DATA_SCIENCE.info(
+    translation("introduction.term_data_science")
 )
 
 TERM_DATA_SCIENCE.image(
@@ -504,10 +506,8 @@ TERM_DATA_SCIENCE.markdown(
     "via Wikimedia Commons"
 )
 
-TERM_MACHINE_LEARNING.info(  # TODO: Localization
-    "#### Machine Learning\n"
-    "\n"
-    "Programming computers so they can learn from data"
+TERM_MACHINE_LEARNING.info(
+    translation("introduction.term_machine_learning")
 )
 
 TERM_MACHINE_LEARNING.image(
@@ -526,49 +526,21 @@ streamlit.subheader("Case Study: _COMPAS_")
 ) = streamlit.beta_columns(3)
 
 COMPAS_INTRODUCTION.markdown(
-    markdown_list(  # TODO: Localization
-        "Commercial product of _Northpointe Inc._",
-        "Algorithm used in the US justice system"
-    )
-)
-
-COMPAS_INTRODUCTION.markdown(
-    "#### What the Algorithm does"  # TODO: Localization
-)
-
-COMPAS_INTRODUCTION.markdown(
-    markdown_list(  # TODO: Localization
-        "Trained on historical defendant data (137 questions and answers)",
-        "Prediction of likelihood (from `1` to `10`) that a defendant will be arrested again (Recidivism)"
-    )
-)
-
-COMPAS_INTRODUCTION.markdown(
-    "#### The Problem"  # TODO: Localization
-)
-
-COMPAS_INTRODUCTION.markdown(
-    # TODO: Localization
-    "> How fair can this system be and what could possibly or actually go wrong?"
-    # when a Caucasian male with prior armed robbery convictions is rated low risk, whereas an African-American female without prior convictions is rated high risk for taking a kid's bike from the street"
+    translation("introduction.compas_introduction")
 )
 
 COMPAS_TERMS.info(
-    "#### _COMPAS_\n"
-    "\n"
-    "Correctional Offender Management Profiling for Alternative Sanctions"
+    translation("introduction.term_compas")
 )
 
 COMPAS_TERMS.info(
-    "#### Recidivism\n"
-    "\n"
-    "Criminally offend again within the next two years"
+    translation("introduction.term_recidivism")
 )
 
 COMPAS_ANIMATION.image(
     "https://wp.technologyreview.com/wp-content/uploads/2019/10/mit-alg-yb-02-7.gif",
     use_column_width=True,
-    caption="Source: MIT Technology Review (Can you make AI fairer than a judge? Play our courtroom algorithm game)"  # TODO: Localization
+    caption=translation("introduction.compas_animation_source")
 )
 
 separator()
@@ -603,21 +575,15 @@ COMPAS_DATABASE_CONNECTION: sqlalchemy.engine.Connectable = sqlalchemy.create_en
 )
 
 DATA_SOURCE_FIRST.markdown(
-    markdown_list(  # TODO: Localization
-        "Assessment of the _COMPAS_ recidivism algorithm conducted by Non-profit organization _ProPublica_",
-        "**Goal**: Determine accuracy and test whether the algorithm was biased against certain groups"
-    )
+    translation("data_access.data_source_first")
 )
 
 DATA_SOURCE_SECOND.markdown(
-    markdown_list(  # TODO: Localization
-        "Data obtained through a public records request",
-        "Initial data for all `18,610` defendants who received _COMPAS_ scores in `2013` and `2014` in _Broward County, Florida, United States_",
-    )
+    translation("data_access.data_source_second")
 )
 
 DATA_VARIABLE_CODE = streamlit.beta_expander(
-    "Data Variable Code",  # TODO: Localization
+    translation("data_access.data_variable_code"),
     expanded=False
 )
 
@@ -669,7 +635,7 @@ streamlit.subheader(
 )
 
 DATA_SIZE_CODE = streamlit.beta_expander(
-    "Data Size Code",  # TODO: Localization
+    translation("data_access.data_size_code"),
     expanded=False
 )
 
@@ -703,7 +669,7 @@ streamlit.markdown(
 )
 
 DATA_HEAD_CODE = streamlit.beta_expander(
-    "Data Head Code",  # TODO: Localization
+    translation("data_access.data_head_code"),
     expanded=False
 )
 
@@ -720,7 +686,7 @@ streamlit.dataframe(
 separator()
 
 NUMBER_DATA_COLUMNS_CODE = streamlit.beta_expander(
-    "Number of Data Columns Code",  # TODO: Localization
+    translation("data_access.number_data_columns_code"),
     expanded=False
 )
 
@@ -793,7 +759,7 @@ DEFENDANTS_DATA = DEFENDANTS_DATA[
 ]
 
 DESCRIBE_COLUMNS_CODE = streamlit.beta_expander(
-    "Describe Columns Code",  # TODO: Localization
+    translation("data_access.describe_columns_code"),
     expanded=False
 )
 
@@ -923,9 +889,7 @@ AGE_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
 )
 
 AGE_RECID_EXPANDER.markdown(
-    markdown_list(  # TODO: Localization
-        "Weak negative correlation between age (`age`) and recidivism (`is_recid`)"
-    )
+    translation("data_visualization.age_recid_observation")
 )
 
 AGE_JUV_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
@@ -934,10 +898,7 @@ AGE_JUV_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
 )
 
 AGE_JUV_EXPANDER.markdown(
-    markdown_list(  # TODO: Localization
-        "Weak negative correlation between age (`age`) and juvenile cases (`juv_...`)",
-        "This could be due to non-digitalized youth files for older people"
-    )
+    translation("data_visualization.age_juv_observation")
 )
 
 AGE_PRIORS_COUNT_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
@@ -946,10 +907,7 @@ AGE_PRIORS_COUNT_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
 )
 
 AGE_PRIORS_COUNT_EXPANDER.markdown(
-    markdown_list(  # TODO: Localization
-        "Weak positive correlation between age (`age`) and criminal record of convictions (`priors_count`)",
-        "Could be connected to the fact that older people already had more life time to commit crimes"
-    )
+    translation("data_visualization.age_priors_count_observation")
 )
 
 PRIORS_COUNT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
@@ -958,9 +916,7 @@ PRIORS_COUNT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
 )
 
 PRIORS_COUNT_RECID_EXPANDER.markdown(
-    markdown_list(  # TODO: Localization
-        "Weak positive correlation between criminal record of convictions (`priors_count`) and actual recidivism (`is_recid`)",
-    )
+    translation("data_visualization.priors_count_recid_observation")
 )
 
 RECID_VIOLENT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
@@ -968,15 +924,14 @@ RECID_VIOLENT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
     expanded=False
 )
 RECID_VIOLENT_RECID_EXPANDER.markdown(
-    markdown_list(  # TODO: Localization
-        "Recidivism (`is_recid`) and Violent Recidivism (`is_violent_recid`) are more strongly correlated",
-        "This is due to the dependent condition that to be a violent recidivist, one automatically is also a recidivist"
-    )
+    translation("data_visualization.recid_violent_recid_observation")
 )
 
 separator()
 
-streamlit.subheader("Boxplot Chart")  # TODO: Localization
+streamlit.subheader(
+    translation("data_visualization.boxplot_chart")
+)
 
 age_bins_step = streamlit.radio(
     translation("data_visualization.select_age_category_step_label"),
@@ -1130,7 +1085,9 @@ LABEL_DATA = DEFENDANTS_DATA[
 
 separator()
 
-streamlit.subheader("Train Test Split")  # TODO: Localization
+streamlit.subheader(
+    translation("data_classifier.train_test_split")
+)
 
 TRAIN_PERCENTAGE, TEST_PERCENTAGE = (75, 25)
 
@@ -1181,7 +1138,9 @@ from sklearn.model_selection import train_test_split
 
 separator()
 
-streamlit.subheader("Configuration and Training of the Classifier")  # TODO: Localization
+streamlit.subheader(
+    translation("data_classifier.configuration_and_training")
+)
 
 DECISION_TREE_CLASSIFIER_CODE_EXPANDER = streamlit.beta_expander(
     translation("data_classifier.decision_tree_classifier_training_code"),
@@ -1292,7 +1251,9 @@ LABEL_PREDICTION_DATA = ESTIMATOR.predict(INPUT_TEST_DATA)
 
 separator()
 
-streamlit.subheader("Metrics and Interpretation")  # TODO: Localization
+streamlit.subheader(
+    translation("data_classifier.metrics_and_interpretation")
+)
 
 CONFUSION_MATRIX = confusion_matrix(LABEL_TEST_DATA, LABEL_PREDICTION_DATA)
 
@@ -1519,8 +1480,6 @@ confusion_values(
     )
 )
 
-# TODO: Show all values space-efficiently when not expanded
-
 confusion_metrics(
     ALL_TP, ALL_TN, ALL_FP, ALL_FN,
     ALL_CONFUSION_CONTAINER.beta_expander(
@@ -1531,7 +1490,9 @@ confusion_metrics(
 
 separator()
 
-streamlit.subheader("Split by ethnicity")  # TODO: Localization
+streamlit.subheader(
+    translation("compas_threshold.split_ethnicity")
+)
 
 RACES_CHART_CONTAINER = streamlit.beta_container()
 RACES_CONFUSION_CONTAINER = streamlit.beta_container()

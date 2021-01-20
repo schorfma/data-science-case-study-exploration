@@ -9,6 +9,7 @@ en:
         - Accuracy
         - Precision
         - Recall
+  configuration_and_training: Configuration and Training of the Classifier
 
   train_implemented_classifier: Now we are going to train an implemented Classifier of the library `scikit-learn` on recidivism of convicted people
   train_feature_selection: The features selected above will be used to train the system and the column `%{label}` is used as the _target_ or _label_
@@ -16,6 +17,7 @@ en:
   select_features: Select Features
   select_label: Select Label
 
+  train_test_split: Train Test Split
   train_test_split_explanation: "The data is split randomly into `%{train_percentage}%` Training Data and `%{test_percentage}%` Test Data, so that we can test the system later on data it does not know"
   train_test_split_code: Train Test Split Code
   for_training: for Training
@@ -35,6 +37,8 @@ en:
   classifier_training: Then it is fitted by training it with the training data
 
   decision_tree_structure: Decision Tree Structure
+
+  metrics_and_interpretation: Metrics and Interpretation
 
   confusion_matrix_values: Confusion Matrix Values
   prediction_metrics_code: Test Prediction and Metrics Code
