@@ -1154,13 +1154,11 @@ DECISION_TREE_CLASSIFIER_CODE_EXPANDER = streamlit.beta_expander(
 ) = streamlit.beta_columns(3)
 
 DECISION_TREE_CLASSIFIER_TERM.info(
-    "#### Decision Tree\n"
-    "\n"
-    "Tree structure where inner nodes represent conditions and leaf nodes represent decisions"
+    translation("data_classifier.term_decision_tree")
 )
 
 DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION.markdown(
-    "#### Decision Tree Classifier"
+    "#### " + translation("data_classifier.decision_tree")
 )
 
 DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION.markdown(

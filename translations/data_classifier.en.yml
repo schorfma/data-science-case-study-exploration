@@ -32,6 +32,13 @@ en:
   classifier_configuration_values: Classifier configuration values
   max_leaf_nodes: Maximum number of leaf nodes
 
+  decision_tree: Decision Tree
+
+  term_decision_tree: |
+    #### Decision Tree
+
+    Tree structure where inner nodes represent conditions and leaf nodes represent decisions
+
   decision_tree_classifier_training_code: Decision Tree Classifier Training Code
   classifier_initialization: "First the classifier (`DecisionTreeClassifier`) gets initialized with concrete parameters (here: `max_leaf_nodes`)"
   classifier_training: Then it is fitted by training it with the training data

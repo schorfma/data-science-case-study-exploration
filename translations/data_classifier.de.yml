@@ -29,6 +29,13 @@ de:
     one: Zielspalte
     many: Zielspalten
 
+  decision_tree: Entscheidungsbaum
+
+  term_decision_tree: |
+    #### Entscheidungsbaum (`Decision Tree`)
+
+    Baumstruktur bei welcher innere Knoten Bedingungen und Blattknoten Entscheidungen repräsentieren
+
   classifier_configuration_values: Klassifikator-Konfigurationswerte
   max_leaf_nodes: Maximale Anzahl an Blattknoten
 
@@ -66,4 +73,4 @@ de:
   precision_numbers: "Von `%{positive_prediction}` als rückfällig vorhergesagten Angeklagten waren `%{true_percentage}%` tatsächlich rückfällig. `%{false_percentage}%` wären nicht freigelassen worden, obwohl sie tatsächlich nicht rückfällig wurden."
 
   recall_description: Anteil der korrekt vorhergesagten rückfälligen Tätern (`TP`) an allen, die tatsächlich rückfällig geworden sind (`TP`, `FN`)
-  recall_numbers: "Von `%{positive_actual}` tatsächlich rückfälligen Angeklagten wurden `%{positive_percentage}%` korrekt als rückfälig erkannt. `%{negative_percentage}%` wären nicht im Gefängnis behalten worden, obwohl sie tatsächlich rückfällig wurden."
+  recall_numbers: "Von `%{positive_actual}` tatsächlich rückfälligen Angeklagten wurden `%{positive_percentage}%` korrekt als rückfällig erkannt. `%{negative_percentage}%` wären nicht im Gefängnis behalten worden, obwohl sie tatsächlich rückfällig wurden."
