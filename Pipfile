@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+streamlit = "~=0.88.0"
+python-i18n = {version = "~=0.3.9", extras = ["yaml"]}
+pandas = "*"
+altair = "*"
+scikit-learn = "*"
+SQLAlchemy = "*"
+
+[dev-packages]
+mypy = "*"
+
+[requires]
+python_version = "3.8"

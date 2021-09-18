@@ -163,7 +163,7 @@ def show_library_two_columns(
         the library information.
     """
 
-    logo_column, description_column = streamlit.beta_columns(
+    logo_column, description_column = streamlit.columns(
         [1, 2]  # Second column will be twice as wide
     )
 
@@ -278,7 +278,7 @@ def confusion_metrics(
         accuracy_column,
         precision_column,
         recall_column
-    ) = container.beta_columns(3)
+    ) = container.columns(3)
 
     # Accuracy
     accuracy_column.markdown(
@@ -483,7 +483,7 @@ streamlit.markdown(
     TERM_STATISTICS,
     TERM_DATA_SCIENCE,
     TERM_MACHINE_LEARNING
-) = streamlit.beta_columns(3)
+) = streamlit.columns(3)
 
 TERM_STATISTICS.info(
     translation("introduction.term_statistics")
@@ -523,7 +523,7 @@ streamlit.subheader("Case Study: _COMPAS_")
     COMPAS_INTRODUCTION,
     COMPAS_TERMS,
     COMPAS_ANIMATION
-) = streamlit.beta_columns(3)
+) = streamlit.columns(3)
 
 COMPAS_INTRODUCTION.markdown(
     translation("introduction.compas_introduction")
@@ -554,7 +554,7 @@ streamlit.header(
     DATA_SOURCE_FIRST,
     DATA_SOURCE_SECOND,
     DATA_SOURCE_INFO
-) = streamlit.beta_columns(3)
+) = streamlit.columns(3)
 
 DATA_SOURCE_INFO.info(
     paragraphs(
@@ -582,7 +582,7 @@ DATA_SOURCE_SECOND.markdown(
     translation("data_access.data_source_second")
 )
 
-DATA_VARIABLE_CODE = streamlit.beta_expander(
+DATA_VARIABLE_CODE = streamlit.expander(
     translation("data_access.data_variable_code"),
     expanded=False
 )
@@ -634,7 +634,7 @@ streamlit.subheader(
     translation("data_access.subheader_how_much_data")
 )
 
-DATA_SIZE_CODE = streamlit.beta_expander(
+DATA_SIZE_CODE = streamlit.expander(
     translation("data_access.data_size_code"),
     expanded=False
 )
@@ -668,7 +668,7 @@ streamlit.markdown(
     )
 )
 
-DATA_HEAD_CODE = streamlit.beta_expander(
+DATA_HEAD_CODE = streamlit.expander(
     translation("data_access.data_head_code"),
     expanded=False
 )
@@ -679,13 +679,15 @@ DATA_HEAD_CODE.code(
 
 head_of_table = DEFENDANTS_DATA.head()
 
+head_of_table.replace(to_replace="", value=None, inplace=True)
+
 streamlit.dataframe(
     head_of_table
 )
 
 separator()
 
-NUMBER_DATA_COLUMNS_CODE = streamlit.beta_expander(
+NUMBER_DATA_COLUMNS_CODE = streamlit.expander(
     translation("data_access.number_data_columns_code"),
     expanded=False
 )
@@ -705,7 +707,7 @@ streamlit.markdown(
     )
 )
 
-COLUMNS_LIST_COLUMN, COLUMNS_EXPLANATION_COLUMN = streamlit.beta_columns(2)
+COLUMNS_LIST_COLUMN, COLUMNS_EXPLANATION_COLUMN = streamlit.columns(2)
 
 COLUMNS_LIST_COLUMN.markdown(
     "#### " + translation("data_access.defendants_column_list")
@@ -758,7 +760,7 @@ DEFENDANTS_DATA = DEFENDANTS_DATA[
     RELEVANT_COLUMNS + ["decile_score"]
 ]
 
-DESCRIBE_COLUMNS_CODE = streamlit.beta_expander(
+DESCRIBE_COLUMNS_CODE = streamlit.expander(
     translation("data_access.describe_columns_code"),
     expanded=False
 )
@@ -863,7 +865,7 @@ CORRELATION_MATRIX = correlation_plot + correlation_plot_text
 (
     CORRELATION_MATRIX_COLUMN,
     CORRELATION_OBSERVATION_COLUMN
-) = streamlit.beta_columns([2, 1])
+) = streamlit.columns([2, 1])
 
 CORRELATION_MATRIX_COLUMN.altair_chart(
     CORRELATION_MATRIX.properties(
@@ -883,7 +885,7 @@ CORRELATION_MATRIX_COLUMN.altair_chart(
     )
 )
 
-AGE_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+AGE_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.expander(
     "age ↔ is_recid",
     expanded=False
 )
@@ -892,7 +894,7 @@ AGE_RECID_EXPANDER.markdown(
     translation("data_visualization.age_recid_observation")
 )
 
-AGE_JUV_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+AGE_JUV_EXPANDER = CORRELATION_OBSERVATION_COLUMN.expander(
     "age ↔ juv_...",
     expanded=False
 )
@@ -901,7 +903,7 @@ AGE_JUV_EXPANDER.markdown(
     translation("data_visualization.age_juv_observation")
 )
 
-AGE_PRIORS_COUNT_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+AGE_PRIORS_COUNT_EXPANDER = CORRELATION_OBSERVATION_COLUMN.expander(
     "age ↔ priors_count",
     expanded=False
 )
@@ -910,7 +912,7 @@ AGE_PRIORS_COUNT_EXPANDER.markdown(
     translation("data_visualization.age_priors_count_observation")
 )
 
-PRIORS_COUNT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+PRIORS_COUNT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.expander(
     "priors_count ↔ is_recid",
     expanded=False
 )
@@ -919,7 +921,7 @@ PRIORS_COUNT_RECID_EXPANDER.markdown(
     translation("data_visualization.priors_count_recid_observation")
 )
 
-RECID_VIOLENT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.beta_expander(
+RECID_VIOLENT_RECID_EXPANDER = CORRELATION_OBSERVATION_COLUMN.expander(
     "is_recid ↔ is_violent_recid",
     expanded=False
 )
@@ -939,7 +941,7 @@ age_bins_step = streamlit.radio(
     format_func=lambda option: translation("data_visualization.years", count=f"{option:02d}")
 )
 
-BOXPLOT_CODE_EXPANDER = streamlit.beta_expander(
+BOXPLOT_CODE_EXPANDER = streamlit.expander(
     label=translation("data_visualization.boxplot_code_label"),
     expanded=False
 )
@@ -987,7 +989,7 @@ boxplot_chart = altair.Chart(
     row="sex:N"
 )
 
-BOXPLOT_CHART_COLUMN, BOXPLOT_OBSERVATION_COLUMN = streamlit.beta_columns([2, 1])
+BOXPLOT_CHART_COLUMN, BOXPLOT_OBSERVATION_COLUMN = streamlit.columns([2, 1])
 
 BOXPLOT_CHART_COLUMN.altair_chart(
     boxplot_chart.properties(
@@ -1032,7 +1034,7 @@ CATEGORIES_COLUMNS = [
     "race"
 ]
 
-FEATURE_SELECTION_COLUMN, LABEL_SELECTION_COLUMN = streamlit.beta_columns(2)
+FEATURE_SELECTION_COLUMN, LABEL_SELECTION_COLUMN = streamlit.columns(2)
 
 FEATURE_SELECTION_COLUMN.image(
     "./images/Classifier-DefendantData-Left.png",
@@ -1101,7 +1103,7 @@ streamlit.markdown(
     )
 )
 
-TRAIN_TEST_SPLIT_CODE_EXPANDER = streamlit.beta_expander(
+TRAIN_TEST_SPLIT_CODE_EXPANDER = streamlit.expander(
     translation("data_classifier.train_test_split_code"),
     expanded=False
 )
@@ -1142,7 +1144,7 @@ streamlit.subheader(
     translation("data_classifier.configuration_and_training")
 )
 
-DECISION_TREE_CLASSIFIER_CODE_EXPANDER = streamlit.beta_expander(
+DECISION_TREE_CLASSIFIER_CODE_EXPANDER = streamlit.expander(
     translation("data_classifier.decision_tree_classifier_training_code"),
     expanded=False
 )
@@ -1151,7 +1153,7 @@ DECISION_TREE_CLASSIFIER_CODE_EXPANDER = streamlit.beta_expander(
     DECISION_TREE_CLASSIFIER_TERM,
     DECISION_TREE_CLASSIFIER_WITH_CONFIGURATION,
     DECISION_TREE_CLASSIFIER_STRUCTURE
-) = streamlit.beta_columns(3)
+) = streamlit.columns(3)
 
 DECISION_TREE_CLASSIFIER_TERM.info(
     translation("data_classifier.term_decision_tree")
@@ -1263,7 +1265,7 @@ streamlit.markdown(
     "#### " + translation("data_classifier.confusion_matrix_values")
 )
 
-CONFUSION_CODE_EXPANDER = streamlit.beta_expander(
+CONFUSION_CODE_EXPANDER = streamlit.expander(
     label=translation("data_classifier.prediction_metrics_code")
 )
 
@@ -1285,7 +1287,7 @@ tn, fp, fn, tp = confusion_matrix(
 (
     CONFUSION_VALUES,
     CONFUSION_VALUES_IMAGE
-) = streamlit.beta_columns([2, 1])
+) = streamlit.columns([2, 1])
 
 confusion_values(tp, tn, fp, fn, CONFUSION_VALUES)
 
@@ -1300,10 +1302,10 @@ CONFUSION_VALUES_IMAGE.markdown(
 
 separator()
 
-CONFUSION_METRICS = streamlit.beta_container()
+CONFUSION_METRICS = streamlit.container()
 
 confusion_metrics(
-    tp, tn, fp, fn, CONFUSION_METRICS.beta_expander(
+    tp, tn, fp, fn, CONFUSION_METRICS.expander(
         translation("data_classifier.related_metrics"),
         expanded=True
     )
@@ -1334,7 +1336,7 @@ RACES = list(
 (
     SAMPLE_RACE_COLUMN,
     SAMPLE_SIZE_COLUMN
-) = streamlit.beta_columns([2, 1])
+) = streamlit.columns([2, 1])
 
 SAMPLE_SIZE = SAMPLE_SIZE_COLUMN.slider(
     translation("compas_threshold.sample_size_slider"),
@@ -1442,9 +1444,9 @@ DECILE_SCORE_CHART_RACES = DECILE_SCORE_CHART_BASE.encode(
     column=altair.Column("race:N", sort="ascending")
 )
 
-ALL_CHART_CONTAINER = streamlit.beta_container()
+ALL_CHART_CONTAINER = streamlit.container()
 
-ALL_CONFUSION_CONTAINER = streamlit.beta_container()
+ALL_CONFUSION_CONTAINER = streamlit.container()
 
 ALL_CHART_CONTAINER.altair_chart(
     DECILE_SCORE_CHART_ALL.configure_axis(
@@ -1472,7 +1474,7 @@ ALL_TN, ALL_FP, ALL_FN, ALL_TP = confusion_matrix(
 
 confusion_values(
     ALL_TP, ALL_TN, ALL_FP, ALL_FN,
-    ALL_CONFUSION_CONTAINER.beta_expander(
+    ALL_CONFUSION_CONTAINER.expander(
         translation("data_classifier.confusion_matrix_values"),
         expanded=False
     )
@@ -1480,7 +1482,7 @@ confusion_values(
 
 confusion_metrics(
     ALL_TP, ALL_TN, ALL_FP, ALL_FN,
-    ALL_CONFUSION_CONTAINER.beta_expander(
+    ALL_CONFUSION_CONTAINER.expander(
         translation("data_classifier.related_metrics"),
         expanded=False
     )
@@ -1492,8 +1494,8 @@ streamlit.subheader(
     translation("compas_threshold.split_ethnicity")
 )
 
-RACES_CHART_CONTAINER = streamlit.beta_container()
-RACES_CONFUSION_CONTAINER = streamlit.beta_container()
+RACES_CHART_CONTAINER = streamlit.container()
+RACES_CONFUSION_CONTAINER = streamlit.container()
 
 RACES_CHART_CONTAINER.altair_chart(
     DECILE_SCORE_CHART_RACES.configure_axis(
@@ -1524,7 +1526,7 @@ for race in sorted(SELECTED_RACES):
 
     confusion_values(
         race_tp, race_tn, race_fp, race_fn,
-        RACES_CONFUSION_CONTAINER.beta_expander(
+        RACES_CONFUSION_CONTAINER.expander(
             translation("data_classifier.confusion_matrix_values"),
             expanded=False
         )
@@ -1532,7 +1534,7 @@ for race in sorted(SELECTED_RACES):
 
     confusion_metrics(
         race_tp, race_tn, race_fp, race_fn,
-        RACES_CONFUSION_CONTAINER.beta_expander(
+        RACES_CONFUSION_CONTAINER.expander(
             translation("data_classifier.related_metrics"),
             expanded=False
         )
@@ -1544,7 +1546,7 @@ streamlit.subheader(
     translation("compas_explanation.ethical_view_header")
 )
 
-ETHICAL_VIEW_COLUMN, PREDICTION_FAILS_COLUMN = streamlit.beta_columns(2)
+ETHICAL_VIEW_COLUMN, PREDICTION_FAILS_COLUMN = streamlit.columns(2)
 
 ETHICAL_VIEW_COLUMN.markdown(
     translation("compas_explanation.ethical_view")
@@ -1627,7 +1629,7 @@ for source in SOURCES:
         f"{source_title}"
     )
 
-    SOURCE_INFO_COLUMN, SOURCE_AUTHOR_COLUMN = streamlit.beta_columns([2, 1])
+    SOURCE_INFO_COLUMN, SOURCE_AUTHOR_COLUMN = streamlit.columns([2, 1])
 
     with SOURCE_INFO_COLUMN:
         streamlit.markdown(
